@@ -1,0 +1,24 @@
+<!--offer_b_project_2_frame_subtot-->
+<!--Offerte: subtotaal per deel------------------------------------------------>
+<!--
+    <tr valign="top" %M_COLOR_TABLEHEAD_NOCOLORS%>
+      <td %M_COLOR_TABLEDATA_NOCOLORS%>
+        &nbsp;
+      </td>
+      <td %M_COLOR_TABLEDATA_NOCOLORS%>
+        &nbsp;
+      </td>
+      <td valign="top" %M_COLOR_TABLEDATA_NOCOLORS% align="left">
+        <b><JOPPS id=16027>Price part </JOPPS>%DSP_OFFER_FRAME_BR%</b>
+      </td>
+      <td %M_COLOR_TABLEDATA_NOCOLORS%>
+        &nbsp;
+      </td>
+      <td %M_COLOR_TABLEDATA_NOCOLORS%>
+        &nbsp;
+      </td>
+      <td valign="top" %M_COLOR_TABLEHEAD_NOCOLORS% align="right">
+         <b>%DSP_RES_RATE_FRAME_SUM%</b>
+      </td>
+    </tr>
+<---->

@@ -1,0 +1,14 @@
+<!--offer_b_project_exclusive-->
+<!--Offerte: saldo batchtype's exclusief korting------------------------------->
+<br>
+<table border=%OFFER_WORDCOMPAT% width=100% %M_TABLEPARAM_NOCOLORS%>
+<!--%% detail ----------------------------------------------------------------->
+<tr valign="top">
+  <td valign="top" width=85% align="left">%DSP_OFFER_SUBDESC%</td>
+  <td valign="top" width=15% align="right">%IF{@%DB_RES_COST%,%DSP_RES_COST%,&nbsp;}</td>
+</tr>
+
+<!--%% detail footer ---------------------------------------------------------->
+</table>
+<br>
+<!--%%------------------------------------------------------------------------->

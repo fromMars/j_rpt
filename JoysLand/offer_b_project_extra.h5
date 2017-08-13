@@ -1,0 +1,14 @@
+<!--offer_b_project_extra-->
+<!--Offerte: saldo extra's----------------------------------------------------->
+<table border=%OFFER_WORDCOMPAT% width=100% %M_TABLEPARAM_NOCOLORS%>
+
+<!--%% detail ----------------------------------------------------------------->
+<tr>
+  <td valign="top" width=85% align="left"><b><JOPPS id=16040>Subtotal extra items</JOPPS></b></td>
+  <td valign="top" width=15% align="right"><b>%DSP_RES_COST%</b></td>
+</tr>
+
+<!--%% detail footer ---------------------------------------------------------->
+</table>
+<br>
+<!--%%------------------------------------------------------------------------->

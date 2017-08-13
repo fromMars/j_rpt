@@ -1,0 +1,18 @@
+<!--offer_b_project_2_subtot-->
+<!--Offerte: subtotaal per groep----------------------------------------------->
+    <tr valign="top" %M_COLOR_TABLEHEAD_NOCOLORS%>
+      <td %M_COLOR_TABLEHEAD_NOCOLORS% valign="bottom" colspan=%IF{%OFFER_PRICEITEM%,6,5}>
+        <table width=100% border=0 cellpadding=0 cellspacing=0>
+        <tr valign="bottom">
+          <td valign="bottom" width=29%><b><JOPPS id=16002>¼Û¸ñ:</JOPPS></b></td>
+          <td valign="bottom" width=30% align="right"><b>%DSP_OFFER_CFPIECES_SUM%
+            %IF{%EVAL{%SHOW_OFFERSURFACE%=1},(%DSP_RES_SURFACE1_SUM%),}
+            %IF{%EVAL{%SHOW_OFFERSURFACE%=2},(%DSP_RES_SURFACE2_SUM%),}
+          </b></td>
+          <td valign="bottom" width=18% align="right"><b>%DSP_RES_RATE_SUM%</b></td>
+          <td valign="bottom" width=5% align="center"><b><JOPPS id=16003>=</JOPPS></b></td>
+          <td valign="bottom" width=18% align="right"><b>%DSP_RES_COST_SUM%Ôª</b></td>
+        </tr>
+        </table>
+      </td>
+    </tr>

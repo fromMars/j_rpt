@@ -1,0 +1,25 @@
+<!--offer_b_project_3-->
+<!--Offerte: extra------------------------------------------------------------->
+<p>
+<JOPPS id=16004>¸½¼Ó·Ñ</JOPPS>IF{%PROJECTCALCTAXTARIFF%,%PROJECTDESCTAXINTERN%,%PROJECTDESCTAXEXTERN%}<JOPPS id=16020> :</JOPPS>
+</p>
+<table border=%OFFER_WORDCOMPAT% width=100% %M_TABLEPARAM_NOCOLORS%>
+
+<!--%% detail ----------------------------------------------------------------->
+<tr valign="top">
+  <td valign="top" width=6% align="right">%M_BTAG%%IF{@%DB_OFFER_CFPIECES%,%DSP_OFFER_CFPIECES%,&nbsp;}%M_ETAG%</td>
+  <td valign="top" width=8% align="right">%M_BTAG%%DSP_RES_ID%%M_ETAG% %IF{%SH_PREVIEW%, <br>%DSP_PREVIEW%,}</td>
+  <td valign="top" width=51%>%M_BTAG%%IF{@%DB_OFFER_DESC%,%DSP_OFFER_DESC%%IF{%SH_DETFINISHES%, <i>(%EVAL{trim("%DSP_OFFER_VARIETYDESC%")})</i>,},&nbsp;}%M_ETAG%</td>
+  <td valign="top" width=10% align="right">%M_BTAG%%IF{%SH_GLOBAL_SIZE%,%DSP_OFFER_WIDTH%,&nbsp;}%M_ETAG%</td>
+  <td valign="top" width=10% align="right">%M_BTAG%%IF{%SH_GLOBAL_SIZE%,%DSP_OFFER_HEIGHT%,#
+                                                   %IF{%SH_GLOBAL_LENGTH_M%,%DSP_OFFER_LENGTH_M%,#
+                                                   %IF{%SH_GLOBAL_LENGTH_MM%,%DSP_OFFER_LENGTH_MM%,#
+                                                   %IF{%SH_GLOBAL_WEIGHT%,%DSP_OFFER_WEIGHT%,#
+                                                   %IF{%SH_GLOBAL_AREA_M2%,%DSP_OFFER_SURFACE%,&nbsp;}}}}}%M_ETAG%</td>
+  <td valign="top" width=15% align="right">%M_BTAG%%IF{@%DB_RES_COST_EXTRA%,%DSP_RES_COST_EXTRA%,&nbsp;}Ôª%M_ETAG%</td>
+</tr>
+
+<!--%% detail footer ---------------------------------------------------------->
+</table>
+
+<!--%%------------------------------------------------------------------------->

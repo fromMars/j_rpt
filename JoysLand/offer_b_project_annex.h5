@@ -1,0 +1,22 @@
+<!--offer_b_project_annex-->
+<!--Offerte: bijlagen---------------------------------------------------------->
+<br>
+<table border=0 width=100% %M_TABLEPARAM%>
+<tr valign="top">
+  <th align="left" colspan=1 bgcolor="%COLOR_TABLEHEAD%"><JOPPS id=27000>Annexe(s)</JOPPS></th>
+</tr><tr valign="bottom" align="left">
+  <th width=100% bgcolor="%COLOR_TABLEHEAD%" align="left"><JOPPS id=27001>Reference</JOPPS></th>
+</tr>
+
+<!--%% detail ----------------------------------------------------------------->
+<tr valign="top" align="left">
+  <td>%M_BEGINANNEX%<a href="%TRIM{%DSP_ANNEX_DESC%,0}">%M_ENDANNEX%%FILE{%DSP_ANNEX_DESC%,%ANNEX_FORMAT%}</a></td>
+</tr>
+
+<!--%% break header-->
+
+<!--%% break footer-->
+
+<!--%% detail footer ---------------------------------------------------------->
+</table>
+<!--%%------------------------------------------------------------------------->

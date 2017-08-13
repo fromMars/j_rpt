@@ -1,0 +1,48 @@
+<!--offer_b_project_6_seller-->
+<!--Offerte: eindtekst verkoper------------------------------------------------>
+%DSP_FOOTERCLAUSES%
+<p>
+<JOPPS id=16227>Delivery time: 6 weeks after final measurement.
+Placement +/- 1 week after delivery.
+.Validity of this offer: 2 months.</JOPPS>
+%IF{%PROJECTUSETIME1%,%DSP_TEXT_COST1%,} %IF{%PROJECTUSETIME2%,%DSP_TEXT_COST2%,}
+</p>
+<p>
+%IF{@%DB_TEXT_CONDITIONS%,<JOPPS id=16222>Terms of payment :</JOPPS> %DSP_TEXT_CONDITIONS%,}
+</p>
+<br>
+<p>
+<JOPPS id=16223>Don't hesitate to contact us for further information.
+Hoping to hear from you soon,</JOPPS>
+</p>
+<br>
+<table border=0 width=100%>
+<tr valign="top">
+  <td valign="top" width=50%>%IF{%SHOW_SIGNATURE%,<JOPPS id=16268>For</JOPPS> %COMPANY%<JOPPS id=16269>&#44;</JOPPS>,}<br><br><br><br></td>
+  <td valign="top" width=50%><JOPPS id=16272>Agreed to carry out the work,</JOPPS><br><br><br><br></td>
+</tr>
+</table>
+<br>
+<table border=0 width=100%>
+<tr valign="top">
+  <td valign="top" width=50%>%IF{%SHOW_SIGNATURE%,<JOPPS id=16270>Name :</JOPPS> %IF{%PROJECTREFERENCE%,%PROJECTREFERENCE%,%DB_USERDESC%},}</td>
+  <td valign="top" width=50%><JOPPS id=16273>Name :</JOPPS></td>
+</tr><tr valign="top">
+  <td valign="top" width=50%>%IF{%SHOW_SIGNATURE%,<JOPPS id=16271>Date :</JOPPS> %DSP_TEXT_BEGIN%,}</td>
+  <td valign="top" width=50%><JOPPS id=16274>Date :</JOPPS></td>
+</tr>
+</table>
+<br>
+<table border=%OFFER_WORDCOMPAT% width=100% cellspacing=2 %M_COLOR_TABLEDATA_NOCOLORS% bordercolor="%COLOR_TITLEBORDER%">
+<tr>
+  <td width=100%>
+    <table border=0 width=100% cellpadding=5>
+    <tr valign="top" align="center">
+      <td valign="top" align="center" width=34%>%COMPANY%</td>
+      <td valign="top" align="center" width=32%><JOPPS id=16225>VAT-nr :</JOPPS> %GLOBAL_TAXNUMBER%</td>
+      <td valign="top" align="center" width=34%><JOPPS id=16226>Bank account :</JOPPS> %GLOBAL_ACCOUNT%</td>
+    </tr>
+    </table>
+  </td>
+</tr>
+</table>

@@ -1,0 +1,83 @@
+<!--offer_b_project_1-->
+<!--Offerte: hoofding---------------------------------------------------------->
+
+<TABLE width=100%  %M_TABLEPARAM_NOCOLORS%>
+<tr><td colspan=4 align="center"><font size=+3><B>%BATCH%</B></font></td></tr>
+<tr><td colspan=4 align="right"><font size=+1>P/N：%IF{%PROJECTCLIENT_STAGE_TEXT%,%PROJECTCLIENT_STAGE_TEXT%,&nbsp;}</font></tr>
+<tr><td colspan=4 align="left">非常感谢阁下对佐岚门窗的关注与支持，下表是产品方案的价格详细清单，请仔细查阅：</tr>
+<tr>
+  <th bgcolor="#BBBBBB" font="宋体" colspan=4 align="left">
+    <font size=+1>客户信息</font>
+  </th>
+</tr>
+<tr>
+  <th width=10%>项目名称</th>
+  <td width=40%>%IF{%BATCH%,%BATCH%,&nbsp;}</td>
+  <th width=10%>图纸编号</th>
+  <td width=40%>%IF{%PROJECTDESC%,%PROJECTDESC%,&nbsp;}</td>
+</tr>
+<tr>
+  <th>客户姓名</th>
+  <td>%IF{%PROJECTCLIENT_CONTACT_TEXT%,%PROJECTCLIENT_CONTACT_TEXT%,&nbsp;}</td>
+  <th>联系电话</th>
+  <td>%IF{%PROJECTCLIENT_PHONE_TEXT%,%PROJECTCLIENT_PHONE_TEXT%,&nbsp;}</td>
+</tr>
+<tr>
+  <th>详细地址</th>
+  <td>%IF{%PROJECTCLIENT_CITY_TEXT%,%PROJECTCLIENT_CITY_TEXT%%PROJECTCLIENT_ADDRESS_TEXT%,%IF{%PROJECTCLIENT_ADDRESS_TEXT%,%PROJECTCLIENT_ADDRESS_TEXT%,&nbsp;}}</td>
+  <th>客户来源</th>
+  <td>%IF{%PROJECTCLIENT_CHANNEL_TEXT%,%PROJECTCLIENT_CHANNEL_TEXT%,&nbsp;}</td>
+</tr>
+<tr>
+  <th>测量工程师</th>
+  <td>%IF{%PROJECTCLIENT_SURVEYOR_TEXT%,%PROJECTCLIENT_SURVEYOR_TEXT%,&nbsp;}</td>
+  <th>项目属性</th>
+  <td>%IF{%PROJECTCLIENT_DELIVERY_TEXT%,%PROJECTCLIENT_DELIVERY_TEXT%,&nbsp;}</td>
+</tr>
+</TABLE>
+<!--%% detail ----------------------------------------------------------------->
+<!--b><p>#
+        %IF{0,#
+        <JOPPS id=16107>工程型材颜色:</JOPPS> %DSP_TEXT_PROFILE%<br>,}#
+        %IF{%SHOW_PROJECTGLAZINGBEADFINISH%,#
+        <JOPPS id=16151>压线:</JOPPS> %DSP_TEXT_GLAZBEAD%<br>,}#
+        %IF{%SHOW_PROJECTSTIFFNERFINISH%,#
+        <JOPPS id=16152>加强:</JOPPS> %DSP_TEXT_STIFF%<br>,}#
+        %IF{%SHOW_PROJECTACCESSORIESFINISH%,#
+        <JOPPS id=16153>配件:</JOPPS> %DSP_TEXT_ACC%<br>,}#
+        %IF{%SHOW_PROJECTFILLINGFINISH%,#
+        <JOPPS id=16154>玻璃:</JOPPS> %DSP_TEXT_GLAS%<br>,}#
+        %IF{%SHOW_PROJECTWINDOWFINISHINGFINISH%,#
+        <JOPPS id=16155>窗:</JOPPS> %DSP_TEXT_XTR%<br>,}#
+        %IF{0,#
+        <JOPPS id=16156>型材颜色:</JOPPS> %DSP_TEXT_FRAMEPROFILE%<br>,}#
+        %IF{%SHOW_FRAMEGLAZINGBEADFINISH%,#
+        <JOPPS id=16157>框压线:</JOPPS> %DSP_TEXT_FRAMEGLAZBEAD%<br>,}#
+        %IF{%SHOW_FRAMESTIFFNERFINISH%,#
+        <JOPPS id=16158>框加强:</JOPPS> %DSP_TEXT_FRAMESTIFF%<br>,}#
+        %IF{%SHOW_FRAMEACCESSORIESFINISH%,#
+        <JOPPS id=16159>框配件:</JOPPS> %DSP_TEXT_FRAMEACC%<br>,}#
+        %IF{%SHOW_FRAMEFILLINGFINISH%,#
+        <JOPPS id=16160>框玻璃:</JOPPS> %DSP_TEXT_FRAMEGLAS%<br>,}#
+        %IF{1,#
+        <JOPPS id=16161>型材颜色:</JOPPS> %DSP_TEXT_FRAMEXTR%<br>,}#
+        %IF{%SHOW_VENTPROFILEFINISH%,#
+        <JOPPS id=16162>扇型材:</JOPPS> %DSP_TEXT_VENTPROFILE%<br>,}#
+        %IF{%SHOW_VENTGLAZINGBEADFINISH%,#
+        <JOPPS id=16163>扇压线:</JOPPS> %DSP_TEXT_VENTGLAZBEAD%<br>,}#
+        %IF{%SHOW_VENTSTIFFNERFINISH%,#
+        <JOPPS id=16164>扇加强:</JOPPS> %DSP_TEXT_VENTSTIFF%<br>,}#
+        %IF{%SHOW_VENTACCESSORIESFINISH%,#
+        <JOPPS id=16165>扇配件:</JOPPS> %DSP_TEXT_VENTACC%<br>,}#
+        %IF{%SHOW_VENTFILLINGFINISH%,#
+        <JOPPS id=16166>扇玻璃:</JOPPS> %DSP_TEXT_VENTGLAS%<br>,}#
+        %IF{%SHOW_VENTWINDOWFINISHINGFINISH%,#
+        <JOPPS id=16167>窗扇:</JOPPS> %DSP_TEXT_VENTXTR%<br>,}#
+    </p>#
+    %IF{%SHOW_FILLING%,#
+        <p><JOPPS id=16108>玻璃:</JOPPS> %DSP_TEXT_FILL%</p>,}</b>
+    
+    <tr><td>@%DB_OFFER_SYSTEMDESC%</td><td>varietydesc: @%DB_OFFER_VARIETYDESC%</td></tr-->
+<!--%% detail footer ---------------------------------------------------------->
+
+<!--%%------------------------------------------------------------------------->

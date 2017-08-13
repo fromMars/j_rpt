@@ -1,0 +1,53 @@
+<!--offer_b_project_total-->
+<!--Offerte: saldo------------------------------------------------------------->
+<table border=%OFFER_WORDCOMPAT% width=100% %M_TABLEPARAM_NOCOLORS%>
+
+<!--%% detail ----------------------------------------------------------------->
+%IF{%EVAL{@%DB_TEXT_TAXTARIFF% && !%PROJECTCALCTAXTARIFF%},<tr valign="top" align="left"> #
+  <td valign="top" %M_COLOR_TABLEHEAD_NOCOLORS% width=85%><JOPPS id=16019>税率</JOPPS> %DSP_TEXT_TAXTARIFF%<JOPPS id=16020> :</JOPPS></td> #
+  <td valign="top" %M_COLOR_TABLEHEAD_NOCOLORS% align="right" width=15%>%DSP_RES_TAX%</td> #
+</tr>,}
+  <tr valign="top" align="left">
+  <td valign="top" %M_COLOR_TABLEHEAD_NOCOLORS% width=85%><b>%IF{%EVAL{@%DB_TEXT_TAXTARIFF% || %PROJECTCALCTAXTARIFF%},<JOPPS id=16021>折扣总价（含税） :</JOPPS>,<JOPPS id=16041>折扣总价（不含税）</JOPPS>}</b>
+    <!--%IF{%EVAL{%OFFER_CURR2_SHOW% && !%SH_TRANSPORT%},<BR><i><JOPPS id=16022>含税总价</JOPPS> #
+      %OFFER_CURR2_PREFIX% %OFFER_CURR2_POSTFIX% <JOPPS id=16023>(</JOPPS>#
+      %IF{%OFFER_CURR2_ACTION%=%C_DIVIDE%,%IF{%OFFER_CURR2_PREFIX%,%OFFER_CURR2_PREFIX% ,},%IF{%FM_OFFERPRECURR%,%FM_OFFERPRECURR% ,}}#
+      <JOPPS id=16024>1</JOPPS> #
+      %IF{%OFFER_CURR2_ACTION%=%C_DIVIDE%,%OFFER_CURR2_POSTFIX%,%FM_OFFERPOSTCURR%} #
+      <JOPPS id=16025>=</JOPPS> #
+      %IF{%OFFER_CURR2_ACTION%=%C_DIVIDE%,%FM_OFFERPRECURR%,%OFFER_CURR2_PREFIX%} #
+      %CALC_CURR2_FACTOR% #
+      %IF{%OFFER_CURR2_ACTION%=%C_DIVIDE%,%FM_OFFERPOSTCURR%,%OFFER_CURR2_POSTFIX%}#
+      <JOPPS id=16026>) :</JOPPS></i>,}-->
+  </td>
+  <td valign="top" %M_COLOR_TABLEHEAD_NOCOLORS% align="right" width=15%><b>%DSP_RES_TOTAL%</b>
+    <!--%IF{%EVAL{%OFFER_CURR2_SHOW% && !%SH_TRANSPORT%},<BR><i>%DSP_RES_TOTAL_CURR2%</i>,}-->元
+  </td>
+%IF{%SH_TRANSPORT%,</tr><tr valign="top" align="left">              #
+    <td valign="top"><JOPPS id=16029>Transport :</JOPPS></td>   #
+    <td valign="top" align="right">%DSP_RES_TRANS%</td>               #
+    %IF{@%DB_TEXT_TAXTRANSPORT%,</tr><tr valign="top" align="left">    #
+        <td valign="top"><JOPPS id=16030>运输税</JOPPS>%DSP_TEXT_TAXTRANSPORT%<JOPPS id=16031> :</JOPPS></td>#
+        <td valign="top" align="right">%DSP_RES_TAX_TRANS%</td>,},}
+%IF{%SH_TRANSPORT%,</tr><tr valign="top" align="left">,}
+  %IF{%SH_TRANSPORT%,<td valign="top" %M_COLOR_TABLEHEAD_NOCOLORS%><b><JOPPS id=16032>Total price transport included :</JOPPS></b>#
+    %IF{%OFFER_CURR2_SHOW%,<BR><i><JOPPS id=16033>Total price transport included in</JOPPS> #
+      %OFFER_CURR2_PREFIX% %OFFER_CURR2_POSTFIX% <JOPPS id=16023>(</JOPPS>#
+      %IF{%OFFER_CURR2_ACTION%=%C_DIVIDE%,%IF{%OFFER_CURR2_PREFIX%,%OFFER_CURR2_PREFIX% ,},%IF{%FM_OFFERPRECURR%,%FM_OFFERPRECURR% ,}}#
+      <JOPPS id=16024>1</JOPPS> #
+      %IF{%OFFER_CURR2_ACTION%=%C_DIVIDE%,%OFFER_CURR2_POSTFIX%,%FM_OFFERPOSTCURR%} #
+      <JOPPS id=16025>=</JOPPS> #
+      %IF{%OFFER_CURR2_ACTION%=%C_DIVIDE%,%FM_OFFERPRECURR%,%OFFER_CURR2_PREFIX%} #
+      %CALC_CURR2_FACTOR% #
+      %IF{%OFFER_CURR2_ACTION%=%C_DIVIDE%,%FM_OFFERPOSTCURR%,%OFFER_CURR2_POSTFIX%}#
+      <JOPPS id=16026>) :</JOPPS></i>,}#
+  </td>,}
+  %IF{%SH_TRANSPORT%,<td valign="top" %M_COLOR_TABLEHEAD_NOCOLORS% align="right"><b>%DSP_RES_TOTAL_TRANS%</b>#
+    %IF{%OFFER_CURR2_SHOW%,<BR><i>%DSP_RES_TOTAL_TRANS_CURR2%</i>,}#
+  </td>,}
+</tr>
+
+<!--%% detail footer ---------------------------------------------------------->
+</table>
+<br>
+<!--%%------------------------------------------------------------------------->

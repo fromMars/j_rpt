@@ -1,0 +1,812 @@
+; Offerte
+
+defines
+;needed by JoPPS.QIF
+  NO_COLORS    =%IF{%REPORTTYPE%=J,0,%OFFER_NOCOLORS%}
+
+include JoPPS.QIF
+include Offer.QIF
+include Text.QIF
+include Part.QIF
+include Annex.QIF
+include Glass.QIF
+
+
+defines
+  SCRIPT_TYPE      =%IF{%REPORTTYPE%=J,%IF{%OFFER_SCRIPTTYPE%,_Excel,},}
+
+  WD_CHARACTER     =1
+  WD_WORD          =2
+  WD_SENTENCE      =3
+  WD_PARAGRAPH     =4
+  WD_LINE          =5
+  WD_STORY         =6
+
+  WD_MOVE          =0
+  WD_EXTEND        =1
+  
+  FRMT_NONE        =0
+  FRMT_COUNT       =1
+  FRMT_LENGTH_M    =2
+  FRMT_LENGTH_MM   =3
+  FRMT_SIZE        =4
+  FRMT_AREA_M2     =5
+  FRMT_AREA_DM2    =6
+  FRMT_WEIGHT      =7
+  
+  C_INTERNAL_COEF  =0
+  C_EXTERNAL_COEF  =1
+  C_ON_DISCOUNT    =1
+  C_ON_COEF1       =2
+  C_ON_COEF2       =3
+  C_OPTIONAL_INFO  =3
+  C_EXTRA_INFO     =6
+  C_SKIP           =ˇ
+  C_DIVIDE         =0
+  C_MULTIPLY       =1
+  C_OPTIONAL       =1
+
+  P_NORMAL         =0
+  P_BATCHTYPE1     =1
+  P_BATCHTYPE2     =2
+  P_BATCHTYPE3     =3
+  P_BATCHTYPE4     =4
+  P_BATCHTYPE5     =5
+  P_INCLUSIVE      =6
+  P_EXCLUSIVE      =7
+
+  M_R0             =%IF{%PROJECTCOEFEXTERNAL%=%C_INTERNAL_COEF%,#
+                    t.%DB_TEXT_COEF1% * t.%DB_TEXT_COEF2% * t.%DB_TEXT_COEF3%,1}
+  M_COST           =%SQLROUND{(o.%DB_OFFER_PRICE% + o.%DB_OFFER_TIME%) * t.%DB_TEXT_FACTOR% #
+                              * %M_R0% * o.%DB_OFFER_CFPRICE%,%PREC_PRICE% * o.%DB_OFFER_FACTOR%}
+  M_RATE           =%M_COST% / o.%DB_OFFER_FACTOR%
+  M_COST_EXTRA     =%SQLROUND{(o.%DB_OFFER_PRICE% + o.%DB_OFFER_TIME%) * t.%DB_TEXT_FACTOR% #
+                              * %M_R0%,%PREC_PRICE% * o.%DB_OFFER_FACTOR%}
+  M_RATE_EXTRA     =%M_COST_EXTRA% / o.%DB_OFFER_FACTOR%
+  M_C0             =%IF{%PROJECTUSEDISCOUNT%,#
+                    (- t.%DB_TEXT_DISCOUNT%),(t.%DB_TEXT_DISCOUNT% - t.%DB_TEXT_DISCOUNT%)}
+  M_C1             =%IF{%EVAL{%PROJECTUSECOEF1% && (%PROJECTCOEFEXTERNAL%=%C_EXTERNAL_COEF%)},#
+                    (t.%DB_TEXT_COEF1% - 1) * 100,(t.%DB_TEXT_COEF1% - t.%DB_TEXT_COEF1%)}
+  M_C2             =%IF{%EVAL{%PROJECTUSECOEF2% && (%PROJECTCOEFEXTERNAL%=%C_EXTERNAL_COEF%)},#
+                    (t.%DB_TEXT_COEF2% - 1) * 100,(t.%DB_TEXT_COEF2% - t.%DB_TEXT_COEF2%)}
+  M_C3             =%IF{%EVAL{%PROJECTUSECOEF3% && (%PROJECTCOEFEXTERNAL%=%C_EXTERNAL_COEF%)},#
+                    (t.%DB_TEXT_COEF3% - 1) * 100,(t.%DB_TEXT_COEF3% - t.%DB_TEXT_COEF3%)}
+  M_TRANS          =t.%DB_TEXT_TRANSPORT%
+  M_SURFACE1       =o.%DB_OFFER_SURFACE1% / o.%DB_OFFER_FACTOR%
+  M_SURFACE2       =o.%DB_OFFER_SURFACE2% / o.%DB_OFFER_FACTOR%
+
+  DB_RES_COST      =CFCOST
+  DB_RES_RATE      =CFRATE
+  DB_RES_COST_EXTRA=CFCOSTEXTRA
+  DB_RES_RATE_EXTRA=CFRATEEXTRA
+  DB_RES_C0        =CFC0
+  DB_RES_C1        =CFC1
+  DB_RES_C2        =CFC2
+  DB_RES_C3        =CFC3
+  DB_RES_TRANS     =CFTRANS
+  DB_RES_SURFACE1  =CFSURFACE1
+  DB_RES_SURFACE2  =CFSURFACE2
+
+  FD_TOTCURR2PRICE =MONEY(%EVAL{13+%OFFER_CURR2_DEC%},%OFFER_CURR2_DEC%,"%OFFER_CURR2_PREFIX% %%s %OFFER_CURR2_POSTFIX%")
+
+  FD_PER_METER		=DOUBLE(8,2,"%%s‘™/%FM_UPERIMETER%")
+  FD_PER_AREA1		=DOUBLE(8,2,"%%s‘™/%FM_AREA1%")
+
+
+fields
+  DSP_DRAWOFFERASSEMBLY ="%IF{"%REPORTTYPE%"="J",METAFIL,DRAWING}:@%DB_OFFER_PROJECT%;@%DB_OFFER_ASSEMBLY%;;#
+                          %OFFER_WIDTH%;%OFFER_HEIGHT%;%OFFER_MEASURES%;%OFFER_OUTLINECOLOR%;%OFFER_SCALE%;0;0;0;0;0;#
+                          %OFFER_VIEWPOINT%;%GLOBAL_OUTLINERESOL%;;%OFFER_SCENARIO%;;;#
+                          %OFFER_REFFRAME%;%OFFER_REFVENT%" DISPLAY AS IMGREF(0,0,0)
+  DSP_UVALUE_PROJECT    ="UVALUE:@%DB_OFFER_PROJECT%;;" DISPLAY AS EXTERNAL                             
+  DSP_UVALUE_ASSEMBLY   ="UVALUE:@@%DB_OFFER_PROJECT%;@@%DB_OFFER_ASSEMBLY%;" DISPLAY AS EXTERNAL                             
+  DSP_UVALUE_FRAME      ="UVALUE:@@%DB_OFFER_PROJECT%;@@%DB_OFFER_ASSEMBLY%;@@%DB_OFFER_FRAME%" DISPLAY AS EXTERNAL                             
+  DSP_OPTIONS           ="OPTIONS:@%DB_OFFER_PROJECT%" DISPLAY AS EXTERNAL
+  DSP_PREVIEW           ="PREVIEW:@%DB_OFFER_ID%;@%DB_OFFER_IMAGECODE%;@%DB_OFFER_IMAGEMASK%;%OFFER_PREVIEW_SIZE%;%OFFER_PREVIEW_SHOW%" DISPLAY AS IMGREF(0,0,0)   
+  DSP_SCALE             ="SCALE:@%DB_OFFER_PROJECT%;@%DB_OFFER_ASSEMBLY%;;#
+                          %OFFER_WIDTH%;%OFFER_HEIGHT%;#
+                          %OFFER_MEASURES%;%OFFER_SCALE%;#
+                          %GLOBAL_OUTLINERESOL%;%OFFER_SCENARIO%" DISPLAY AS EXTERNAL
+  DSP_ANNEX             ="ANNEX:@@%DB_OFFER_PROJECT%;@@%DB_OFFER_ASSEMBLY%;%ANNEX_FORMAT%;%REPORTSLOT%" DISPLAY AS EXTERNAL
+  
+  CALC_R0               =%IF{%PROJECTCOEFEXTERNAL%=%C_INTERNAL_COEF%,%EVAL{@%DB_TEXT_COEF1% * @%DB_TEXT_COEF2% * @%DB_TEXT_COEF3%},1}
+  CALC_PRICE            = %EVAL{round((@%DB_RES_COST% + @%DB_OFFER_REFUND% * %CALC_R0%) / %PREC_PRICE%) * %PREC_PRICE%}
+  CALC_MARGIN0          = %EVAL{round(%CALC_PRICE% * (-(@%DB_RES_C0%)) / 100 / %PREC_PRICE%) * %PREC_PRICE%}
+  CALC_MARGIN1          = %EVAL{round((@%DB_RES_COST% + #
+                                      (%PROJECTCALCCOEF1% >= %C_ON_DISCOUNT%) * %CALC_MARGIN0%) #
+                                      * (-(@%DB_RES_C1%)) / 100 / %PREC_PRICE%) * %PREC_PRICE%}
+  CALC_MARGIN2          = %EVAL{round((@%DB_RES_COST% + #
+                                      (%PROJECTCALCCOEF2% >= %C_ON_DISCOUNT%) * %CALC_MARGIN0% + #
+                                      (%PROJECTCALCCOEF2% >= %C_ON_COEF1%) * %CALC_MARGIN1%) #
+                                      * (-(@%DB_RES_C2%)) / 100 / %PREC_PRICE%) * %PREC_PRICE%}
+  CALC_MARGIN3          = %EVAL{round((@%DB_RES_COST% + #
+                                      (%PROJECTCALCCOEF3% >= %C_ON_DISCOUNT%) * %CALC_MARGIN0% + #
+                                      (%PROJECTCALCCOEF3% >= %C_ON_COEF1%) * %CALC_MARGIN1% + #
+                                      (%PROJECTCALCCOEF3% >= %C_ON_COEF2%) * %CALC_MARGIN2%) #
+                                      * (-(@%DB_RES_C3%)) / 100 / %PREC_PRICE%) * %PREC_PRICE%}
+  CALC_MARGINS          = %EVAL{%CALC_MARGIN0% + (%PROJECTCOEFEXTERNAL% != %C_INTERNAL_COEF%) #
+                                                 * (%CALC_MARGIN1% + %CALC_MARGIN2% + %CALC_MARGIN3%)}
+  CALC_NETTO            = %EVAL{@%DB_RES_COST% + %CALC_MARGINS%}
+  CALC_TAX              = %IF{%EVAL{!%PROJECTCALCTAXTARIFF%},%EVAL{round(%CALC_NETTO% * @%DB_TEXT_TAXTARIFF% / 100 / %PREC_PRICE%) * %PREC_PRICE%},0}
+  CALC_TOTAL            = %EVAL{%CALC_NETTO% + %CALC_TAX%}
+  CALC_TOTAL_CURR2      = %IF{%OFFER_CURR2_ACTION%=%C_DIVIDE%,#
+                            %EVAL{round(%CALC_TOTAL% / %OFFER_CURR2_FACTOR% / %OFFER_CURR2_PREC%) * %OFFER_CURR2_PREC%},#
+                            %EVAL{round(%CALC_TOTAL% * %OFFER_CURR2_FACTOR% / %OFFER_CURR2_PREC%) * %OFFER_CURR2_PREC%}}
+
+  CALC_CURR2_FACTOR     = %OFFER_CURR2_FACTOR%     DISPLAY AS DOUBLE(%EVAL{21+%OFFER_CURR2_FACTORDEC%},#
+                                                                     %OFFER_CURR2_FACTORDEC%)
+
+  CALC_TRANS            = %EVAL{round(@%DB_RES_TRANS% / %PREC_PRICE%) * %PREC_PRICE%}
+  CALC_TAX_TRANS        = %EVAL{round(%CALC_TRANS% * @%DB_TEXT_TAXTRANSPORT% / 100 / %PREC_PRICE%) * %PREC_PRICE%}
+  CALC_TOTAL_TRANS      = %EVAL{%CALC_TOTAL% + %CALC_TRANS% + %CALC_TAX_TRANS%}
+  CALC_TOTAL_TRANS_CURR2= %IF{%OFFER_CURR2_ACTION%=%C_DIVIDE%,#
+                            %EVAL{round(%CALC_TOTAL_TRANS% / %OFFER_CURR2_FACTOR% / %OFFER_CURR2_PREC%) * %OFFER_CURR2_PREC%},#
+                            %EVAL{round(%CALC_TOTAL_TRANS% * %OFFER_CURR2_FACTOR% / %OFFER_CURR2_PREC%) * %OFFER_CURR2_PREC%}}
+  
+  DSP_RES_COST              = @%DB_RES_COST%           DISPLAY AS %FD_TOTOFFERPRICE%
+  DSP_RES_RATE              = @%DB_RES_RATE%           DISPLAY AS %FD_TOTOFFERPRICE%
+  DSP_RES_COST_EXTRA        = @%DB_RES_COST_EXTRA%     DISPLAY AS %FD_TOTOFFERPRICE%
+  DSP_RES_RATE_EXTRA        = @%DB_RES_RATE_EXTRA%     DISPLAY AS %FD_TOTOFFERPRICE%
+  DSP_RES_PRICE             = %CALC_PRICE%             DISPLAY AS %FD_TOTOFFERPRICE%
+  DSP_RES_C0                = @%DB_RES_C0%             DISPLAY AS %FD_PROCENT100_1%
+  DSP_RES_MARGIN0           = %CALC_MARGIN0%           DISPLAY AS %FD_TOTOFFERPRICE%
+  DSP_RES_C1                = %EVAL{abs(@%DB_RES_C1%)} DISPLAY AS %FD_PROCENT100_1%
+  DSP_RES_MARGIN1           = %CALC_MARGIN1%           DISPLAY AS %FD_TOTOFFERPRICE%
+  DSP_RES_C2                = %EVAL{abs(@%DB_RES_C2%)} DISPLAY AS %FD_PROCENT100_1%
+  DSP_RES_MARGIN2           = %CALC_MARGIN2%           DISPLAY AS %FD_TOTOFFERPRICE%
+  DSP_RES_C3                = %EVAL{abs(@%DB_RES_C3%)} DISPLAY AS %FD_PROCENT100_1%
+  DSP_RES_MARGIN3           = %CALC_MARGIN3%           DISPLAY AS %FD_TOTOFFERPRICE%
+  DSP_RES_NETTO             = %CALC_NETTO%             DISPLAY AS %FD_TOTOFFERPRICE%
+  DSP_RES_TAX               = %CALC_TAX%               DISPLAY AS %FD_TOTOFFERPRICE%
+  DSP_RES_TOTAL             = %CALC_TOTAL%             DISPLAY AS %FD_TOTOFFERPRICE%
+  DSP_RES_TOTAL_CURR2       = %CALC_TOTAL_CURR2%       DISPLAY AS %FD_TOTCURR2PRICE%
+  DSP_RES_SURFACE1          = @%DB_RES_SURFACE1%       DISPLAY AS %FD_TOTAREA1%
+  DSP_RES_SURFACE2          = @%DB_RES_SURFACE2%       DISPLAY AS %FD_TOTAREA1%
+  DSP_RES_TRANS             = %CALC_TRANS%             DISPLAY AS %FD_TOTOFFERPRICE%
+  DSP_RES_TAX_TRANS         = %CALC_TAX_TRANS%         DISPLAY AS %FD_TOTOFFERPRICE%
+  DSP_RES_TOTAL_TRANS       = %CALC_TOTAL_TRANS%       DISPLAY AS %FD_TOTOFFERPRICE%
+  DSP_RES_TOTAL_TRANS_CURR2 = %CALC_TOTAL_TRANS_CURR2% DISPLAY AS %FD_TOTCURR2PRICE%
+
+;DSP_RES_ID0           = %EVAL{if(@%DB_OFFER_LEVEL%=0, "@%DB_OFFER_ASSEMBLY%", #
+;                                if(@%DB_OFFER_LEVEL%=10, "≤˙∆∑≈‰÷√",   #
+;                                if(@%DB_OFFER_CFPRICE%=0, "*", "")))} #
+;                                                   DISPLAY AS %FD_GROUP%
+;
+
+
+  DSP_RES_ID0           = %EVAL{if(@%DB_OFFER_LEVEL%=0, "@%DB_OFFER_ASSEMBLY%", #
+                              if(@%DB_OFFER_LEVEL%=10, "",   #
+                                if(@%DB_OFFER_CFPRICE%=0, "*", "")))} #
+                                                   DISPLAY AS %FD_GROUP%
+  DSP_RES_ID            = %EVAL{if((trim("%DSP_RES_ID0%")!="%C_SKIP%")&&(trim("%DSP_RES_ID0%")!=""),#
+                                   "%DSP_RES_ID0%","%SPACE%")} DISPLAY AS LEFT(30)
+
+  DSP_OFFER_CFPIECES_SUM= @1                       DISPLAY AS %FD_TOTQUANTITY%
+  DSP_RES_COST_SUM      = @2                       DISPLAY AS %FD_TOTOFFERPRICE%
+  DSP_RES_RATE_SUM      = @3                       DISPLAY AS %FD_TOTOFFERPRICE%
+  DSP_RES_RATE_FRAME_SUM= @1                       DISPLAY AS %FD_TOTOFFERPRICE%
+  DSP_OFFER_SURFACE1_SUM= @1                       DISPLAY AS %FD_TOTAREA1%
+  DSP_OFFER_SURFACE2_SUM= @2                       DISPLAY AS %FD_TOTAREA1%
+  DSP_RES_SURFACE1_SUM  = @4                       DISPLAY AS %FD_TOTAREA1%
+  DSP_RES_SURFACE2_SUM  = @5                       DISPLAY AS %FD_TOTAREA1%
+
+  DSP_RES_FRAMECOUNT    ="FRAMECOUNT:@@%DB_OFFER_PROJECT%;@@%DB_OFFER_ASSEMBLY%" #
+                                                   DISPLAY AS EXTERNAL
+  DSP_OFFER_FRAME_BR    ="@@%DB_OFFER_FRAME%"      DISPLAY AS %FD_FRAME%
+  DSP_RES_MODELCODE     =%LOOKUP{%TBL_PART%,#
+                          [%DB_PART_PROJECT%;%DB_PART_ASSEMBLY%;%DB_PART_FRAME%;%DB_PART_ID%],#
+                          [@%DB_OFFER_PROJECT%;@%DB_OFFER_ASSEMBLY%;@%DB_OFFER_FRAME%;%C_ID_FRAMEPART%],#
+                          %DB_PART_CODE%}          DISPLAY AS RIGHT(32)
+  DSP_RES_ATOM          ="GETATOM:@%DB_OFFER_PROJECT%;@%DB_OFFER_ASSEMBLY%"   DISPLAY AS EXTERNAL
+
+  M_BTAG                =%EVAL{if(@%DB_OFFER_CFPRICE%=0,  "<i>", if(@%DB_OFFER_LEVEL%<=10,  "<b>", ""))} DISPLAY AS LEFT(8)
+  M_ETAG                =%EVAL{if(@%DB_OFFER_CFPRICE%=0, "</i>", if(@%DB_OFFER_LEVEL%<=10, "</b>", ""))} DISPLAY AS LEFT(8)
+
+  SH_UVALUE_PROJECT     ="UVALUEEXISTS:@%DB_OFFER_PROJECT%;;;%SHOW_OFFERUVALUES%" DISPLAY AS EXTERNAL                             
+  SH_UVALUE_ASSEMBLY    ="UVALUEEXISTS:@@%DB_OFFER_PROJECT%;@@%DB_OFFER_ASSEMBLY%;;%SHOW_OFFERUVALUES%" DISPLAY AS EXTERNAL                             
+  SH_UVALUE_FRAME       ="UVALUEEXISTS:@@%DB_OFFER_PROJECT%;@@%DB_OFFER_ASSEMBLY%;@@%DB_OFFER_FRAME%;%SHOW_OFFERUVALUES%" DISPLAY AS EXTERNAL                             
+  SH_OPTIONS            ="OPTIONS:@%DB_OFFER_PROJECT%" DISPLAY AS EXTERNAL
+  SH_PREVIEW            ="PREVIEWEXISTS:@%DB_OFFER_ID%;@%DB_OFFER_IMAGECODE%;@%DB_OFFER_IMAGEMASK%;%OFFER_PREVIEW_SHOW%" DISPLAY AS EXTERNAL   
+  SH_PROJECTADDRESS     = %EVAL{%SHOW_PROJECTADDRESS%}
+  SH_ARCHITECT          = %EVAL{%SHOW_ARCHITECT% && "@%DB_TEXT_ARCHITECT%"!=""}
+  SH_SELLER             = %EVAL{%SHOW_SELLER% && "@%DB_TEXT_SELLER%"!=""}
+  SH_TRANSPORT          = %EVAL{%SHOW_OFFERTRANSPORT% && %CALC_TRANS%}
+  SH_DETFINISHES        = %EVAL{%SHOW_OF%SHOW_OFFERMODELCODE%ERDETAILEDFINISHES% && #
+                                "@%DB_OFFER_DESC%" != "" && "@%DB_OFFER_VARIETYDESC%" != ""}
+  SH_MODELCODE          = %EVAL{1 && @%DB_OFFER_LEVEL% = 10}
+  SH_SYSTEMCODE         = %EVAL{%SHOW_OFFERSYSTEMCODE% && @%DB_OFFER_LEVEL% = 10}   
+  SH_POSITION           = %EVAL{%SHOW_OFFERPOSITIONS% && #
+                                "@%DB_OFFER_POSITION%" != "" && "@%DB_OFFER_DESC%" != ""}  
+  SH_WINDOW_SIZE        = %EVAL{(@%DB_OFFER_LEVEL% = 10) && (@%DB_OFFER_BOGUS% = 0)}
+  SH_GLOBAL_LENGTH_M    = %EVAL{%OFFER_QUANTITY_GLOBAL% && @%DB_OFFER_FORMAT% = %FRMT_LENGTH_M%}
+  SH_GLOBAL_LENGTH_MM   = %EVAL{%OFFER_QUANTITY_GLOBAL% && @%DB_OFFER_FORMAT% = %FRMT_LENGTH_MM%}
+  SH_GLOBAL_SIZE        = %EVAL{%OFFER_QUANTITY_GLOBAL% && @%DB_OFFER_FORMAT% = %FRMT_SIZE%}
+  SH_GLOBAL_AREA_M2     = %EVAL{%OFFER_QUANTITY_GLOBAL% && @%DB_OFFER_FORMAT% = %FRMT_AREA_M2%}
+  SH_GLOBAL_AREA_DM2    = %EVAL{%OFFER_QUANTITY_GLOBAL% && @%DB_OFFER_FORMAT% = %FRMT_AREA_DM2%}
+  SH_GLOBAL_WEIGHT      = %EVAL{%OFFER_QUANTITY_GLOBAL% && @%DB_OFFER_FORMAT% = %FRMT_WEIGHT%}
+  SH_DETAIL_LENGTH_M    = %EVAL{%OFFER_QUANTITY_DETAIL% && @%DB_OFFER_FORMAT% = %FRMT_LENGTH_M%}
+  SH_DETAIL_LENGTH_MM   = %EVAL{%OFFER_QUANTITY_DETAIL% && @%DB_OFFER_FORMAT% = %FRMT_LENGTH_MM%}
+  SH_DETAIL_SIZE        = %EVAL{%OFFER_QUANTITY_DETAIL% && @%DB_OFFER_FORMAT% = %FRMT_SIZE%}
+  SH_DETAIL_AREA_M2     = %EVAL{%OFFER_QUANTITY_DETAIL% && @%DB_OFFER_FORMAT% = %FRMT_AREA_M2%}
+  SH_DETAIL_AREA_DM2    = %EVAL{%OFFER_QUANTITY_DETAIL% && @%DB_OFFER_FORMAT% = %FRMT_AREA_DM2%}
+  SH_DETAIL_WEIGHT      = %EVAL{%OFFER_QUANTITY_DETAIL% && @%DB_OFFER_FORMAT% = %FRMT_WEIGHT%}
+  
+  
+  
+  DB_CUSTOM_AREA	=%EVAL{@%DB_OFFER_HEIGHT% * @%DB_OFFER_WIDTH% / 1000000}
+  DSP_CUSTOM_AREA	=%DB_CUSTOM_AREA% DISPLAY AS %FD_AREA1%
+  DSP_RES_RATE1		=%EVAL{@%DB_RES_RATE%/@%DB_OFFER_SURFACE%/@%DB_OFFER_FACTOR%} DISPLAY AS %FD_PER_AREA1%
+  DSP_RES_COST1		=%EVAL{@%DB_RES_COST%/@%DB_OFFER_SURFACE%/@%DB_OFFER_FACTOR%} DISPLAY AS %FD_PER_AREA1%
+  DSP_RES_RATE2		=%EVAL{@%DB_RES_RATE%/%DB_CUSTOM_AREA%/@%DB_OFFER_FACTOR%} DISPLAY AS %FD_PER_AREA1%
+  DSP_RES_COST2		=%EVAL{@%DB_RES_COST%/%DB_CUSTOM_AREA%/@%DB_OFFER_FACTOR%} DISPLAY AS %FD_PER_AREA1%
+  DSP_RES_RATE_EXT1	=%EVAL{@%DB_RES_RATE_EXTRA%/@%DB_OFFER_SURFACE%/@%DB_OFFER_FACTOR%} DISPLAY AS %FD_PER_AREA1%
+  DSP_RES_COST_EXT1	=%EVAL{@%DB_RES_COST_EXTRA%/@%DB_OFFER_SURFACE%/@%DB_OFFER_FACTOR%} DISPLAY AS %FD_PER_AREA1%
+  DSP_RES_RATE_EXT2	=%EVAL{@%DB_RES_RATE_EXTRA%/%DB_CUSTOM_AREA%/@%DB_OFFER_FACTOR%} DISPLAY AS %FD_PER_AREA1%
+  DSP_RES_COST_EXT2	=%EVAL{@%DB_RES_COST_EXTRA%/%DB_CUSTOM_AREA%/@%DB_OFFER_FACTOR%} DISPLAY AS %FD_PER_AREA1%
+  DSP_RES_RATE3		=%EVAL{@%DB_RES_RATE%/(@%DB_OFFER_LENGTH%/1000)/@%DB_OFFER_FACTOR%} DISPLAY AS %FD_PER_METER%
+  DSP_RES_COST3		=%EVAL{@%DB_RES_COST%/(@%DB_OFFER_LENGTH%/1000)/@%DB_OFFER_FACTOR%} DISPLAY AS %FD_PER_METER%
+  DSP_RES_RATE_EXT3	=%EVAL{@%DB_RES_RATE_EXTRA%/(@%DB_OFFER_LENGTH%/1000)/@%DB_OFFER_FACTOR%} DISPLAY AS %FD_PER_METER%
+  DSP_RES_COST_EXT3	=%EVAL{@%DB_RES_COST_EXTRA%/(@%DB_OFFER_LENGTH%/1000)/@%DB_OFFER_FACTOR%} DISPLAY AS %FD_PER_METER%
+  DSP_RES_RATE4		=%EVAL{@%DB_RES_RATE%/@%DB_OFFER_FACTOR%}
+  DSP_RES_COST4		=%EVAL{@%DB_RES_COST%/@%DB_OFFER_FACTOR%}
+  DSP_RES_RATE_EXT4	=%EVAL{@%DB_RES_RATE_EXTRA%/@%DB_OFFER_FACTOR%}
+  DSP_RES_COST_EXT4	=%EVAL{@%DB_RES_COST_EXTRA%/@%DB_OFFER_FACTOR%}
+
+  DB_CUSTOM_CNT		=0
+
+
+report
+  select   t.%DB_TEXT_CODE%,
+           min(t.%DB_TEXT_NAME%) as %DB_TEXT_NAME%,
+           min(t.%DB_TEXT_PERIOD%) as %DB_TEXT_PERIOD%,
+           min(t.%DB_TEXT_BEGIN%) as %DB_TEXT_BEGIN%,
+           min(t.%DB_TEXT_ADDRESS1%) as %DB_TEXT_ADDRESS1%,
+           min(t.%DB_TEXT_ADDRESS2%) as %DB_TEXT_ADDRESS2%,
+           min(t.%DB_TEXT_ADDRESS3%) as %DB_TEXT_ADDRESS3%,
+           min(t.%DB_TEXT_SYSTEM%) as %DB_TEXT_SYSTEM%,
+           min(t.%DB_TEXT_PROFILE%) as %DB_TEXT_PROFILE%,
+           min(t.%DB_TEXT_FRAMEPROFILE%) as %DB_TEXT_FRAMEPROFILE%,
+           min(t.%DB_TEXT_VENTPROFILE%) as %DB_TEXT_VENTPROFILE%,
+           min(t.%DB_TEXT_GLAZBEAD%) as %DB_TEXT_GLAZBEAD%,
+           min(t.%DB_TEXT_FRAMEGLAZBEAD%) as %DB_TEXT_FRAMEGLAZBEAD%,
+           min(t.%DB_TEXT_VENTGLAZBEAD%) as %DB_TEXT_VENTGLAZBEAD%,
+           min(t.%DB_TEXT_STIFF%) as %DB_TEXT_STIFF%,
+           min(t.%DB_TEXT_FRAMESTIFF%) as %DB_TEXT_FRAMESTIFF%,
+           min(t.%DB_TEXT_VENTSTIFF%) as %DB_TEXT_VENTSTIFF%,
+           min(t.%DB_TEXT_ACC%) as %DB_TEXT_ACC%,
+           min(t.%DB_TEXT_FRAMEACC%) as %DB_TEXT_FRAMEACC%,
+           min(t.%DB_TEXT_VENTACC%) as %DB_TEXT_VENTACC%,
+           min(t.%DB_TEXT_GLAS%) as %DB_TEXT_GLAS%,
+           min(t.%DB_TEXT_FRAMEGLAS%) as %DB_TEXT_FRAMEGLAS%,
+           min(t.%DB_TEXT_VENTGLAS%) as %DB_TEXT_VENTGLAS%,
+           min(t.%DB_TEXT_XTR%) as %DB_TEXT_XTR%,
+           min(t.%DB_TEXT_FRAMEXTR%) as %DB_TEXT_FRAMEXTR%,
+           min(t.%DB_TEXT_VENTXTR%) as %DB_TEXT_VENTXTR%,
+           min(t.%DB_TEXT_FILL%) as %DB_TEXT_FILL%,
+           min(t.%DB_TEXT_CLIENT%) as %DB_TEXT_CLIENT%,
+           min(t.%DB_TEXT_CONTACT%) as %DB_TEXT_CONTACT%,
+           min(t.%DB_TEXT_STREET%) as %DB_TEXT_STREET%,
+           min(t.%DB_TEXT_ZIP%) as %DB_TEXT_ZIP%,
+           min(t.%DB_TEXT_PLACE%) as %DB_TEXT_PLACE%,
+           min(t.%DB_TEXT_COUNTRY%) as %DB_TEXT_COUNTRY%,
+           min(t.%DB_TEXT_PHONE%) as %DB_TEXT_PHONE%,
+           min(t.%DB_TEXT_GSM%) as %DB_TEXT_GSM%,
+           min(t.%DB_TEXT_TELEFAX%) as %DB_TEXT_TELEFAX%,
+           min(t.%DB_TEXT_EMAIL%) as %DB_TEXT_EMAIL%,
+           min(t.%DB_TEXT_TAXNUMBER%) as %DB_TEXT_TAXNUMBER%,
+           min(t.%DB_TEXT_ACCOUNT%) as %DB_TEXT_ACCOUNT%,
+           min(t.%DB_TEXT_COST1%) as %DB_TEXT_COST1%,
+           min(t.%DB_TEXT_COST2%) as %DB_TEXT_COST2%,
+           min(t.%DB_TEXT_FUNCTION%) as %DB_TEXT_FUNCTION%,
+           min(t.%DB_TEXT_ARCHITECT%) as %DB_TEXT_ARCHITECT%,
+           min(t.%DB_TEXT_SELLER%) as %DB_TEXT_SELLER%,
+           min(t.%DB_TEXT_CONDITIONS%) as %DB_TEXT_CONDITIONS%,
+	   min(o.%DB_OFFER_VARIETYDESC%) as %DB_OFFER_VARIETYDESC%
+  from     %TBL_OFFER% o, %TBL_TEXT% t
+  where    o.%DB_OFFER_PROJECT% = t.%DB_TEXT_CODE%
+  group by t.%DB_TEXT_CODE%
+  having   count(*) > 0
+
+using %NAME%_1%SCRIPT_TYPE%.%REPORTTYPE%%IF{%REPORTTYPE%=J,,%LANGUAGE%}
+
+next
+
+report
+  select   sum(o.%DB_OFFER_CFPIECES%) as %DB_OFFER_CFPIECES%,
+           min(o.%DB_OFFER_ID%) as %DB_OFFER_ID%,
+           min(o.%DB_OFFER_CODE%) as %DB_OFFER_CODE%,
+           min(o.%DB_OFFER_SYSTEM%) as %DB_OFFER_SYSTEM%,
+           min(o.%DB_OFFER_DESC%) as %DB_OFFER_DESC%,
+           min(o.%DB_OFFER_ROUTEID%) as %DB_OFFER_ROUTEID%,
+           min(o.%DB_OFFER_POSITION%) as %DB_OFFER_POSITION%,
+           min(o.%DB_OFFER_IMAGECODE%) as %DB_OFFER_IMAGECODE%,
+           min(o.%DB_OFFER_IMAGEMASK%) as %DB_OFFER_IMAGEMASK%,
+           min(o.%DB_OFFER_WIDTH%) as %DB_OFFER_WIDTH%,
+           min(o.%DB_OFFER_HEIGHT%) as %DB_OFFER_HEIGHT%,
+           sum(o.%DB_OFFER_LENGTH%) as %DB_OFFER_LENGTH%,
+           sum(o.%DB_OFFER_WEIGHT%) as %DB_OFFER_WEIGHT%,
+           sum(o.%DB_OFFER_SURFACE%) as %DB_OFFER_SURFACE%,
+           o.%DB_OFFER_FORMAT%,
+           sum(%M_COST%) as %DB_RES_COST%,
+           sum(%M_RATE%) as %DB_RES_RATE%,
+           sum(%M_COST_EXTRA%) as %DB_RES_COST_EXTRA%,
+           sum(%M_RATE_EXTRA%) as %DB_RES_RATE_EXTRA%,
+           o.%DB_OFFER_PROJECT%,
+           min(o.%DB_OFFER_TAG%) as %DB_OFFER_TAG%,
+           o.%DB_OFFER_ASSEMBLY%,
+           o.%DB_OFFER_ASSITEM%,
+           o.%DB_OFFER_FRAME%,
+           o.%DB_OFFER_LEVEL%,
+           o.%DB_OFFER_SUBLEVEL%,
+           o.%DB_OFFER_INDEX%,
+           min(o.%DB_OFFER_VENT%) as %DB_OFFER_VENT%,
+           min(o.%DB_OFFER_VARIETY%) as %DB_OFFER_VARIETY%,
+           min(o.%DB_OFFER_VARIETYDESC%) as %DB_OFFER_VARIETYDESC%,
+           min(o.%DB_OFFER_INFO%) as %DB_OFFER_INFO%,
+           min(o.%DB_OFFER_CFPRICE%) as %DB_OFFER_CFPRICE%,
+           sum(%M_SURFACE1%) as %DB_RES_SURFACE1%,
+           sum(%M_SURFACE2%) as %DB_RES_SURFACE2%,
+           min(o.%DB_OFFER_BOGUS%) as %DB_OFFER_BOGUS%,
+           min(t.%DB_TEXT_PROFILE%) as %DB_TEXT_PROFILE%,
+           min(t.%DB_TEXT_FRAMEPROFILE%) as %DB_TEXT_FRAMEPROFILE%,
+           min(t.%DB_TEXT_VENTPROFILE%) as %DB_TEXT_VENTPROFILE%,
+           min(t.%DB_TEXT_GLAZBEAD%) as %DB_TEXT_GLAZBEAD%,
+           min(t.%DB_TEXT_FRAMEGLAZBEAD%) as %DB_TEXT_FRAMEGLAZBEAD%,
+           min(t.%DB_TEXT_VENTGLAZBEAD%) as %DB_TEXT_VENTGLAZBEAD%,
+           min(t.%DB_TEXT_STIFF%) as %DB_TEXT_STIFF%,
+           min(t.%DB_TEXT_FRAMESTIFF%) as %DB_TEXT_FRAMESTIFF%,
+           min(t.%DB_TEXT_VENTSTIFF%) as %DB_TEXT_VENTSTIFF%,
+           min(t.%DB_TEXT_ACC%) as %DB_TEXT_ACC%,
+           min(t.%DB_TEXT_FRAMEACC%) as %DB_TEXT_FRAMEACC%,
+           min(t.%DB_TEXT_VENTACC%) as %DB_TEXT_VENTACC%,
+           min(t.%DB_TEXT_GLAS%) as %DB_TEXT_GLAS%,
+           min(t.%DB_TEXT_FRAMEGLAS%) as %DB_TEXT_FRAMEGLAS%,
+           min(t.%DB_TEXT_VENTGLAS%) as %DB_TEXT_VENTGLAS%,
+           min(t.%DB_TEXT_XTR%) as %DB_TEXT_XTR%,
+           min(t.%DB_TEXT_FRAMEXTR%) as %DB_TEXT_FRAMEXTR%,
+           min(t.%DB_TEXT_VENTXTR%) as %DB_TEXT_VENTXTR%,
+           min(t.%DB_TEXT_FILL%) as %DB_TEXT_FILL%,
+	      	o.%DB_OFFER_FACTOR%,
+		o.%DB_OFFER_SYSTEMDESC%
+  from     %TBL_TEXT% t
+    join   %TBL_OFFER% o
+      on   (o.%DB_OFFER_PROJECT% = t.%DB_TEXT_CODE%)
+  where    o.%DB_OFFER_INFO% != %C_OPTIONAL_INFO%
+  and      o.%DB_OFFER_ASSEMBLY% not like "%C_SKIP%"
+  and      o.%DB_OFFER_KIND% != %P_INCLUSIVE%
+  and      o.%DB_OFFER_KIND% != %P_EXCLUSIVE%
+  and      o.%DB_OFFER_FILTER% != %C_OPTIONAL%
+  group by o.%DB_OFFER_PROJECT%, 
+           %IF{%OFFER_NOSORT%,o.%DB_OFFER_TAG%%COMMA%,}
+           o.%DB_OFFER_ASSEMBLY%, o.%DB_OFFER_ASSITEM%, o.%DB_OFFER_FRAME%,
+           o.%DB_OFFER_LEVEL%, o.%DB_OFFER_SUBLEVEL%, o.%DB_OFFER_INDEX%, 
+           %IF{%SHOW_OFFERPOSITIONS%,o.%DB_OFFER_POSITION%%COMMA%,}
+           o.%DB_OFFER_DESC%, 
+           %IF{%SHOW_OFFERVENTDETAILS%,o.%DB_OFFER_VENT%%COMMA%,}
+           %IF{%SHOW_OFFERDETAILEDFINISHES%,o.%DB_OFFER_VARIETY%%COMMA%,}
+           %IF{%OFFER_QUANTITY_DETAIL%,o.%DB_OFFER_WIDTH%%COMMA%,}
+           %IF{%OFFER_QUANTITY_DETAIL%,o.%DB_OFFER_HEIGHT%%COMMA%,}
+           %IF{%OFFER_QUANTITY_DETAIL%,o.%DB_OFFER_LENGTH%%COMMA%,}
+           %IF{%OFFER_QUANTITY_DETAIL%,o.%DB_OFFER_WEIGHT%%COMMA%,}
+           %IF{%OFFER_QUANTITY_DETAIL%,o.%DB_OFFER_SURFACE%%COMMA%,}
+           o.%DB_OFFER_FORMAT%,
+		o.%DB_OFFER_FACTOR%,
+		o.%DB_OFFER_SYSTEMDESC%
+  having   count(*) > 0
+  order by o.%DB_OFFER_PROJECT%, 
+           %IF{%OFFER_NOSORT%,o.%DB_OFFER_TAG%%COMMA%,}
+           o.%DB_OFFER_ASSEMBLY%, o.%DB_OFFER_ASSITEM%, o.%DB_OFFER_FRAME%,
+           o.%DB_OFFER_LEVEL%, o.%DB_OFFER_SUBLEVEL%, %DB_OFFER_INDEX%
+calculate
+  sum(%DB_OFFER_CFPIECES%), sum(%DB_RES_COST%), sum(%DB_RES_RATE%), #
+    sum(%DB_RES_SURFACE1%), sum(%DB_RES_SURFACE2%), #
+    max(%DB_OFFER_ASSITEM%) as %DB_OFFER_ASSITEM% break on #
+    %DB_OFFER_PROJECT%, %DB_OFFER_ASSEMBLY%
+  sum(%DB_OFFER_CFPIECES%), sum(%DB_RES_COST%), sum(%DB_RES_RATE%), #
+    max(%DB_OFFER_ASSITEM%) as %DB_OFFER_ASSITEM% break on #
+    %DB_OFFER_PROJECT%, %DB_OFFER_ASSEMBLY%, %DB_OFFER_ASSITEM%
+  sum(%DB_RES_RATE%) break on #
+    %DB_OFFER_PROJECT%, %DB_OFFER_ASSEMBLY%, %DB_OFFER_FRAME%
+
+using %NAME%_2%SCRIPT_TYPE%.%REPORTTYPE%%IF{%REPORTTYPE%=J,,%LANGUAGE%}
+
+next
+
+report
+  select   sum(o.%DB_OFFER_CFPIECES%) as %DB_OFFER_CFPIECES%,
+           min(o.%DB_OFFER_SUBDESC%) as %DB_OFFER_SUBDESC%,
+           o.%DB_OFFER_KIND%,
+           sum(%M_COST%) as %DB_RES_COST%,
+           sum(%M_RATE%) as %DB_RES_RATE%,
+           sum(%M_COST_EXTRA%) as %DB_RES_COST_EXTRA%,
+           sum(%M_RATE_EXTRA%) as %DB_RES_RATE_EXTRA%
+  from     %TBL_TEXT% t
+    join   %TBL_OFFER% o
+      on   (o.%DB_OFFER_PROJECT% = t.%DB_TEXT_CODE%)
+  where    o.%DB_OFFER_INFO% != %C_OPTIONAL_INFO%
+  and      o.%DB_OFFER_KIND% != %P_NORMAL%
+  and      o.%DB_OFFER_KIND% != %P_EXCLUSIVE%
+  and      o.%DB_OFFER_FILTER% != %C_OPTIONAL%
+  group by o.%DB_OFFER_KIND%, o.%DB_OFFER_SUBDESC%
+  having   count(*) > 0
+
+using %NAME%_INCLUSIVE%SCRIPT_TYPE%.%REPORTTYPE%%IF{%REPORTTYPE%=J,,%LANGUAGE%}
+
+next
+
+report
+  select   sum(o.%DB_OFFER_CFPIECES%) as %DB_OFFER_CFPIECES%,
+           min(o.%DB_OFFER_ID%) as %DB_OFFER_ID%,
+           min(o.%DB_OFFER_CODE%) as %DB_OFFER_CODE%,
+           min(o.%DB_OFFER_SYSTEM%) as %DB_OFFER_SYSTEM%,
+           min(o.%DB_OFFER_DESC%) as %DB_OFFER_DESC%,
+           min(o.%DB_OFFER_ROUTEID%) as %DB_OFFER_ROUTEID%,
+           min(o.%DB_OFFER_POSITION%) as %DB_OFFER_POSITION%,
+           min(o.%DB_OFFER_IMAGECODE%) as %DB_OFFER_IMAGECODE%,
+           min(o.%DB_OFFER_IMAGEMASK%) as %DB_OFFER_IMAGEMASK%,
+           min(o.%DB_OFFER_WIDTH%) as %DB_OFFER_WIDTH%,
+           min(o.%DB_OFFER_HEIGHT%) as %DB_OFFER_HEIGHT%,
+           sum(o.%DB_OFFER_LENGTH%) as %DB_OFFER_LENGTH%,
+           sum(o.%DB_OFFER_WEIGHT%) as %DB_OFFER_WEIGHT%,
+           sum(o.%DB_OFFER_SURFACE%) as %DB_OFFER_SURFACE%,
+           o.%DB_OFFER_FORMAT%,
+           sum(%M_COST%) as %DB_RES_COST%,
+           sum(%M_RATE%) as %DB_RES_RATE%,
+           sum(%M_COST_EXTRA%) as %DB_RES_COST_EXTRA%,
+           sum(%M_RATE_EXTRA%) as %DB_RES_RATE_EXTRA%,
+           o.%DB_OFFER_PROJECT%,
+           min(o.%DB_OFFER_TAG%) as %DB_OFFER_TAG%,
+           o.%DB_OFFER_ASSEMBLY%,
+           o.%DB_OFFER_FRAME%,
+           o.%DB_OFFER_LEVEL%,
+           o.%DB_OFFER_SUBLEVEL%,
+           min(o.%DB_OFFER_INDEX%) as %DB_OFFER_INDEX%,
+           min(o.%DB_OFFER_VENT%) as %DB_OFFER_VENT%,
+           min(o.%DB_OFFER_VARIETY%) as %DB_OFFER_VARIETY%,
+           min(o.%DB_OFFER_VARIETYDESC%) as %DB_OFFER_VARIETYDESC%,
+           min(o.%DB_OFFER_INFO%) as %DB_OFFER_INFO%,
+           min(o.%DB_OFFER_CFPRICE%) as %DB_OFFER_CFPRICE%
+  from     %TBL_OFFER% o, %TBL_TEXT% t
+  where    o.%DB_OFFER_PROJECT% = t.%DB_TEXT_CODE%
+  and      o.%DB_OFFER_INFO% != %C_OPTIONAL_INFO%
+  and      o.%DB_OFFER_ASSEMBLY% like "%C_SKIP%"
+  and      o.%DB_OFFER_KIND% != %P_EXCLUSIVE%
+  and      o.%DB_OFFER_KIND% != %P_INCLUSIVE%
+  and      o.%DB_OFFER_FILTER% != %C_OPTIONAL%
+  group by o.%DB_OFFER_PROJECT%, 
+           %IF{%OFFER_NOSORT%,o.%DB_OFFER_TAG%%COMMA%,}
+		   o.%DB_OFFER_ASSEMBLY%, o.%DB_OFFER_FRAME%,
+           o.%DB_OFFER_LEVEL%, o.%DB_OFFER_SUBLEVEL%, 
+           %IF{%SHOW_OFFERPOSITIONS%,o.%DB_OFFER_POSITION%%COMMA%,}
+           o.%DB_OFFER_DESC%, 
+           %IF{%SHOW_OFFERVENTDETAILS%,o.%DB_OFFER_VENT%%COMMA%,}
+           %IF{%SHOW_OFFERDETAILEDFINISHES%,o.%DB_OFFER_VARIETY%%COMMA%,}
+           %IF{%OFFER_QUANTITY_GLOBAL%,o.%DB_OFFER_WIDTH%%COMMA%,}
+           %IF{%OFFER_QUANTITY_GLOBAL%,o.%DB_OFFER_HEIGHT%%COMMA%,}
+           %IF{%OFFER_QUANTITY_GLOBAL%,o.%DB_OFFER_LENGTH%%COMMA%,}
+           %IF{%OFFER_QUANTITY_GLOBAL%,o.%DB_OFFER_WEIGHT%%COMMA%,}
+           %IF{%OFFER_QUANTITY_GLOBAL%,o.%DB_OFFER_SURFACE%%COMMA%,}
+           o.%DB_OFFER_FORMAT%
+  having   count(*) > 0
+  order by o.%DB_OFFER_PROJECT%, 
+           %IF{%OFFER_NOSORT%,o.%DB_OFFER_TAG%%COMMA%,}
+           o.%DB_OFFER_ASSEMBLY%, o.%DB_OFFER_FRAME%,
+           o.%DB_OFFER_LEVEL%, o.%DB_OFFER_SUBLEVEL%, %DB_OFFER_INDEX%
+
+using %NAME%_3%SCRIPT_TYPE%.%REPORTTYPE%%IF{%REPORTTYPE%=J,,%LANGUAGE%}
+
+next
+
+report
+  select   sum(%M_COST%) as %DB_RES_COST%,
+           sum(o.%DB_OFFER_REFUND%) as %DB_OFFER_REFUND%,
+           -min(%M_C0%) as %DB_RES_C0%,
+           -min(%M_C1%) as %DB_RES_C1%,
+           -min(%M_C2%) as %DB_RES_C2%,
+           -min(%M_C3%) as %DB_RES_C3%,
+           t.%DB_TEXT_CODE%,
+           min(t.%DB_TEXT_COEF1%) as %DB_TEXT_COEF1%,
+           min(t.%DB_TEXT_COEF2%) as %DB_TEXT_COEF2%,
+           min(t.%DB_TEXT_COEF3%) as %DB_TEXT_COEF3%,
+           min(t.%DB_TEXT_TAXTARIFF%) as %DB_TEXT_TAXTARIFF%,
+           min(%M_TRANS%) as %DB_RES_TRANS%,
+           min(t.%DB_TEXT_TAXTRANSPORT%) as %DB_TEXT_TAXTRANSPORT%
+  from     %TBL_TEXT% t
+    join   %TBL_OFFER% o
+      on   (o.%DB_OFFER_PROJECT% = t.%DB_TEXT_CODE%)
+  where    o.%DB_OFFER_INFO% != %C_OPTIONAL_INFO%
+  and      o.%DB_OFFER_KIND% != %P_EXCLUSIVE%
+  and      o.%DB_OFFER_FILTER% != %C_OPTIONAL%
+  group by t.%DB_TEXT_CODE%
+  having   count(*) > 0
+
+using %NAME%_4%SCRIPT_TYPE%.%REPORTTYPE%%IF{%REPORTTYPE%=J,,%LANGUAGE%}
+
+next
+
+report
+  select   sum(o.%DB_OFFER_CFPIECES%) as %DB_OFFER_CFPIECES%,
+           min(o.%DB_OFFER_SUBDESC%) as %DB_OFFER_SUBDESC%,
+           o.%DB_OFFER_KIND%,
+           sum(%M_COST%) as %DB_RES_COST%,
+           sum(%M_RATE%) as %DB_RES_RATE%,
+           sum(%M_COST_EXTRA%) as %DB_RES_COST_EXTRA%,
+           sum(%M_RATE_EXTRA%) as %DB_RES_RATE_EXTRA%
+  from     %TBL_TEXT% t
+    join   %TBL_OFFER% o
+      on   (o.%DB_OFFER_PROJECT% = t.%DB_TEXT_CODE%)
+  where    o.%DB_OFFER_INFO% != %C_OPTIONAL_INFO%
+  and      o.%DB_OFFER_KIND% != %P_NORMAL%
+  and      o.%DB_OFFER_KIND% = %P_EXCLUSIVE%
+  and      o.%DB_OFFER_FILTER% != %C_OPTIONAL%
+  group by o.%DB_OFFER_KIND%, o.%DB_OFFER_SUBDESC%
+  having   count(*) > 0
+
+using %NAME%_EXCLUSIVE%SCRIPT_TYPE%.%REPORTTYPE%%IF{%REPORTTYPE%=J,,%LANGUAGE%}
+
+next
+
+report
+  select   sum(%M_COST%) as %DB_RES_COST%
+  from     %TBL_TEXT% t
+    join   %TBL_OFFER% o
+      on   (o.%DB_OFFER_PROJECT% = t.%DB_TEXT_CODE%)
+  where    o.%DB_OFFER_INFO% != %C_OPTIONAL_INFO%
+  and      o.%DB_OFFER_KIND% != %P_NORMAL%
+  and      o.%DB_OFFER_KIND% = %P_EXCLUSIVE%
+  and      o.%DB_OFFER_FILTER% != %C_OPTIONAL%
+  and      %M_COST% > 0
+  group by t.%DB_TEXT_CODE%
+  having   count(*) > 0
+
+using %NAME%_EXTRA%SCRIPT_TYPE%.%REPORTTYPE%%IF{%REPORTTYPE%=J,,%LANGUAGE%}
+
+next
+
+report
+  select   sum(%M_COST%) as %DB_RES_COST%,
+           sum(o.%DB_OFFER_REFUND%) as %DB_OFFER_REFUND%,
+           -min(%M_C0%) as %DB_RES_C0%,
+           -min(%M_C1%) as %DB_RES_C1%,
+           -min(%M_C2%) as %DB_RES_C2%,
+           -min(%M_C3%) as %DB_RES_C3%,
+           t.%DB_TEXT_CODE%,
+           min(t.%DB_TEXT_COEF1%) as %DB_TEXT_COEF1%,
+           min(t.%DB_TEXT_COEF2%) as %DB_TEXT_COEF2%,
+           min(t.%DB_TEXT_COEF3%) as %DB_TEXT_COEF3%,
+           min(t.%DB_TEXT_TAXTARIFF%) as %DB_TEXT_TAXTARIFF%,
+           min(%M_TRANS%) as %DB_RES_TRANS%,
+           min(t.%DB_TEXT_TAXTRANSPORT%) as %DB_TEXT_TAXTRANSPORT%
+  from     %TBL_TEXT% t
+    join   %TBL_OFFER% o
+      on   (o.%DB_OFFER_PROJECT% = t.%DB_TEXT_CODE%)
+  where    o.%DB_OFFER_INFO% != %C_OPTIONAL_INFO%
+  and      o.%DB_OFFER_FILTER% != %C_OPTIONAL%
+  group by t.%DB_TEXT_CODE%
+  having   count(*) > 0
+
+using %NAME%_TOTAL%SCRIPT_TYPE%.%REPORTTYPE%%IF{%REPORTTYPE%=J,,%LANGUAGE%}
+
+next
+
+report
+  select   sum(o.%DB_OFFER_CFPIECES%) as %DB_OFFER_CFPIECES%,
+           min(o.%DB_OFFER_ID%) as %DB_OFFER_ID%,
+           min(o.%DB_OFFER_CODE%) as %DB_OFFER_CODE%,
+           min(o.%DB_OFFER_SYSTEM%) as %DB_OFFER_SYSTEM%,
+           min(o.%DB_OFFER_DESC%) as %DB_OFFER_DESC%,
+           min(o.%DB_OFFER_ROUTEID%) as %DB_OFFER_ROUTEID%,
+           min(o.%DB_OFFER_POSITION%) as %DB_OFFER_POSITION%,
+           min(o.%DB_OFFER_IMAGECODE%) as %DB_OFFER_IMAGECODE%,
+           min(o.%DB_OFFER_IMAGEMASK%) as %DB_OFFER_IMAGEMASK%,
+           min(o.%DB_OFFER_WIDTH%) as %DB_OFFER_WIDTH%,
+           min(o.%DB_OFFER_HEIGHT%) as %DB_OFFER_HEIGHT%,
+           sum(o.%DB_OFFER_LENGTH%) as %DB_OFFER_LENGTH%,
+           sum(o.%DB_OFFER_WEIGHT%) as %DB_OFFER_WEIGHT%,
+           sum(o.%DB_OFFER_SURFACE%) as %DB_OFFER_SURFACE%,
+           o.%DB_OFFER_FORMAT%,
+           sum(%M_COST%) as %DB_RES_COST%,
+           sum(%M_RATE%) as %DB_RES_RATE%,
+           sum(%M_COST_EXTRA%) as %DB_RES_COST_EXTRA%,
+           sum(%M_RATE_EXTRA%) as %DB_RES_RATE_EXTRA%,
+           o.%DB_OFFER_PROJECT%,
+           min(o.%DB_OFFER_TAG%) as %DB_OFFER_TAG%,
+           o.%DB_OFFER_ASSEMBLY%,
+           o.%DB_OFFER_ASSITEM%,
+           o.%DB_OFFER_FRAME%,
+           o.%DB_OFFER_LEVEL%,
+           o.%DB_OFFER_SUBLEVEL%,
+           o.%DB_OFFER_INDEX%,
+           min(o.%DB_OFFER_VENT%) as %DB_OFFER_VENT%,
+           min(o.%DB_OFFER_VARIETY%) as %DB_OFFER_VARIETY%,
+           min(o.%DB_OFFER_VARIETYDESC%) as %DB_OFFER_VARIETYDESC%,
+           min(o.%DB_OFFER_INFO%) as %DB_OFFER_INFO%,
+           min(o.%DB_OFFER_CFPRICE%) as %DB_OFFER_CFPRICE%,
+           sum(%M_SURFACE1%) as %DB_RES_SURFACE1%,
+           sum(%M_SURFACE2%) as %DB_RES_SURFACE2%,
+           min(o.%DB_OFFER_BOGUS%) as %DB_OFFER_BOGUS%
+  from     %TBL_TEXT% t
+    join   %TBL_OFFER% o
+      on   (o.%DB_OFFER_PROJECT% = t.%DB_TEXT_CODE%)
+  where    o.%DB_OFFER_INFO% != %C_OPTIONAL_INFO%
+  and      o.%DB_OFFER_ASSEMBLY% not like "%C_SKIP%"
+  and      o.%DB_OFFER_KIND% != %P_INCLUSIVE%
+  and      o.%DB_OFFER_KIND% != %P_EXCLUSIVE%
+  and      o.%DB_OFFER_FILTER% = %C_OPTIONAL%
+  group by o.%DB_OFFER_PROJECT%, 
+           %IF{%OFFER_NOSORT%,o.%DB_OFFER_TAG%%COMMA%,}
+           o.%DB_OFFER_ASSEMBLY%, o.%DB_OFFER_ASSITEM%, o.%DB_OFFER_FRAME%,
+           o.%DB_OFFER_LEVEL%, o.%DB_OFFER_SUBLEVEL%, o.%DB_OFFER_INDEX%, 
+           %IF{%SHOW_OFFERPOSITIONS%,o.%DB_OFFER_POSITION%%COMMA%,}
+           o.%DB_OFFER_DESC%, 
+           %IF{%SHOW_OFFERVENTDETAILS%,o.%DB_OFFER_VENT%%COMMA%,}
+           %IF{%SHOW_OFFERDETAILEDFINISHES%,o.%DB_OFFER_VARIETY%%COMMA%,}
+           %IF{%OFFER_QUANTITY_DETAIL%,o.%DB_OFFER_WIDTH%%COMMA%,}
+           %IF{%OFFER_QUANTITY_DETAIL%,o.%DB_OFFER_HEIGHT%%COMMA%,}
+           %IF{%OFFER_QUANTITY_DETAIL%,o.%DB_OFFER_LENGTH%%COMMA%,}
+           %IF{%OFFER_QUANTITY_DETAIL%,o.%DB_OFFER_WEIGHT%%COMMA%,}
+           %IF{%OFFER_QUANTITY_DETAIL%,o.%DB_OFFER_SURFACE%%COMMA%,}
+           o.%DB_OFFER_FORMAT%
+  having   count(*) > 0
+  order by o.%DB_OFFER_PROJECT%, 
+           %IF{%OFFER_NOSORT%,o.%DB_OFFER_TAG%%COMMA%,}
+           o.%DB_OFFER_ASSEMBLY%, o.%DB_OFFER_ASSITEM%, o.%DB_OFFER_FRAME%,
+           o.%DB_OFFER_LEVEL%, o.%DB_OFFER_SUBLEVEL%, %DB_OFFER_INDEX%
+calculate
+  sum(%DB_OFFER_CFPIECES%), sum(%DB_RES_COST%), sum(%DB_RES_RATE%), #
+    sum(%DB_RES_SURFACE1%), sum(%DB_RES_SURFACE2%), #
+    max(%DB_OFFER_ASSITEM%) as %DB_OFFER_ASSITEM% break on #
+    %DB_OFFER_PROJECT%, %DB_OFFER_ASSEMBLY%
+  sum(%DB_OFFER_CFPIECES%), sum(%DB_RES_COST%), sum(%DB_RES_RATE%), #
+    max(%DB_OFFER_ASSITEM%) as %DB_OFFER_ASSITEM% break on #
+    %DB_OFFER_PROJECT%, %DB_OFFER_ASSEMBLY%, %DB_OFFER_ASSITEM%
+  sum(%DB_RES_RATE%) break on #
+    %DB_OFFER_PROJECT%, %DB_OFFER_ASSEMBLY%, %DB_OFFER_FRAME%
+
+using %NAME%_OPTIONAL%SCRIPT_TYPE%.%REPORTTYPE%%IF{%REPORTTYPE%=J,,%LANGUAGE%}
+
+next
+
+report
+  select   sum(o.%DB_OFFER_CFPIECES%) as %DB_OFFER_CFPIECES%,
+           min(o.%DB_OFFER_ID%) as %DB_OFFER_ID%,
+           min(o.%DB_OFFER_CODE%) as %DB_OFFER_CODE%,
+           min(o.%DB_OFFER_SYSTEM%) as %DB_OFFER_SYSTEM%,
+           min(o.%DB_OFFER_DESC%) as %DB_OFFER_DESC%,
+           min(o.%DB_OFFER_ROUTEID%) as %DB_OFFER_ROUTEID%,
+           min(o.%DB_OFFER_POSITION%) as %DB_OFFER_POSITION%,
+           min(o.%DB_OFFER_IMAGECODE%) as %DB_OFFER_IMAGECODE%,
+           min(o.%DB_OFFER_IMAGEMASK%) as %DB_OFFER_IMAGEMASK%,
+           min(o.%DB_OFFER_WIDTH%) as %DB_OFFER_WIDTH%,
+           min(o.%DB_OFFER_HEIGHT%) as %DB_OFFER_HEIGHT%,
+           sum(o.%DB_OFFER_LENGTH%) as %DB_OFFER_LENGTH%,
+           sum(o.%DB_OFFER_WEIGHT%) as %DB_OFFER_WEIGHT%,
+           sum(o.%DB_OFFER_SURFACE%) as %DB_OFFER_SURFACE%,
+           o.%DB_OFFER_FORMAT%,
+           sum(%M_COST%) as %DB_RES_COST%,
+           min(o.%DB_OFFER_PROJECT%) as %DB_OFFER_PROJECT%,
+           min(o.%DB_OFFER_ASSEMBLY%) as %DB_OFFER_ASSEMBLY%,
+           min(o.%DB_OFFER_FRAME%) as %DB_OFFER_FRAME%,
+           o.%DB_OFFER_LEVEL%,
+           o.%DB_OFFER_SUBLEVEL%,
+           min(o.%DB_OFFER_INDEX%) as %DB_OFFER_INDEX%,
+           min(o.%DB_OFFER_VENT%) as %DB_OFFER_VENT%,
+           min(o.%DB_OFFER_VARIETY%) as %DB_OFFER_VARIETY%,
+           min(o.%DB_OFFER_VARIETYDESC%) as %DB_OFFER_VARIETYDESC%,
+           min(o.%DB_OFFER_INFO%) as %DB_OFFER_INFO%,
+           min(o.%DB_OFFER_CFPRICE%) as %DB_OFFER_CFPRICE%
+  from     %TBL_OFFER% o, %TBL_TEXT% t
+  where    o.%DB_OFFER_PROJECT% = t.%DB_TEXT_CODE%
+  and      o.%DB_OFFER_INFO% = %C_OPTIONAL_INFO%
+  and      o.%DB_OFFER_FILTER% != %C_OPTIONAL%
+  group by o.%DB_OFFER_LEVEL%, o.%DB_OFFER_SUBLEVEL%,
+           %IF{%SHOW_OFFERPOSITIONS%,o.%DB_OFFER_POSITION%%COMMA%,}
+           o.%DB_OFFER_DESC%, 
+           %IF{%SHOW_OFFERVENTDETAILS%,o.%DB_OFFER_VENT%%COMMA%,}
+           %IF{%SHOW_OFFERDETAILEDFINISHES%,o.%DB_OFFER_VARIETY%%COMMA%,}
+           %IF{%OFFER_QUANTITY_GLOBAL%,o.%DB_OFFER_WIDTH%%COMMA%,}
+           %IF{%OFFER_QUANTITY_GLOBAL%,o.%DB_OFFER_HEIGHT%%COMMA%,}
+           %IF{%OFFER_QUANTITY_GLOBAL%,o.%DB_OFFER_LENGTH%%COMMA%,}
+           %IF{%OFFER_QUANTITY_GLOBAL%,o.%DB_OFFER_WEIGHT%%COMMA%,}
+           %IF{%OFFER_QUANTITY_GLOBAL%,o.%DB_OFFER_SURFACE%%COMMA%,}
+           o.%DB_OFFER_FORMAT%
+  having   count(*) > 0
+  order by o.%DB_OFFER_LEVEL%, o.%DB_OFFER_SUBLEVEL%, %DB_OFFER_INDEX%
+
+using %NAME%_5%SCRIPT_TYPE%.%REPORTTYPE%%IF{%REPORTTYPE%=J,,%LANGUAGE%}
+
+next
+
+report
+  select   sum(o.%DB_OFFER_CFPIECES%) as %DB_OFFER_CFPIECES%,
+           o.%DB_OFFER_PROJECT%,
+           o.%DB_OFFER_KIND%,
+           o.%DB_OFFER_SUBDESC%,
+           sum(%M_COST%) as %DB_RES_COST%,
+           sum(%M_RATE%) as %DB_RES_RATE%,
+           sum(%M_COST_EXTRA%) as %DB_RES_COST_EXTRA%,
+           sum(%M_RATE_EXTRA%) as %DB_RES_RATE_EXTRA%,
+           sum(o.%DB_OFFER_SURFACE1%) as %DB_OFFER_SURFACE1%,
+           sum(o.%DB_OFFER_SURFACE2%) as %DB_OFFER_SURFACE2%
+  from     %TBL_TEXT% t
+    join   %TBL_OFFER% o
+      on   (o.%DB_OFFER_PROJECT% = t.%DB_TEXT_CODE%)
+  where    o.%DB_OFFER_INFO% != %C_OPTIONAL_INFO%
+  and      o.%DB_OFFER_FILTER% != %C_OPTIONAL%
+  and      o.%DB_OFFER_SURFACE1% > 0
+  and      o.%DB_OFFER_SURFACE2% > 0
+  group by o.%DB_OFFER_PROJECT%, o.%DB_OFFER_KIND%, o.%DB_OFFER_SUBDESC%
+  having   count(*) > 0
+calculate
+  sum(%DB_OFFER_SURFACE1%), sum(%DB_OFFER_SURFACE2%) break on #
+    %DB_OFFER_PROJECT%
+
+using %IF{%EVAL{(%SHOW_OFFERSURFACE%>0)},%NAME%_SURFACE%SCRIPT_TYPE%.%REPORTTYPE%%IF{%REPORTTYPE%=J,,%LANGUAGE%},nul}
+
+next
+
+report
+  select   o.%DB_OFFER_PROJECT%
+  from     %TBL_TEXT% t
+    join   %TBL_OFFER% o
+      on   (o.%DB_OFFER_PROJECT% = t.%DB_TEXT_CODE%)
+  where    o.%DB_OFFER_INFO% != %C_OPTIONAL_INFO%
+  and      o.%DB_OFFER_FILTER% != %C_OPTIONAL%
+  group by o.%DB_OFFER_PROJECT%
+  having   count(*) > 0
+calculate
+  break on %DB_OFFER_PROJECT%
+
+using %IF{%EVAL{(%SHOW_OFFERUVALUES%>0)},%NAME%_UVALUE%SCRIPT_TYPE%.%REPORTTYPE%%IF{%REPORTTYPE%=J,,%LANGUAGE%},nul}
+
+next
+
+report
+  select   %DB_ANNEX_PROJECT%,
+           %DB_ANNEX_ASSEMBLY%,
+           %DB_ANNEX_DESC%,
+           %DB_ANNEX_KIND%
+  from     %TBL_ANNEX%
+  where    %DB_ANNEX_ASSEMBLY% = ""
+  and      %DB_ANNEX_KIND% = %REPORTSLOT%
+  group by %DB_ANNEX_PROJECT%, %DB_ANNEX_ASSEMBLY%,
+           %DB_ANNEX_DESC%, %DB_ANNEX_KIND%
+  having   count(*) > 0
+calculate
+  break on %DB_ANNEX_DESC%
+
+using %IF{%REPORTTYPE%=J,nul,%FILE_ANNEX%}
+
+next
+
+
+fields
+REMARK_SENTENCE1="1°¢“‘…œ±®º€“—∞¸∫¨º◊““À´∑Ω»∑»œ∑Ω∞∏÷–µƒ∏˜¿‡÷˜“™–Õ≤ƒ°¢∞≤◊∞∏®≤ƒ°¢¥∞/√≈øÚ…»∑¿ÀÆ¥¶¿Ì°æ π”√µ¬π˙Weiss£®Œ¿ À£©Ω‚æˆ<br>∑Ω∞∏°øÕ‚¡¢√Ê∑¿ÀÆ¥¶¿Ì°æ»´œﬂ π”√◊Ù·∞Ãÿπ©£¨◊Ù·∞√≈¥∞◊®”√∑Ω∞∏°ø°¢‘À ‰£®Ωˆœﬁ…œ∫£µÿ«¯£©°¢»Àπ§∑—”√£¨≤ª‘Ÿ¡Ì––º” ’<br>∆‰À¸∑—”√£ª"
+REMARK_SENTENCE2="2°¢±æ±®º€Ωˆœﬁ”⁄ƒø«∞µƒÕº÷Ω√Êª˝°¢∑Á∏Ò∑Ω∞∏°¢πÊ∏Ò≈‰÷√£¨»Á”–±‰∏¸‘Ú¡Ì––º∆º€£®∑Ω∞∏÷–»Ù∫¨”–—Ùπ‚∑ø£¨‘Ú∞¥’’–±∂•œµ<br> ˝1.1£¨»À◊÷∂•1.3£¨‘≤ª°∂•1.3£¨◊Í Ø∂•1.5£¨¿¥º∆À„—Ùπ‚∑ø∂•√Êª˝£©"
+REMARK_SENTENCE3="3°¢¥À±®º€≤ª∫¨À∞∆±°£"
+
+
+report
+  select   t.%DB_TEXT_CODE%,
+           min(t.%DB_TEXT_NAME%) as %DB_TEXT_NAME%,
+           min(t.%DB_TEXT_PERIOD%) as %DB_TEXT_PERIOD%,
+           min(t.%DB_TEXT_BEGIN%) as %DB_TEXT_BEGIN%,
+           min(t.%DB_TEXT_AMOUNT%) as %DB_TEXT_AMOUNT%,
+           min(t.%DB_TEXT_TAXTARIFF%) as %DB_TEXT_TAXTARIFF%,
+           min(t.%DB_TEXT_TRANSPORT%) as %DB_TEXT_TRANSPORT%,
+           min(t.%DB_TEXT_TAXTRANSPORT%) as %DB_TEXT_TAXTRANSPORT%,
+           min(t.%DB_TEXT_DISCOUNT%) as %DB_TEXT_DISCOUNT%,
+           min(t.%DB_TEXT_CONDITIONS%) as %DB_TEXT_CONDITIONS%,
+           min(t.%DB_TEXT_TAXNUMBER%) as %DB_TEXT_TAXNUMBER%,
+           min(t.%DB_TEXT_ACCOUNT%) as %DB_TEXT_ACCOUNT%,
+           min(t.%DB_TEXT_COST1%) as %DB_TEXT_COST1%,
+           min(t.%DB_TEXT_COST2%) as %DB_TEXT_COST2%,
+           min(t.%DB_TEXT_FUNCTION%) as %DB_TEXT_FUNCTION%
+  from     %TBL_OFFER% o, %TBL_TEXT% t
+  where    o.%DB_OFFER_PROJECT% = t.%DB_TEXT_CODE%
+  group by t.%DB_TEXT_CODE%
+  having   count(*) > 0
+
+using %NAME%_6%SCRIPT_TYPE%.%REPORTTYPE%%IF{%REPORTTYPE%=J,,%LANGUAGE%}
+
+

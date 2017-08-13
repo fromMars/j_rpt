@@ -1,0 +1,76 @@
+<!--offer_b_project_2-->
+<!--Offerte: detail------------------------------------------------------------>
+<p>
+<JOPPS id=16001>The work contains :</JOPPS>
+</p>
+
+<!--%% detail ----------------------------------------------------------------->
+    <tr valign="top">
+      <td valign="top" %M_COLOR_TABLEDATA_NOCOLORS% width=6% align="right">
+        %M_BTAG%%IF{@%DB_OFFER_CFPIECES%,%DSP_OFFER_CFPIECES%,&nbsp;}%M_ETAG%
+      </td>
+      <td valign="top" %M_COLOR_TABLEDATA_NOCOLORS% width=8% align="left">
+        %M_BTAG%%DSP_RES_ID%%IF{%SH_SYSTEMCODE%, %DSP_OFFER_SYSTEM%,}%IF{%SH_MODELCODE%, %DSP_RES_MODELCODE%,}%M_ETAG% %IF{%SH_PREVIEW%, <br>%DSP_PREVIEW%,}
+      </td>
+      <td valign="top" %M_COLOR_TABLEDATA_NOCOLORS% width=%IF{%OFFER_PRICEITEM%,42,60}%>
+        %M_BTAG%%IF{%SH_POSITION%,@%DB_OFFER_POSITION%&nbsp;=&nbsp;,}%IF{@%DB_OFFER_DESC%,%DSP_OFFER_DESC%%IF{%SH_DETFINISHES%,<br><i>(%EVAL{trim("%DSP_OFFER_VARIETYDESC%")})</i>,},&nbsp;}%M_ETAG%
+      </td>
+      <td valign="top" %M_COLOR_TABLEDATA_NOCOLORS% width=13% align="right">
+        %M_BTAG%%IF{%SH_WINDOW_SIZE%,%DSP_OFFER_WIDTH%,#
+                %IF{%SH_DETAIL_SIZE%,%DSP_OFFER_WIDTH%,&nbsp;}%M_ETAG%
+      </td>
+      <td valign="top" %M_COLOR_TABLEDATA_NOCOLORS% width=13% align="right">
+        %M_BTAG%%IF{%SH_WINDOW_SIZE%,%DSP_OFFER_HEIGHT%,#
+                %IF{%SH_DETAIL_SIZE%,%DSP_OFFER_HEIGHT%,#
+                %IF{%SH_DETAIL_LENGTH_M%,%DSP_OFFER_LENGTH_M%,#
+                %IF{%SH_DETAIL_LENGTH_MM%,%DSP_OFFER_LENGTH_MM%,#
+                %IF{%SH_DETAIL_WEIGHT%,%DSP_OFFER_WEIGHT%,#
+                %IF{%SH_DETAIL_AREA_M2%,%DSP_OFFER_SURFACE%,&nbsp;}}}}}%M_ETAG%
+      </td>
+      %IF{%OFFER_PRICEITEM%,#
+        <td valign="top" %M_COLOR_TABLEDATA_NOCOLORS% width=18% align="right">#
+          %M_BTAG%%IF{@%DB_RES_COST%,%IF{%OFFER_PRICEASSEMBLY%,%DSP_RES_RATE%,%DSP_RES_COST%},#
+                  %IF{%EVAL{(@%DB_RES_COST_EXTRA%>0)&&(@%DB_OFFER_INFO%=%C_EXTRA_INFO%)},#
+                      %IF{%OFFER_PRICEASSEMBLY%,%DSP_RES_RATE_EXTRA%,%DSP_RES_COST_EXTRA%},&nbsp;}}%M_ETAG%#
+        </td>,}
+    </tr>
+
+<!--%% break header 1 -->
+%IF{%OFFER_OUTLINES%,<table border=0 width=100%>,}
+%IF{%OFFER_OUTLINES%,<tr valign="top">,}
+  %IF{%OFFER_OUTLINES%,<td align="center" width=20%>#
+    <a href="EDITOR:%DSP_RES_ATOM%">%DSP_DRAWOFFERASSEMBLY%%IF{%OFFER_SCALE%,<br>%DSP_SCALE%,}</a></td>,}
+  %IF{%OFFER_OUTLINES%,<td width=80%>,}
+    <table border=%OFFER_WORDCOMPAT% width=100% %M_TABLEPARAM_NOCOLORS%>
+    
+<!--%% break footer 1 -->
+%INCLUDE{%IF{%OFFER_PRICEASSEMBLY%,%NAME%_2_SUBTOT.%REPORTTYPE%%LANGUAGE%,nul}}
+%INCLUDE{%IF{%SHOW_OFFERUVALUES%>0,%NAME%_2_UVALUE.%REPORTTYPE%%LANGUAGE%,nul}}
+    </table>
+%IF{%REPORTTYPE%=J,nul,%IF{%ANNEX_ENABLED%,%DSP_ANNEX%,}}
+  %IF{%OFFER_OUTLINES%,</td>,}
+%IF{%OFFER_OUTLINES%,</tr>,}
+%IF{%OFFER_OUTLINES%,</table>,}
+%IF{%OFFER_OUTLINES%,<hr noshade width=100%>,<br>}
+
+<!--%% break header 2 -->
+    %IF{@%DB_OFFER_ASSITEM%,<tr valign="top">#
+      <td>&nbsp;</td>#
+      <td><b><JOPPS id=16034>Extras</JOPPS></b></td>#
+      <td>&nbsp;</td>#
+      <td>&nbsp;</td>#
+      <td>&nbsp;</td>#
+      %IF{%OFFER_PRICEITEM%,<td>&nbsp;</td>,}#
+    </tr>,}
+
+<!--%% break footer 2 -->
+
+<!--%% break header 3 -->
+
+<!--%% break footer 3 -->
+%INCLUDE{%IF{%EVAL{%OFFER_PRICEASSEMBLY% && %OFFER_PRICEITEM% && "@@%DB_OFFER_FRAME%"<>"" && %DSP_RES_FRAMECOUNT%>1 && !@@%DB_OFFER_ASSITEM%},#
+             %NAME%_2_FRAME_SUBTOT.%REPORTTYPE%%LANGUAGE%,nul}}
+
+<!--%% detail footer ---------------------------------------------------------->
+
+<!--%%------------------------------------------------------------------------->

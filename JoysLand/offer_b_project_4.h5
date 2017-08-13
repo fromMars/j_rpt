@@ -1,0 +1,14 @@
+<!--offer_b_project_4-->
+<!--Offerte: saldo------------------------------------------------------------->
+<br>
+<table border=%OFFER_WORDCOMPAT% width=100% %M_TABLEPARAM_NOCOLORS%>
+
+<!--%% detail ----------------------------------------------------------------->
+<tr valign="top" align="left">
+  <td valign="top" %M_COLOR_TABLEHEAD_NOCOLORS% width=85%><b><JOPPS id=16006>总价 </JOPPS>%IF{%PROJECTCALCTAXTARIFF%,（含税）,（不含税）}<JOPPS id=16020> :</JOPPS></b></td>
+  <td valign="top" %M_COLOR_TABLEHEAD_NOCOLORS% width=15% align="right"><b>%DSP_RES_COST%</b>元</td>
+</tr>
+
+<!--%% detail footer ---------------------------------------------------------->
+</table>
+<!--%%------------------------------------------------------------------------->

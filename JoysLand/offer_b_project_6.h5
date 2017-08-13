@@ -1,0 +1,43 @@
+<!--%% detail ----------------------------------------------------------------->
+
+ <table %M_TABLEPARAM_NOCOLORS% width=100% bgcolor="" autowrap=true>
+        <tr>
+            <td bgcolor="#BBBBBB" font="宋体" colspan=4 align="left"><font size=+1>客户须知：</font></td>
+        </tr>
+    
+    <tr>
+        <td width=100%>
+        	%REMARK_SENTENCE1%
+        </td>
+    <tr>
+        <td>
+        	%REMARK_SENTENCE2%
+        </td>
+    </tr>
+    <tr>
+        <td>
+        	%REMARK_SENTENCE3%
+        </td>
+    </tr>
+ </table>
+
+
+
+<!--table>
+
+<tr>
+ <td nowrap=false bgcolor="yellow" style="word-wrap:break-word;">
+	%REMARK_SENTENCE1%
+ <td>
+</tr>
+
+<tr>
+ <td nowrap=false nowrap="false">
+	%REMARK_SENTENCE1%
+ </td>
+</tr>
+</table-->
+
+<!--%% detail footer ---------------------------------------------------------->
+
+<!--%%------------------------------------------------------------------------->
