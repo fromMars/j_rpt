@@ -29,8 +29,14 @@ if getparam("ORDER_LIST_PER_SUPPLIER_PRICE")="1" then
 		setparam("ORDER_LIST_PER_SUPPLIER_PRICE","3");
 	}
 }
+else if getparam("ORDER_LIST_PER_SUPPLIER_PRICE")="3" then
+{
+	if d=0 then
+	{
+		setparam("ORDER_LIST_PER_SUPPLIER_PRICE","1");
+	}
+}
 msgbox(getparam("ORDER_LIST_PER_SUPPLIER_PRICE"));
-</SCRIPT>
 
 
 <!--%% detail ----------------------------------------------------------------->
