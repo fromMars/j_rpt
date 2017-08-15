@@ -1,0 +1,22 @@
+<!--intro-->
+<table border=0 width=100% cellspacing=3 bordercolor="%COLOR_TITLEBORDER%" cellpadding=3>
+<tr valign="middle" align="center">
+%IF{%DB_USER%="USER70",<!--,}
+  %IF{%SMALLLOGO%,<td><IMG SRC="%SMALLLOGO%" %IF{%LOGO_WIDTH%,WIDTH="%LOGO_WIDTH%",} %IF{%LOGO_HEIGHT%,HEIGHT="%LOGO_HEIGHT%",} %IF{%EVAL{%LOGO_ALIGN%=1},ALIGN="left",} %IF{%EVAL{%LOGO_ALIGN%=2},ALIGN="right",} %IF{%EVAL{%LOGO_ALIGN%=3},ALIGN="lower",} %IF{%EVAL{%LOGO_ALIGN%=4},ALIGN="upper",}><BR></td>,}
+  <td>
+    <h1>%COMPANY%</h1><br>
+    %STREET% - %ZIP% %PLACE%<br>
+    %IF{%PHONE%,<JOPPS id=1>Phone :</JOPPS> %PHONE%<br>,}
+    %IF{%FAX%,<JOPPS id=2>Fax :</JOPPS> %FAX%<br>,}
+    %IF{%EMAIL%,<JOPPS id=3>E-mail:</JOPPS> <A HREF="MAILTO:%EMAIL%">%EMAIL%</A><br>,%IF{%GLOBAL_EMAIL%,<JOPPS id=3>E-mail:</JOPPS> <A HREF="MAILTO:%GLOBAL_EMAIL%">%GLOBAL_EMAIL%</A><br>,}}
+  </td>
+%IF{%DB_USER%="USER70",-->,}
+
+%IF{%DB_USER%="USER70",<td><img src="zsstar_logo.bmp"  %IF{%LOGO_WIDTH%,WIDTH="%LOGO_WIDTH%",} %IF{%LOGO_HEIGHT%,HEIGHT="%LOGO_HEIGHT%",} %IF{%EVAL{%LOGO_ALIGN%=1},ALIGN="left",} %IF{%EVAL{%LOGO_ALIGN%=2},ALIGN="right",} %IF{%EVAL{%LOGO_ALIGN%=3},ALIGN="lower",} %IF{%EVAL{%LOGO_ALIGN%=4},ALIGN="upper",}></img></td><td><table border=0> <tr><td>&nbsp;</td><td colspan=2 align="right"><h1>中山市星光金属门窗制造有限公司</h1></td></tr><tr><td>&nbsp;</td><td align="right">地址：</td><td>广东省中山市东区孙文东路459号</td></tr><tr><td>&nbsp;</td><td align="right">电话：</td><td>86-0760-88234562</td></tr><tr><td>&nbsp;</td><td align="right">FAX：</td><td>86-0760-88306385</td></tr><tr><td>&nbsp;</td><td align="right">E-Mail：</td><td>starspangle@163com</td></tr></table></td>,}
+
+
+
+</tr>
+</table>
+<br>
+

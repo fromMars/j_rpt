@@ -1,0 +1,22 @@
+<!--subintro-->
+
+
+%INCLUDE{%IF{%DB_USER%="USER70",set_customer_infos.h5,nul}}
+
+
+
+<BR>
+<TABLE border=0 cellspacing=%WIDTH_TITLEBORDER% width=100% bordercolor="%COLOR_TITLEBORDER%">
+<TR>
+  <TD width="100%" bgcolor="%COLOR_INFO%" align="center">
+    <H1>%IF{%DESC%="报价",单窗%DESC%,%DESC%}</H1>
+  </TD>
+</TR>
+</TABLE>
+%DB_DESC% - %DATE% - %TIME%
+<BR><BR>
+
+%IF{%DB_USER%="USER41",#
+<table widt=100%>#
+<tr><td>工程名：%PROJECT_TEXT%</td></tr>#
+</table>,}
