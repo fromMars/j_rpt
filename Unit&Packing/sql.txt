@@ -1,0 +1,75 @@
+C_DRAIN_140=0550140
+
+
+select itmprijs*packcount,setprijs*packcount,kind,artikel,beslagnaam,prijs,max(prijs*korting),prijs/nr*packcount*packvolume*korting,nr,korting,itmprijs,itmoffer,qtyprijs,qtyoffer,setprijs,setoffer,beslag,packtype,packcount,packvolume,lengteMM,groep,deel,leverancier,artcode from attrib.dbf
+where kind=-1
+group by 
+
+
+
+<SCRIPT LANGUAGE="JoPPS-SCRIPT">
+CurPro := GetCurrentProject();
+IF CurPro = Nil THEN halt;
+d:=CurPro.setup.profileprice;
+if %ORDER_LIST_PER_SUPPLIER_PRICE%=1 then
+{
+	if d:=1 then
+	{
+		%ORDER_LIST_PER_SUPPLIER_PRICE%=3
+	}
+}
+msgbox(%ORDER_LIST_PER_SUPPLIER_PRICE%);
+</SCRIPT>
+
+
+
+
+%EVAl{msgbox("head-000:"+getparam("ORDER_LIST_PER_SUPPLIER_PRICE"))}
+%EVAL{CurPro := GetCurrentProject()}
+%EVAL{d:=CurPro.setup.profileprice}
+%EVAL{iif(getparam("ORDER_LIST_PER_SUPPLIER_PRICE")="1",iif(d=1,setparam
+("ORDER_LIST_PER_SUPPLIER_PRICE","3"),),)}
+
+%EVAL{msgbox("head-001"+getparam("ORDER_LIST_PER_SUPPLIER_PRICE"))}
+
+
+
+@%DB_ATTRIB_PRICE_PACK%<@
+%DB_ATTRIB_PRICE_UNIT%
+
+
+  xx=%EVAL{msgbox("qrf0: "+getparam("ORDER_LIST_PER_SUPPLIER_PRICE"))}
+  x=%EVAL{setparam("ORDER_LIST_PER_SUPPLIER_PRICE","3")}
+
+
+
+
+%EVAL{iif(getparam("ORDER_LIST_PER_SUPPLIER_PRICE")="1",iif(x=1,setparam("ORDER_LIST_PER_SUPPLIER_PRICE","3"),),iif(getparam("ORDER_LIST_PER_SUPPLIER_PRICE")="3",iif(x=0,setparam("ORDER_LIST_PER_SUPPLIER_PRICE","1"),),))}
+
+
+
+
+
+msgbox("head:"+getparam("ORDER_LIST_PER_SUPPLIER_PRICE"));
+CurPro := GetCurrentProject();
+IF CurPro = Nil THEN halt;
+d:=CurPro.setup.profileprice;
+if getparam("ORDER_LIST_PER_SUPPLIER_PRICE")="1" then
+{
+	msgbox("in 1");
+	if d=1 then
+	{
+		msgbox("change to 3");
+		setparam("ORDER_LIST_PER_SUPPLIER_PRICE","3");
+	}
+}
+else if getparam("ORDER_LIST_PER_SUPPLIER_PRICE")="3" then
+{
+	msgbox("in 3");
+	if d=0 then
+	{
+		msgbox("change to 1");
+		setparam("ORDER_LIST_PER_SUPPLIER_PRICE","1");
+	}
+}
+msgbox("end:"+getparam("ORDER_LIST_PER_SUPPLIER_PRICE"));
