@@ -1,0 +1,23 @@
+<SCRIPT LANGUAGE="JoPPS-Script">
+CurPro := GetCurrentProject();
+IF CurPro = Nil THEN halt;
+d:=CurPro.setup.profileprice;
+if getparam("ORDER_LIST_PER_SUPPLIER_PRICE")="1" || getparam("CLIENT_FAX2")="1" then
+{
+	msgbox("if");
+	if d=1 then
+	{
+		setparam("CLIENT_FAX2","3");
+		msgbox("set:3");
+	}
+}
+else if getparam("ORDER_LIST_PER_SUPPLIER_PRICE")="3" || getparam("CLIENT_FAX2")="3" then
+{
+	msgbox("else");
+	if d=0 then
+	{
+		setparam("CLIENT_FAX2","1");
+		msgbox("set:1");
+	}
+}
+</SCRIPT>
