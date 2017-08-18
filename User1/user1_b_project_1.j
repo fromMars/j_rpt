@@ -15,7 +15,7 @@ while (i < cList.Count) do
   TempValue   := 0.0;
   CurrentCell := CostSheet.Cells[RowId][ColId];
   CurrentCell.Value := TempValue;
-  CurrentCell.NumberFormat := CellPriceFormat;
+  /*CurrentCell.NumberFormat := CellPriceFormat;*/
   CurrentCell.Font.Italic := True;
   /*CurrentCell.Interior.Color := Color;*/
   CurrentCell.Borders.LineStyle := 1;
@@ -108,7 +108,7 @@ if (StrToNum(StrReplace(pList.Strings[cList.IndexOf(IntToStr(RowId))],"%DECIMALS
   TempFormula := "=((((((((("+TempValue+")*("+CellCT+"))*(1+"+CellC1+"))*(1-"+CellC2+"))*"+CellC7+")*"+CellC3+")*(1+"+CellC6+"))*(1+"+CellC4+"))*(1-"+CellC5+"))";
   CurrentCell := CostSheet.Cells[RowId][ColId];
   CurrentCell.Formula := TempFormula;
-  CurrentCell.NumberFormat := CellPriceFormat;
+/*  CurrentCell.NumberFormat := CellPriceFormat;*/
   CurrentCell.Font.Italic := False;
   /*CurrentCell.Interior.Color := Color;*/
   CurrentCell.Borders.LineStyle := 1;
@@ -119,7 +119,7 @@ else
   TempFormula := "=(((((((("+TempValue+")*(1+"+CellC1+"))*(1-"+CellC2+"))*"+CellC7+")*"+CellC3+")*(1+"+CellC6+"))*(1+"+CellC4+"))*(1-"+CellC5+"))";
   CurrentCell := CostSheet.Cells[RowId][ColId];
   CurrentCell.Formula := TempFormula;
-  CurrentCell.NumberFormat := CellPriceFormat;
+/*  CurrentCell.NumberFormat := CellPriceFormat;*/
   CurrentCell.Font.Italic := False;
   /*CurrentCell.Interior.Color := Color;*/
   CurrentCell.Borders.LineStyle := 1;
@@ -129,7 +129,7 @@ else
 TempFormula := '=Indirect(address('+sList.Strings[cList.IndexOf(IntToStr(RowId))]+','+IntToStr(ColId)+',,,"Cost"))';
 CurrentCell := HelpSheet.Cells[RowId][ColId];
 CurrentCell.Formula := TempFormula;
-CurrentCell.NumberFormat := CellPriceFormat;
+/*CurrentCell.NumberFormat := CellPriceFormat;*/
 CurrentCell.Font.Italic := %IF{@%DB_RES_PRICE%,False,True};
 /*CurrentCell.Interior.Color := Color;*/
 CurrentCell.Borders.LineStyle := 1;

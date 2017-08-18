@@ -46,7 +46,7 @@ while (i < cList.Count) do
   TempValue   := 0.0;
   CurrentCell := CostSheet.Cells[RowId][ColId];
   CurrentCell.Value := TempValue;
-  CurrentCell.NumberFormat := CellPriceFormat;
+  /*CurrentCell.NumberFormat := CellPriceFormat;*/
   CurrentCell.Font.Italic := True;
   CurrentCell.Interior.Color := Color;
   CurrentCell.Borders.LineStyle := 1;
@@ -128,7 +128,7 @@ if (StrToNum(StrReplace(pList.Strings[cList.IndexOf(IntToStr(RowId))],"%DECIMALS
   TempFormula := "=((((((((("+TempValue+")*("+CellCT+"))*(1+"+CellC1+"))*(1-"+CellC2+"))*"+CellC7+")*"+CellC3+")*(1+"+CellC6+"))*(1+"+CellC4+"))*(1-"+CellC5+"))";
   CurrentCell := CostSheet.Cells[RowId][ColId];
   CurrentCell.Formula := TempFormula;
-  CurrentCell.NumberFormat := CellPriceFormat;
+/*  CurrentCell.NumberFormat := CellPriceFormat;*/
   CurrentCell.Font.Italic := False;
   CurrentCell.Interior.Color := Color;
   CurrentCell.Borders.LineStyle := 1;
@@ -139,17 +139,18 @@ else
   TempFormula := "=(((((((("+TempValue+")*(1+"+CellC1+"))*(1-"+CellC2+"))*"+CellC7+")*"+CellC3+")*(1+"+CellC6+"))*(1+"+CellC4+"))*(1-"+CellC5+"))";
   CurrentCell := CostSheet.Cells[RowId][ColId];
   CurrentCell.Formula := TempFormula;
-  CurrentCell.NumberFormat := CellPriceFormat;
+/*  CurrentCell.NumberFormat := CellPriceFormat;*/
   CurrentCell.Font.Italic := False;
   CurrentCell.Interior.Color := Color;
   CurrentCell.Borders.LineStyle := 1;
 }
 
+
 ; Item formula
 TempFormula := '=Indirect(address('+sList.Strings[cList.IndexOf(IntToStr(RowId))]+','+IntToStr(ColId)+',,,"Cost"))*Indirect(address('+sList.Strings[bList.IndexOf("-2")]+','+IntToStr(ColId)+',,,"Cost"))';
 CurrentCell := HelpSheet.Cells[RowId][ColId];
 CurrentCell.Formula := TempFormula;
-CurrentCell.NumberFormat := CellPriceFormat;
+/*CurrentCell.NumberFormat := CellPriceFormat;*/
 CurrentCell.Font.Italic := %IF{@%DB_RES_PRICE%,False,True};
 CurrentCell.Interior.Color := Color;
 CurrentCell.Borders.LineStyle := 1;
@@ -162,10 +163,26 @@ currentcell:=costsheet.cells[rowid][s_colid];
 currentcell.value:="%DSP_PIECE_SUPPLIER%";
 currentcell.borders.linestyle:=1;
 
-;weight
-u_colid:=colid-2;
+;unit weight price
+u_colid:=colid-1;
 currentcell:=costsheet.cells[rowid][u_colid];
-currentcell.value:="@%DB_PIECE_WEIGHT%";
+u_recent_value:=currentcell.value;
+if u_recent_value<>0 then
+{
+	costsheet.cells[rowid+row_increase][u_colid+1].value:=u_recent_value;
+	currentcell.value:="";
+}
+else
+{
+	tot_formula:="="+RId+CId+Lbr+"1"+RBr+"/@%DB_PIECE_WEIGHT%";
+	currentcell.formulaR1C1:=tot_formula;
+}
+currentcell.borders.linestyle:=1;
+
+;weight per surface
+wps_colid:=colid-2;
+currentcell:=costsheet.cells[rowid][wps_colid];
+currentcell.formulaR1C1:="=@%DB_PIECE_WEIGHT%/mianji";
 currentcell.borders.linestyle:=1;
 
 
@@ -199,10 +216,10 @@ CostSheet.Range[CostSheet.Cells[RowId+1][2]][CostSheet.Cells[RowId+1][3]].merge(
 CostSheet.Cells[RowId+1][2].Value:="型材损耗";
 CostSheet.Range[CostSheet.Cells[RowId+2][2]][CostSheet.Cells[RowId+2][3]].merge();
 CostSheet.Cells[RowId+2][2].Value:="型材小计";
-CostSheet.Range[CostSheet.Cells[RowId+1][5]][CostSheet.Cells[RowId+1][7]].merge();
+CostSheet.Range[CostSheet.Cells[RowId+1][5]][CostSheet.Cells[RowId+1][8]].merge();
 CostSheet.Cells[RowId+1][5].formula:='='+CellC1;
 CostSheet.Cells[RowId+1][5].NumberFormatLocal:="0.0%";
-CostSheet.Range[CostSheet.Cells[RowId+2][5]][CostSheet.Cells[RowId+2][7]].merge();
+CostSheet.Range[CostSheet.Cells[RowId+2][5]][CostSheet.Cells[RowId+2][8]].merge();
 
 Formula1 := "="+SumFormulaText+"("+RId+LBr+IntToStr(recent_rowid-rowid-2)+RBr+CId+LBr+"2"+RBr+":"+RId+LBr+"-2"+RBr+CId+Lbr+"2"+RBr+")";
 CostSheet.Cells[RowId+2][5].FormulaR1C1:=Formula1;
