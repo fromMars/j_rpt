@@ -1,3 +1,49 @@
+
+CostSheet.Rows[RowId+1+row_increase].select();
+excel.Selection.EntireRow.Insert();
+excel.Selection.EntireRow.Insert();
+
+tmp_rowid_increase:=RowId+row_increase;
+
+/*
+CostSheet.Range[CostSheet.Cells[tmp_rowid_increase+1][1]][CostSheet.Cells[tmp_rowid_increase+2][1]].merge();*/
+CostSheet.Cells[tmp_rowid_increase+1][1].Value:="B";
+CostSheet.Cells[tmp_rowid_increase+2][1].Value:="C";
+
+/*
+CostSheet.Range[CostSheet.Cells[tmp_rowid_increase+1][2]][CostSheet.Cells[tmp_rowid_increase+1][3]].merge();*/
+
+CostSheet.Cells[tmp_rowid_increase+1][2].Value:="人工机械直接费";
+CostSheet.Cells[tmp_rowid_increase+2][2].Value:="直接费合计";
+
+/*
+CostSheet.Range[CostSheet.Cells[tmp_rowid_increase+2][2]][CostSheet.Cells[tmp_rowid_increase+2][3]].merge();*/
+
+CostSheet.Range[CostSheet.Cells[tmp_rowid_increase+1][3]][CostSheet.Cells[tmp_rowid_increase+1][8]].merge();
+Formula0 := "="+SumFormulaText+"("+RId+LBr+IntToStr(recent_rowid-tmp_rowid_increase-1)+RBr+CId+LBr+"4"+RBr+":"+RId+LBr+"-1"+RBr+CId+Lbr+"4"+RBr+")";
+CostSheet.Cells[tmp_rowid_increase+1][3].formula:=formula0;
+/*CostSheet.Cells[tmp_rowid_increase+1][3].NumberFormatLocal:="0.0%";*/
+
+CostSheet.Range[CostSheet.Cells[tmp_rowid_increase+2][3]][CostSheet.Cells[tmp_rowid_increase+2][8]].merge();
+
+/*
+Formula1 := "="+SumFormulaText+"("+RId+LBr+IntToStr(recent_rowid-tmp_rowid_increase-2)+RBr+CId+LBr+"2"+RBr+":"+RId+LBr+"-2"+RBr+CId+Lbr+"2"+RBr+")";*/
+
+if a_fee_row=0 then
+{
+	Formula1 := "="+SumFormulaText+"(0,"+RId+LBr+"-1"+RBr+CId+Lbr+"0"+RBr+")";
+}
+else
+{
+	Formula1 := "="+SumFormulaText+"("+RId+LBr+inttostr(tmp_rowid_increase+2-a_fee_row-1)+RBr+Cid+","+RId+LBr+"-1"+RBr+CId+Lbr+"0"+RBr+")";
+}
+CostSheet.Cells[tmp_rowid_increase+2][3].FormulaR1C1:=Formula1;
+
+
+row_increase:=row_increase+2;
+
+
+
 ; ******************************Estim Excel************************************
 ; *****************************************************************************
 ; %NAME% (%BATCH%)
