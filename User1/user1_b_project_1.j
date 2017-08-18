@@ -9,14 +9,14 @@ Color := DataSheet.Range["CellFormat"].Interior.Color;
 
 ; Initialize prices project level
 i := 0;
-while (i < cList.Count) do
+while (i < cList.Count-3) do
 {
   RowId       := StrToNum(cList.Strings[i]);
   TempValue   := 0.0;
   CurrentCell := CostSheet.Cells[RowId][ColId];
   CurrentCell.Value := TempValue;
   /*CurrentCell.NumberFormat := CellPriceFormat;*/
-  CurrentCell.Font.Italic := True;
+  /*CurrentCell.Font.Italic := True;*/
   /*CurrentCell.Interior.Color := Color;*/
   CurrentCell.Borders.LineStyle := 1;
   i := i + 1;
@@ -153,37 +153,7 @@ CurrentCell.Borders.LineStyle := 1;
 ; %NAME% (%BATCH%) - Detail footer
 ; 
 
-; Unit price item
-RowId       := StrToNum(cList.Strings[bList.IndexOf("-1")]);
-/*TempFormula := "="+SumFormulaText+"("+RId+CId++LBr+IntToStr(-Range)+RBr":"+RId+CId+LBr+"-1"+RBr+")";*/
-TempFormula := "="+SumFormulaText+"("+RId+LBr+IntToStr(-Range)+RBr+CId+":"+RId+LBr+"-1"+RBr+CId+")";
-CurrentCell := CostSheet.Cells[RowId][ColId];
-CurrentCell.FormulaR1C1 := TempFormula;
-CurrentCell.NumberFormat := CellPriceFormat;
-CurrentCell.Font.Italic := False;
-/*CurrentCell.Interior.Color := Color;*/
-CurrentCell.Borders.LineStyle := 1;
 
-; Number of items
-RowId       := StrToNum(cList.Strings[bList.IndexOf("-2")]);
-TempValue   := "";
-CurrentCell := CostSheet.Cells[RowId][ColId];
-CurrentCell.Value := TempValue;
-CurrentCell.NumberFormat := CellTextFormat;
-CurrentCell.Font.Italic := False;
-/*CurrentCell.Interior.Color := Color;*/
-CurrentCell.Borders.LineStyle := 1;
-
-; Total price item
-RowId       := StrToNum(cList.Strings[bList.IndexOf("-3")]);
-/*TempFormula := "="+SumFormulaText+"("+RId+CId+LBr+"-2"+RBr+":"+RId+CId+LBr+"-2"+RBr+")";*/
-TempFormula := "="+SumFormulaText+"("+RId+LBr+"-2"+RBr+CId+":"+RId+LBr+"-2"+RBr+CId+")";
-CurrentCell := CostSheet.Cells[RowId][ColId];
-CurrentCell.FormulaR1C1 := TempFormula;
-CurrentCell.NumberFormat := CellPriceFormat;
-CurrentCell.Font.Italic := False;
-/*CurrentCell.Interior.Color := Color;*/
-CurrentCell.Borders.LineStyle := 1;
 
 
 

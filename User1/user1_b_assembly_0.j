@@ -41,7 +41,7 @@ Color := DataSheet.Range["CellFormat"].Interior.Color;
 
 ; Initialize prices assembly level
 i := 0;
-while (i < cList.Count) do
+while (i < cList.Count-3) do
 {
   RowId       := StrToNum(cList.Strings[i]);
   TempValue   := 0.0;

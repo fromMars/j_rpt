@@ -164,38 +164,6 @@ row_increase:=row_increase+2;
 
 
 
-; Unit price item
-RowId       := StrToNum(cList.Strings[bList.IndexOf("-1")]);
-/*TempFormula := "="+SumFormulaText+"("+RId+CId+LBr+IntToStr(-Range)+RBr+":"+RId+CId+LBr+"-1"+RBr+")";*/
-TempFormula := "="+SumFormulaText+"("+RId+LBr+IntToStr(-Range)+RBr+CId+":"+RId+LBr+"-1"+RBr+CId+")";
-CurrentCell := CostSheet.Cells[RowId+row_increase][ColId];
-CurrentCell.FormulaR1C1 := TempFormula;
-CurrentCell.NumberFormat := CellPriceFormat;
-CurrentCell.Font.Italic := False;
-CurrentCell.Interior.Color := Color;
-CurrentCell.Borders.LineStyle := 1;
-
-; Number of items
-RowId       := StrToNum(cList.Strings[bList.IndexOf("-2")]);
-TempValue   := %ASSEMBLYCOUNT%;
-CurrentCell := CostSheet.Cells[RowId+row_increase][ColId];
-CurrentCell.Value := TempValue;
-CurrentCell.NumberFormat := CellCountFormat;
-CurrentCell.Font.Italic := False;
-CurrentCell.Interior.Color := Color;
-CurrentCell.Borders.LineStyle := 1;
-
-; Total price item
-RowId       := StrToNum(cList.Strings[bList.IndexOf("-3")]);
-/*TempFormula := "="+SumFormulaText+"("+RId+CId+LBr+"-2"+RBr+":"+RId+CId+LBr+"-2"+RBr+") seems not multiplied by quantity*/
-
-TempFormula := "="+SumFormulaText+"("+RId+LBr+"-2"+RBr+CId+":"+RId+LBr+"-2"+RBr+CId+")*"+SumFormulaText+"("+RId+LBr+"-1"+RBr+CId+":"+RId+LBr+"-1"+RBr+CId+")";
-CurrentCell := CostSheet.Cells[RowId+row_increase][ColId];
-CurrentCell.FormulaR1C1 := TempFormula;
-CurrentCell.NumberFormat := CellPriceFormat;
-CurrentCell.Font.Italic := False;
-CurrentCell.Interior.Color := Color;
-CurrentCell.Borders.LineStyle := 1;
 
 
 

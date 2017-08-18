@@ -392,36 +392,7 @@ ColumnLetter := SubStr(ColumnLetter, 1, StrPos("$", ColumnLetter) - 1);*/
 bList.Add("-1");
 cList.Add(IntToStr(RowId));
 sList.Add(inttostr(RowId));
-CurrentCell := CostSheet.Cells[RowId][ColId];
-CurrentCell.Value := DataSheet.Range["ItemPrice"].Value;
-/*CurrentCell.Orientation := 90;*/
-CurrentCell.Font.Bold := True;
-/*CurrentCell.Interior.Color := Color;*/
-CurrentCell.Borders.LineStyle := 1;
-CurrentCell := CostSheet.Cells[RowId][ColCT];
-/*CurrentCell.Interior.Color := Color;*/
-CurrentCell.Borders.LineStyle := 1;
-CurrentCell := CostSheet.Cells[RowId][ColC1];
-/*CurrentCell.Interior.Color := Color;*/
-CurrentCell.Borders.LineStyle := 1;
-CurrentCell := CostSheet.Cells[RowId][ColC2];
-/*CurrentCell.Interior.Color := Color;*/
-CurrentCell.Borders.LineStyle := 1;
-CurrentCell := CostSheet.Cells[RowId][ColC7];
-/*CurrentCell.Interior.Color := Color;*/
-CurrentCell.Borders.LineStyle := 1;
-CurrentCell := CostSheet.Cells[RowId][ColC3];
-/*CurrentCell.Interior.Color := Color;*/
-CurrentCell.Borders.LineStyle := 1;
-CurrentCell := CostSheet.Cells[RowId][ColC6];
-/*CurrentCell.Interior.Color := Color;*/
-CurrentCell.Borders.LineStyle := 1;
-CurrentCell := CostSheet.Cells[RowId][ColC4];
-/*CurrentCell.Interior.Color := Color;*/
-CurrentCell.Borders.LineStyle := 1;
-CurrentCell := CostSheet.Cells[RowId][ColC5];
-/*CurrentCell.Interior.Color := Color;*/
-CurrentCell.Borders.LineStyle := 1;
+
 
 ; Column number of items
 RowId := RowId + 1;
@@ -431,36 +402,7 @@ ColumnLetter := SubStr(ColumnLetter, 1, StrPos("$", ColumnLetter) - 1);*/
 bList.Add("-2");
 cList.Add(IntToStr(RowId));
 sList.Add(inttostr(RowId));
-CurrentCell := CostSheet.Cells[RowId][ColId];
-CurrentCell.Value := DataSheet.Range["ItemCount"].Value;
-/*CurrentCell.Orientation := 90;*/
-CurrentCell.Font.Bold := True;
-/*CurrentCell.Interior.Color := Color;*/
-CurrentCell.Borders.LineStyle := 1;
-CurrentCell := CostSheet.Cells[RowId][ColCT];
-/*CurrentCell.Interior.Color := Color;*/
-CurrentCell.Borders.LineStyle := 1;
-CurrentCell := CostSheet.Cells[RowId][ColC1];
-/*CurrentCell.Interior.Color := Color;*/
-CurrentCell.Borders.LineStyle := 1;
-CurrentCell := CostSheet.Cells[RowId][ColC2];
-/*CurrentCell.Interior.Color := Color;*/
-CurrentCell.Borders.LineStyle := 1;
-CurrentCell := CostSheet.Cells[RowId][ColC7];
-/*CurrentCell.Interior.Color := Color;*/
-CurrentCell.Borders.LineStyle := 1;
-CurrentCell := CostSheet.Cells[RowId][ColC3];
-/*CurrentCell.Interior.Color := Color;*/
-CurrentCell.Borders.LineStyle := 1;
-CurrentCell := CostSheet.Cells[RowId][ColC6];
-/*CurrentCell.Interior.Color := Color;*/
-CurrentCell.Borders.LineStyle := 1;
-CurrentCell := CostSheet.Cells[RowId][ColC4];
-/*CurrentCell.Interior.Color := Color;*/
-CurrentCell.Borders.LineStyle := 1;
-CurrentCell := CostSheet.Cells[RowId][ColC5];
-/*CurrentCell.Interior.Color := Color;*/
-CurrentCell.Borders.LineStyle := 1;
+
 
 ; Column total price item
 RowId := RowId + 1;
@@ -470,33 +412,4 @@ ColumnLetter := SubStr(ColumnLetter, 1, StrPos("$", ColumnLetter) - 1);*/
 bList.Add("-3");
 cList.Add(IntToStr(RowId));
 sList.Add(inttostr(RowId));
-CurrentCell := CostSheet.Cells[RowId][ColId];
-CurrentCell.Value := DataSheet.Range["TotalPrice"].Value;
-/*CurrentCell.Orientation := 90;*/
-CurrentCell.Font.Bold := True;
-/*CurrentCell.Interior.Color := Color;*/
-CurrentCell.Borders.LineStyle := 1;
-CurrentCell := CostSheet.Cells[RowId][ColCT];
-/*CurrentCell.Interior.Color := Color;*/
-CurrentCell.Borders.LineStyle := 1;
-CurrentCell := CostSheet.Cells[RowId][ColC1];
-/*CurrentCell.Interior.Color := Color;*/
-CurrentCell.Borders.LineStyle := 1;
-CurrentCell := CostSheet.Cells[RowId][ColC2];
-/*CurrentCell.Interior.Color := Color;*/
-CurrentCell.Borders.LineStyle := 1;
-CurrentCell := CostSheet.Cells[RowId][ColC7];
-/*CurrentCell.Interior.Color := Color;*/
-CurrentCell.Borders.LineStyle := 1;
-CurrentCell := CostSheet.Cells[RowId][ColC3];
-/*CurrentCell.Interior.Color := Color;*/
-CurrentCell.Borders.LineStyle := 1;
-CurrentCell := CostSheet.Cells[RowId][ColC6];
-/*CurrentCell.Interior.Color := Color;*/
-CurrentCell.Borders.LineStyle := 1;
-CurrentCell := CostSheet.Cells[RowId][ColC4];
-/*CurrentCell.Interior.Color := Color;*/
-CurrentCell.Borders.LineStyle := 1;
-CurrentCell := CostSheet.Cells[RowId][ColC5];
-/*CurrentCell.Interior.Color := Color;*/
-CurrentCell.Borders.LineStyle := 1;
+
