@@ -60,6 +60,9 @@ CurrentCell.Borders.LineStyle := 1;
 ; 
 
 ; Total batch/project price
+
+
+
 s_index := bList.IndexOf("-3");
 
 CostSheet.Usedrange.Borders.LineStyle:=1;
@@ -69,3 +72,5 @@ if s_index <> -1 then
 CostSheet.Columns.Autofit;
 }
 
+costsheet.columns[4].delete();
+costsheet.columns[8].delete();

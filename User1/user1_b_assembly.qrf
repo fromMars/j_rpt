@@ -17,13 +17,14 @@ defines
   DB_RES_PRICE       =CFPRICE
   DB_RES_TIME        =CFTIME
   DB_RES_QUOTA       =CFQUOTA
-  DB_RES_RATIO       =CFRATIO
-  
+  DB_RES_RATIO       =CFRATIO  
+
   C_OPERATIONS       =-1
 
   C_FIXED_LOSS       =0
   C_ABSOLUTE_LOSS    =1
   C_REAL_LOSS        =2
+
 
 fields
   DSP_COST_ID      ="@%DB_COST_ID%"            DISPLAY AS LEFT(90)

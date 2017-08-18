@@ -17,6 +17,18 @@ ColId:=ColId-8;
 
 recent_rowid:=-1;
 
+
+curr_assembly:=getcurrentproject().projectdata.children[cnt-1];
+;assembly name
+curr_name:=curr_assembly.code;
+costsheet.range["chuanghao"].value:="窗号："+curr_name;
+
+;surface
+curr_width:=curr_assembly.width;
+curr_height:=curr_assembly.height;
+curr_surface:=curr_width*curr_height/1000000;
+costsheet.range["mianji"].value:=curr_surface;
+
 ; ******************************Estim Excel************************************
 ; *****************************************************************************
 ; %NAME% (%BATCH%)  b_assembly_0.j
@@ -157,7 +169,6 @@ currentcell.value:="@%DB_PIECE_WEIGHT%";
 currentcell.borders.linestyle:=1;
 
 
-
 %% break header
 ; ******************************Estim Excel************************************
 ; *****************************************************************************
@@ -188,13 +199,13 @@ CostSheet.Range[CostSheet.Cells[RowId+1][2]][CostSheet.Cells[RowId+1][3]].merge(
 CostSheet.Cells[RowId+1][2].Value:="型材损耗";
 CostSheet.Range[CostSheet.Cells[RowId+2][2]][CostSheet.Cells[RowId+2][3]].merge();
 CostSheet.Cells[RowId+2][2].Value:="型材小计";
-CostSheet.Range[CostSheet.Cells[RowId+1][4]][CostSheet.Cells[RowId+1][6]].merge();
-CostSheet.Cells[RowId+1][4].formula:="="+CellC1;
-CostSheet.Cells[RowId+1][4].NumberFormatLocal:="0.0%";
-CostSheet.Range[CostSheet.Cells[RowId+2][4]][CostSheet.Cells[RowId+2][6]].merge();
+CostSheet.Range[CostSheet.Cells[RowId+1][5]][CostSheet.Cells[RowId+1][7]].merge();
+CostSheet.Cells[RowId+1][5].formula:='='+CellC1;
+CostSheet.Cells[RowId+1][5].NumberFormatLocal:="0.0%";
+CostSheet.Range[CostSheet.Cells[RowId+2][5]][CostSheet.Cells[RowId+2][7]].merge();
 
-Formula1 := "="+SumFormulaText+"("+RId+LBr+IntToStr(recent_rowid-rowid-2)+RBr+CId+LBr+"3"+RBr+":"+RId+LBr+"-2"+RBr+CId+Lbr+"3"+RBr+")";
-CostSheet.Cells[RowId+2][4].FormulaR1C1:=Formula1;
+Formula1 := "="+SumFormulaText+"("+RId+LBr+IntToStr(recent_rowid-rowid-2)+RBr+CId+LBr+"2"+RBr+":"+RId+LBr+"-2"+RBr+CId+Lbr+"2"+RBr+")";
+CostSheet.Cells[RowId+2][5].FormulaR1C1:=Formula1;
 
 /*CostSheet.Range[costsheet.cells[RowId+1][1].address+":"+costsheet.cells[Rowid+2][1].address].merge;*/
 
