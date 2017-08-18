@@ -28,6 +28,7 @@ curr_width:=curr_assembly.width;
 curr_height:=curr_assembly.height;
 curr_surface:=curr_width*curr_height/1000000;
 costsheet.range["mianji"].value:=curr_surface;
+a_fee_row:=0;
 
 ; ******************************Estim Excel************************************
 ; *****************************************************************************
