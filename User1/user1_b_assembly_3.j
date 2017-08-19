@@ -117,16 +117,3 @@ currentcell.borders.linestyle:=1;
 ; %NAME% (%BATCH%) - Detail footer
 ; 
 
-
-
-
-
-
-
-
-
-
-
-
-
-

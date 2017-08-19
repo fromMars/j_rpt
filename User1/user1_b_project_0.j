@@ -304,7 +304,8 @@ CurrentCell.Font.Italic := %IF{%EVAL{@%DB_RES_COST%>0},False,True};
 CurrentCell.Borders.LineStyle := 1;
 
 ; Priceblock loss
-TempValue   := @%DB_RES_LOSS%/100;
+/*TempValue   := @%DB_RES_LOSS%/100;*/
+TempValue:=0;
 CurrentCell := CostSheet.Cells[RowId][ColC1];
 CurrentCell.Value := TempValue;
 CurrentCell.HorizontalAlignment := 1;
