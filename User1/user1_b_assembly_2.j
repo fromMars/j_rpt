@@ -135,7 +135,7 @@ CostSheet.Cells[tmp_rowid_increase+1][5].formula:=formula0;
 /*CostSheet.Cells[tmp_rowid_increase+1][3].NumberFormatLocal:="0.0%";*/
 /*
 CostSheet.Range[CostSheet.Cells[tmp_rowid_increase+2][5]][CostSheet.Cells[tmp_rowid_increase+2][8]].merge();
-Formula1 := "="+SumFormulaText+"("+RId+LBr+IntToStr(recent_rowid-tmp_rowid_increase-2)+RBr+CId+LBr+"2"+RBr+":"+RId+LBr+"-2"+RBr+CId+Lbr+"2"+RBr+")*"+RId+LBr+"-1"+RBr+CId;
+Formula1 := "="+SumFormulaText+"("+RId+LBr+IntToStr(recent_rowid-tmp_rowid_increase-2)+RBr+CId+LBr+"2"+RBr+":"+RId+LBr+"-2"+RBr+CId+Lbr+"2"+RBr+")*(1+"+RId+LBr+"-1"+RBr+CId+")";
 CostSheet.Cells[tmp_rowid_increase+2][5].FormulaR1C1:=Formula1;*/
 
 CostSheet.Range[CostSheet.Cells[RowId+1][1]][CostSheet.Cells[RowId+1][8]].Interior.Color:=14935011;
