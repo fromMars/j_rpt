@@ -59,6 +59,8 @@ else
 	goto generalerror;
 }
 
+curr_sheet.range["ProjectName"].value:=" ¹¤³ÌÃû³Æ£º%DSP_PIECE_PROJECT%";
+
 first_row:=curr_sheet.range["ProfList"];
 rowid:=first_row.row;
 init_rowid:=rowid;
