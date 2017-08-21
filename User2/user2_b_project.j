@@ -64,6 +64,9 @@ curr_sheet.range["ProjectName"].value:=" ¹¤³ÌÃû³Æ£º%DSP_PIECE_PROJECT%";
 first_row:=curr_sheet.range["ProfList"];
 rowid:=first_row.row;
 init_rowid:=rowid;
+
+seperated_profile:=profiles.create();
+
 ;-------------------------------------------------------------------------------
 %%detail
 ;-------------------------------------------------------------------------------
@@ -90,16 +93,53 @@ curr_cell.value:="=@%DB_PIECE_LOPT%/1000";
 curr_cell:=curr_sheet.cells[rowid][6];
 curr_cell.value:=%DSP_PIECE_FACTOR%;
 
-/*
-curr_cell:=curr_sheet.cells[rowid]8];
-curr_cell.value:=rowid-init_rowid-1;
 
-curr_cell:=curr_sheet.cells[rowid][9];
-curr_cell.value:=rowid-init_rowid-1;*/
+seperated_profile.code.system:="@%DB_PIECE_SYSTEM%";
+seperated_profile.code.profile:="@%DB_PIECE_PROFILE%";
+inside_profile:="";
+outside_profile:="";
 
+if !seperated_profile.find() then
+	msgbox("profile not found in profile.db!");
+else
+{
+	seperated_cnt:=0;
+	while seperated_cnt<5 do
+	{
+		if seperated_profile.accessories[seperated_cnt].colour=2 then
+			inside_profile:=seperated_profile.accessories[seperated_cnt].code.code;
+		else if seperated_profile.accessories[seperated_cnt].colour=1 then
+			outside_profile:=seperated_profile.accessories[seperated_cnt].code.code;
+		seperated_cnt:=seperated_cnt+1;
+	}
+}
+
+
+
+if "@%DB_PIECE_INSIDE%"<>"" && "@%DB_PIECE_OUTSIDE%"<>"" then
+{
+	curr_cell:=curr_sheet.cells[rowid][8];
+	curr_cell.value:=inside_profile;
+	curr_cell:=curr_sheet.cells[rowid+1][8];
+	curr_cell.value:="@%DB_PIECE_INSIDE%";
+	
+	curr_cell:=curr_sheet.cells[rowid][9];
+	curr_cell.value:=outside_profile;
+	curr_cell:=curr_sheet.cells[rowid+1][9];
+	curr_cell.value:="@%DB_PIECE_OUTSIDE%";
+}
+else
+{
+	curr_sheet.range[curr_sheet.cells[rowid][8]][curr_sheet.cells[rowid+1][9]].merge();
+	curr_cell:=curr_sheet.cells[rowid][8].value:="%DSP_PIECE_SERIE%";
+}
 
 ;-------------------------------------------------------------------------------
 %% detail footer
 ;-------------------------------------------------------------------------------
 
+curr_sheet.range[curr_sheet.cells[init_rowid][10]][curr_sheet.cells[rowid][10]].merge();
 curr_sheet.usedrange.rows[""+inttostr(init_rowid)+":"+inttostr(rowid)].borders.linestyle:=1;
+
+
+

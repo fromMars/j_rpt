@@ -1,0 +1,5 @@
+a:=profiles.create();
+a.code.system:="ES61";
+a.code.profile:="111";
+b:=a.find();
+msgbox(a.accessories[2].code.code);
