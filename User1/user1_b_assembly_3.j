@@ -92,10 +92,12 @@ currentcell.borders.linestyle:=1;
 ;quantity per surface
 wps_colid:=colid-2;
 currentcell:=costsheet.cells[rowid+row_increase][wps_colid];
-if @%DB_COST_FRAME%<>1 then
+/*if @%DB_COST_FRAME%<>1 then*/
+if @%DB_COST_ARTICLE%<>194 && @%DB_COST_ARTICLE%<>195 && @%DB_COST_ARTICLE%<>196 then
 	currentcell.formulaR1C1:="=@%DB_COST_FRAME%/mianji";
 else
 	currentcell.formulaR1C1:="=@%DB_COST_FRAME%";
+
 currentcell.borders.linestyle:=1;
 
 
@@ -114,6 +116,5 @@ currentcell.borders.linestyle:=1;
 %% detail footer
 ; ******************************Estim Excel************************************
 ; *****************************************************************************
-; %NAME% (%BATCH%) - Detail footer
-; 
+; %[3].FormulaR1C1:=Formula1;
 

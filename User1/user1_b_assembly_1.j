@@ -124,6 +124,7 @@ CostSheet.Range[CostSheet.Cells[tmp_rowid_increase+1][1]][CostSheet.Cells[tmp_ro
 CostSheet.Cells[tmp_rowid_increase+1][1].Value:="小计";
 CostSheet.Range[CostSheet.Cells[tmp_rowid_increase+1][2]][CostSheet.Cells[tmp_rowid_increase+1][3]].merge();
 CostSheet.Cells[tmp_rowid_increase+1][2].Value:="附件损耗";
+CostSheet.Cells[tmp_rowid_increase+2][2].Value:="附件小计";
 CostSheet.Range[CostSheet.Cells[tmp_rowid_increase+2][2]][CostSheet.Cells[tmp_rowid_increase+2][3]].merge();
 CostSheet.Range[CostSheet.Cells[tmp_rowid_increase+1][5]][CostSheet.Cells[tmp_rowid_increase+1][8]].merge();
 CostSheet.Cells[tmp_rowid_increase+1][5].formula:='=Indirect("Cost!"&address('+sList.Strings[cList.IndexOf(IntToStr(RowId))]+","+IntToStr(ColC1)+"))";
@@ -138,5 +139,5 @@ row_increase:=row_increase+2;
 /*
 CostSheet.Range[costsheet.cells[RowId+1][1]][costsheet.cells[Rowid+2][1]].merge;*/
 
-CostSheet.Range[CostSheet.Cells[RowId+1][1]][CostSheet.Cells[RowId+1][8]].Interior.Color:=14935011;
-CostSheet.Range[CostSheet.Cells[RowId+2][1]][CostSheet.Cells[RowId+2][8]].Interior.Color:=14935011;
+CostSheet.Range[CostSheet.Cells[tmp_rowid_increase+1][1]][CostSheet.Cells[tmp_rowid_increase+1][8]].Interior.Color:=14935011;
+CostSheet.Range[CostSheet.Cells[tmp_rowid_increase+2][1]][CostSheet.Cells[tmp_rowid_increase+2][8]].Interior.Color:=14935011;
