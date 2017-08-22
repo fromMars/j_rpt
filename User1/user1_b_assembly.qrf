@@ -62,7 +62,7 @@ report
            %DB_COST_RATIO%,
            sum(%DB_COST_PRICE%) as %DB_RES_PRICE%,
            min(trim(%DB_COST_PROJECT%)||"*"||trim(%DB_COST_ASSEMBLY%)) as %DB_COST_ID%,
-		sum(%DB_COST_FACTOR%) as %DB_COST_FRAME%,
+		sum(%DB_COST_FACTOR%) as COST_QUANTITY,
 		min(%DB_COST_SUPPLIER%) as %DB_COST_SUPPLIER%
   from     %TBL_COST%
   where    %DB_COST_PROJECT%  = "%PROJECT_TEXT%"
@@ -87,7 +87,7 @@ report
            %DB_COST_RATIO%,
            sum(%DB_COST_PRICE%) as %DB_RES_PRICE%,
            min(trim(%DB_COST_PROJECT%)||"*"||trim(%DB_COST_ASSEMBLY%)) as %DB_COST_ID%,
-		sum(%DB_COST_FACTOR%) as %DB_COST_FRAME%,
+		sum(%DB_COST_FACTOR%) as COST_QUANTITY,
 		min(%DB_COST_SUPPLIER%) as %DB_COST_SUPPLIER%
   from     %TBL_COST%
   where    %DB_COST_PROJECT%  = "%PROJECT_TEXT%"
@@ -110,7 +110,7 @@ report
            %DB_COST_RATIO%,
            sum(%DB_COST_PRICE%) as %DB_RES_PRICE%,
            min(trim(%DB_COST_PROJECT%)||"*"||trim(%DB_COST_ASSEMBLY%)) as %DB_COST_ID%,
-		sum(%DB_COST_FACTOR%) as %DB_COST_FRAME%,
+		sum(%DB_COST_FACTOR%) as COST_QUANTITY,
 		min(%DB_COST_SUPPLIER%) as %DB_COST_SUPPLIER%
   from     %TBL_COST%
   where    %DB_COST_PROJECT%  = "%PROJECT_TEXT%"

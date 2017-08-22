@@ -81,7 +81,7 @@ if u_recent_value<>0 then
 }
 else
 {
-	tot_formula:="="+RId+LBr+inttostr(0)+RBr+CId+Lbr+"1"+RBr+"/@%DB_COST_FRAME%";
+	tot_formula:="="+RId+LBr+inttostr(0)+RBr+CId+Lbr+"1"+RBr+"/@COST_QUANTITY";
 	currentcell.formulaR1C1:=tot_formula;
 }
 currentcell.borders.linestyle:=1;
@@ -89,10 +89,10 @@ currentcell.borders.linestyle:=1;
 ;quantity per surface
 wps_colid:=colid-2;
 currentcell:=costsheet.cells[rowid+row_increase][wps_colid];
-if @%DB_COST_FRAME%<>1 then
-	currentcell.formulaR1C1:="=@%DB_COST_FRAME%/mianji";
+if @COST_QUANTITY<>1 then
+	currentcell.formulaR1C1:="=@COST_QUANTITY/mianji";
 else
-	currentcell.formulaR1C1:="=@%DB_COST_FRAME%";
+	currentcell.formulaR1C1:="=@COST_QUANTITY";
 currentcell.borders.linestyle:=1;
 
 
