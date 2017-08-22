@@ -69,6 +69,7 @@ report
   and      %DB_COST_ARTICLE% != %C_OPERATIONS%
   and 		%DB_COST_ARTICLE% not in (select distinct(%DB_PIECE_ARTICLE%) from %TBL_PIECE%)
   and		%DB_COST_ARTICLE% < 100
+  and		%DB_COST_ARTICLE% > 20
   and      (%DB_COST_ASSEMBLY% = "%ASSEMBLY_TEXT%" or %DB_COST_ASSEMBLY%="") 
   group by %DB_COST_ARTICLE%, %DB_COST_LOSSTYPE%, %DB_COST_RATION%, %DB_COST_FACTOR%, %DB_COST_RATIO%
   having   count(*) > 0
