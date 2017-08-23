@@ -138,8 +138,12 @@ else
 %% detail footer
 ;-------------------------------------------------------------------------------
 
+if %GLOBAL_PRICE_PROFILE%=1 then
+	curr_sheet.cells[init_rowid][10].value:="易菲特隔热条"+chr(10)+"超高精级";
+else
+	curr_sheet.cells[init_rowid][10].value:="泰诺风隔热条"+chr(10)+"超高精级";
 curr_sheet.range[curr_sheet.cells[init_rowid][10]][curr_sheet.cells[rowid][10]].merge();
-curr_sheet.usedrange.rows[""+inttostr(init_rowid)+":"+inttostr(rowid)].borders.linestyle:=1;
+curr_sheet.usedrange.rows[""+inttostr(init_rowid)+":"+inttostr(rowid+1)].borders.linestyle:=1;
 
 
 
