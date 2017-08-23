@@ -1,6 +1,6 @@
 
 costsheet.columns[4].delete();
-costsheet.columns[8].delete();
+costsheet.range[costsheet.columns[8]][costsheet.columns[16]].delete();
 
 s_index := bList.IndexOf("-3");
 
