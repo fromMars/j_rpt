@@ -35,6 +35,7 @@ a_fee_row:=0;
 ; %NAME% (%BATCH%)  b_assembly_0.j
 ; 
 
+colid:=6;
 Count := Count + 1;
 ColId := ColId + 1;
 Color := DataSheet.Range["CellFormat"].Interior.Color;
@@ -47,6 +48,8 @@ while (i < cList.Count-3) do
   TempValue   := 0.0;
   CurrentCell := CostSheet.Cells[RowId][ColId];
   CurrentCell.Value := TempValue;
+  CurrentCell1 := CostSheet.Cells[RowId][ColId-1];
+  CurrentCell1.Value := TempValue;
   CurrentCell0 := CostSheet.Cells[RowId][ColId-2];
   CurrentCell0.Value := TempValue;
   /*CurrentCell.NumberFormat := CellPriceFormat;*/

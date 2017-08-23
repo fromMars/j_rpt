@@ -413,3 +413,9 @@ ColumnLetter := SubStr(ColumnLetter, 1, StrPos("$", ColumnLetter) - 1);*/
 bList.Add("-3");
 cList.Add(IntToStr(RowId));
 sList.Add(inttostr(RowId));
+
+
+
+recent_count:=count;
+recent_colid:=colid;
+recent_cost_sheet:=CostSheet;

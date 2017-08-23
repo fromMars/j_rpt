@@ -41,11 +41,35 @@ report
            min(trim(%DB_COST_PROJECT%)||"*"||trim(%DB_COST_ASSEMBLY%)) as %DB_COST_ID%
   from     %TBL_COST%
   where    %DB_COST_PROJECT%  = "%PROJECT_TEXT%"
-  and      %DB_COST_ASSEMBLY% = "%ASSEMBLY_TEXT%"
+  and      (%DB_COST_ASSEMBLY% = "%ASSEMBLY_TEXT%" or %DB_COST_ASSEMBLY%="")
   and      %DB_COST_FRAME%    = ""
   and      %DB_COST_ARTICLE% != %C_OPERATIONS%
   and      ((%DB_COST_PRICE% <> 0) or (%DB_COST_TIME% <> 0))
   group by %DB_COST_ARTICLE%, %DB_COST_LOSSTYPE%, %DB_COST_RATION%, %DB_COST_FACTOR%, %DB_COST_RATIO%
-  having   count(*) > 0
+  having count(*)>0
 
 using %REPORTNAME%_E_ASSEMBLY.%REPORTTYPE%%IF{%REPORTTYPE%=J,,%LANGUAGE%}
+
+
+next
+
+;when retrieves 0 items, apply formatting
+report
+  select   %DB_COST_ARTICLE%,
+           %DB_COST_LOSSTYPE%,
+           %DB_COST_RATION%,
+           %DB_COST_FACTOR%,
+           %DB_COST_RATIO%,
+           sum(%DB_COST_PRICE%) as %DB_RES_PRICE%,
+           min(trim(%DB_COST_PROJECT%)||"*"||trim(%DB_COST_ASSEMBLY%)) as %DB_COST_ID%
+  from     %TBL_COST%
+  where    %DB_COST_PROJECT%  = "%PROJECT_TEXT%"
+  and      (%DB_COST_ASSEMBLY% = "%ASSEMBLY_TEXT%" or %DB_COST_ASSEMBLY%="")
+  and      %DB_COST_FRAME%    = ""
+  and      %DB_COST_ARTICLE% != %C_OPERATIONS%
+  and      ((%DB_COST_PRICE% <> 0) or (%DB_COST_TIME% <> 0))
+  group by %DB_COST_ARTICLE%, %DB_COST_LOSSTYPE%, %DB_COST_RATION%, %DB_COST_FACTOR%, %DB_COST_RATIO%
+
+
+using %REPORTNAME%_E_ASSEMBLY_0.%REPORTTYPE%%IF{%REPORTTYPE%=J,,%LANGUAGE%}
+

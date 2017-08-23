@@ -107,7 +107,7 @@ CurrentCell.Borders.LineStyle := 1;
 
 ; Total batch/project price
 
-
+/*
 
 costsheet.columns[4].delete();
 costsheet.columns[8].delete();
@@ -121,3 +121,4 @@ if s_index <> -1 then
 {
 CostSheet.Columns.Autofit;
 }
+*/
