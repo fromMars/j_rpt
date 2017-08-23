@@ -30,6 +30,12 @@ curr_surface:=curr_width*curr_height/1000000;
 costsheet.range["mianji"].value:=curr_surface;
 a_fee_row:=0;
 
+/*used to calculate A*/
+RowId_0:=0;
+RowId_1:=0;
+RowId_2:=0;
+RowId_A:=0;
+
 ; ******************************Estim Excel************************************
 ; *****************************************************************************
 ; %NAME% (%BATCH%)  b_assembly_0.j
@@ -58,6 +64,10 @@ while (i < cList.Count-3) do
   CurrentCell.Borders.LineStyle := 1;
   i := i + 1;
 };
+
+/*calculate follow artikels, recent_profile_value-recent TempValue[string],tmp_tmp_value-current TempValue[string]*/
+recent_profile_value:="0";
+tmp_tmp_value:="0";
 
 %% detail
 ; ******************************Estim Excel************************************
@@ -141,8 +151,9 @@ if (StrToNum(StrReplace(pList.Strings[cList.IndexOf(IntToStr(RowId))],"%DECIMALS
   TempValue   := StrReplace("@%DB_PIECE_PRICE%/%ASSEMBLYCOUNT%",".","%DECIMALSEP%");
   if @%DB_PIECE_ARTICLE%=18 || @%DB_PIECE_ARTICLE%=8 ||@%DB_PIECE_ARTICLE%=9 || @%DB_PIECE_ARTICLE%=10 then
   {
-	curr_profile_value:=currentcell.value;
-	TempFormula := "=((((((((("+TempValue+")*("+CellCT+"))*(1+"+CellC1+"))*(1-"+CellC2+"))*"+CellC7+")*"+CellC3+")*(1+"+CellC6+"))*(1+"+CellC4+"))*(1-"+CellC5+"))+"+numtostr(curr_profile_value);
+	tmp_tmp_value:=tempvalue;
+	curr_profile_value:="((((((((("+recent_profile_value+")*("+CellCT+"))*(1+"+CellC1+"))*(1-"+CellC2+"))*"+CellC7+")*"+CellC3+")*(1+"+CellC6+"))*(1+"+CellC4+"))*(1-"+CellC5+"))";
+	TempFormula := "=((((((((("+TempValue+")*("+CellCT+"))*(1+"+CellC1+"))*(1-"+CellC2+"))*"+CellC7+")*"+CellC3+")*(1+"+CellC6+"))*(1+"+CellC4+"))*(1-"+CellC5+"))+"+curr_profile_value;
   }
   else
   {
@@ -163,8 +174,9 @@ else
 
   if @%DB_PIECE_ARTICLE%=19 || @%DB_PIECE_ARTICLE%=18 || @%DB_PIECE_ARTICLE%=8 ||@%DB_PIECE_ARTICLE%=9 || @%DB_PIECE_ARTICLE%=10 then
   {
-	curr_profile_value:=currentcell.value;
-	TempFormula := "=(((((((("+TempValue+")*(1+"+CellC1+"))*(1-"+CellC2+"))*"+CellC7+")*"+CellC3+")*(1+"+CellC6+"))*(1+"+CellC4+"))*(1-"+CellC5+"))+"+numtostr(curr_profile_value);
+	tmp_tmp_value:=tempvalue;
+	curr_profile_value:="(((((((("+recent_profile_value+")*(1+"+CellC1+"))*(1-"+CellC2+"))*"+CellC7+")*"+CellC3+")*(1+"+CellC6+"))*(1+"+CellC4+"))*(1-"+CellC5+"))";
+	TempFormula := "=(((((((("+TempValue+")*(1+"+CellC1+"))*(1-"+CellC2+"))*"+CellC7+")*"+CellC3+")*(1+"+CellC6+"))*(1+"+CellC4+"))*(1-"+CellC5+"))+"+curr_profile_value;
   }
   else
   {
@@ -240,8 +252,9 @@ else
 }
 currentcell.borders.linestyle:=1;
 
-
-
+/*calculate follow artikels*/
+recent_profile_value:=tmp_tmp_value;
+tmp_tmp_value:="0";
 
 %% break header
 ; ******************************Estim Excel************************************
@@ -274,7 +287,10 @@ CostSheet.Cells[RowId+1][2].Value:="型材损耗";
 CostSheet.Range[CostSheet.Cells[RowId+2][2]][CostSheet.Cells[RowId+2][3]].merge();
 CostSheet.Cells[RowId+2][2].Value:="型材小计";
 CostSheet.Range[CostSheet.Cells[RowId+1][5]][CostSheet.Cells[RowId+1][8]].merge();
-CostSheet.Cells[RowId+1][5].formula:='='+CellC1;
+
+/*CostSheet.Cells[RowId+1][5].formula:='='+CellC1;*/
+CostSheet.Cells[RowId+1][5].value:=0;
+
 CostSheet.Cells[RowId+1][5].NumberFormatLocal:="0.0%";
 CostSheet.Range[CostSheet.Cells[RowId+2][5]][CostSheet.Cells[RowId+2][8]].merge();
 
@@ -286,6 +302,6 @@ CostSheet.Cells[RowId+2][5].FormulaR1C1:=Formula1;
 CostSheet.Range[CostSheet.Cells[RowId+1][1]][CostSheet.Cells[RowId+1][8]].Interior.Color:=14935011;
 CostSheet.Range[CostSheet.Cells[RowId+2][1]][CostSheet.Cells[RowId+2][8]].Interior.Color:=14935011;
 
-
+Rowid_0:=RowId+2;
 
 

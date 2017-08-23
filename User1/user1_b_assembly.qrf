@@ -116,6 +116,28 @@ report
   where    %DB_COST_PROJECT%  = "%PROJECT_TEXT%"
   and      %DB_COST_ARTICLE% != %C_OPERATIONS%
   and 		%DB_COST_ARTICLE% not in (select distinct(%DB_PIECE_ARTICLE%) from %TBL_PIECE%)
+  and 		%DB_COST_ARTICLE% > 900
+  and      (%DB_COST_ASSEMBLY% = "%ASSEMBLY_TEXT%" or %DB_COST_ASSEMBLY%="") 
+  group by %DB_COST_ARTICLE%, %DB_COST_LOSSTYPE%, %DB_COST_RATION%, %DB_COST_FACTOR%, %DB_COST_RATIO%
+
+using %REPORTNAME%_B_ASSEMBLY_2_0.%REPORTTYPE%%IF{%REPORTTYPE%=J,,%LANGUAGE%}
+
+
+next
+report
+  select   %DB_COST_ARTICLE%,
+           %DB_COST_LOSSTYPE%,
+           %DB_COST_RATION%,
+	   %DB_COST_FACTOR%,
+           %DB_COST_RATIO%,
+           sum(%DB_COST_PRICE%) as %DB_RES_PRICE%,
+           min(trim(%DB_COST_PROJECT%)||"*"||trim(%DB_COST_ASSEMBLY%)) as %DB_COST_ID%,
+		sum(%DB_COST_FACTOR%) as COST_QUANTITY,
+		min(%DB_COST_SUPPLIER%) as %DB_COST_SUPPLIER%
+  from     %TBL_COST%
+  where    %DB_COST_PROJECT%  = "%PROJECT_TEXT%"
+  and      %DB_COST_ARTICLE% != %C_OPERATIONS%
+  and 		%DB_COST_ARTICLE% not in (select distinct(%DB_PIECE_ARTICLE%) from %TBL_PIECE%)
   and 		%DB_COST_ARTICLE% between 100 and 900
   and      (%DB_COST_ASSEMBLY% = "%ASSEMBLY_TEXT%" or %DB_COST_ASSEMBLY%="") 
   group by %DB_COST_ARTICLE%, %DB_COST_LOSSTYPE%, %DB_COST_RATION%, %DB_COST_FACTOR%, %DB_COST_RATIO%

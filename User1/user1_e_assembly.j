@@ -29,13 +29,13 @@ CostSheet.Range[CostSheet.Cells[tmp_rowid_increase+2][3]][CostSheet.Cells[tmp_ro
 /*
 Formula1 := "="+SumFormulaText+"("+RId+LBr+IntToStr(recent_rowid-tmp_rowid_increase-2)+RBr+CId+LBr+"2"+RBr+":"+RId+LBr+"-2"+RBr+CId+Lbr+"2"+RBr+")";*/
 
-if a_fee_row=0 then
+if RowId_A=0 then
 {
 	Formula1 := "="+SumFormulaText+"(0,"+RId+LBr+"-1"+RBr+CId+Lbr+"0"+RBr+")";
 }
 else
 {
-	Formula1 := "="+SumFormulaText+"("+RId+LBr+inttostr(tmp_rowid_increase+2-a_fee_row-1)+RBr+Cid+","+RId+LBr+"-1"+RBr+CId+Lbr+"0"+RBr+")";
+	Formula1 := "="+SumFormulaText+"("+RId+LBr+inttostr(-(tmp_rowid_increase+2-RowId_A))+RBr+Cid+","+RId+LBr+"-1"+RBr+CId+Lbr+"0"+RBr+")";
 }
 CostSheet.Cells[tmp_rowid_increase+2][3].FormulaR1C1:=Formula1;
 

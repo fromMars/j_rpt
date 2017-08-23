@@ -120,28 +120,37 @@ excel.Selection.EntireRow.Insert();
 
 tmp_rowid_increase:=RowId+row_increase;
 
-/*
-CostSheet.Range[CostSheet.Cells[tmp_rowid_increase+1][1]][CostSheet.Cells[tmp_rowid_increase+2][1]].merge();*/
-CostSheet.Cells[tmp_rowid_increase+1][1].Value:="A";
+
+CostSheet.Range[CostSheet.Cells[tmp_rowid_increase+1][1]][CostSheet.Cells[tmp_rowid_increase+2][1]].merge();
+/*CostSheet.Cells[tmp_rowid_increase+1][1].Value:="A";*/
 CostSheet.Range[CostSheet.Cells[tmp_rowid_increase+1][2]][CostSheet.Cells[tmp_rowid_increase+1][3]].merge();
-CostSheet.Cells[tmp_rowid_increase+1][2].Value:="材料费小计";
-/*
-CostSheet.Range[CostSheet.Cells[tmp_rowid_increase+2][2]][CostSheet.Cells[tmp_rowid_increase+2][3]].merge();*/
+/*CostSheet.Cells[tmp_rowid_increase+1][2].Value:="材料费小计";*/
 
-CostSheet.Range[CostSheet.Cells[tmp_rowid_increase+1][3]][CostSheet.Cells[tmp_rowid_increase+1][8]].merge();
-Formula0 := "="+SumFormulaText+"("+RId+LBr+IntToStr(recent_rowid-tmp_rowid_increase-1)+RBr+CId+LBr+"4"+RBr+":"+RId+LBr+"-1"+RBr+CId+Lbr+"4"+RBr+")";
-CostSheet.Cells[tmp_rowid_increase+1][5].formula:=formula0;
+CostSheet.Cells[tmp_rowid_increase+1][2].Value:="材料损耗";
+CostSheet.Cells[tmp_rowid_increase+2][2].Value:="材料小计";
 
-/*CostSheet.Cells[tmp_rowid_increase+1][3].NumberFormatLocal:="0.0%";*/
-/*
+CostSheet.Range[CostSheet.Cells[tmp_rowid_increase+2][2]][CostSheet.Cells[tmp_rowid_increase+2][3]].merge();
+
+CostSheet.Range[CostSheet.Cells[tmp_rowid_increase+1][5]][CostSheet.Cells[tmp_rowid_increase+1][8]].merge();
+
+/*Formula0 := "="+SumFormulaText+"("+RId+LBr+IntToStr(recent_rowid-tmp_rowid_increase-1)+RBr+CId+LBr+"4"+RBr+":"+RId+LBr+"-1"+RBr+CId+Lbr+"4"+RBr+")";
+CostSheet.Cells[tmp_rowid_increase+1][5].formula:=formula0;*/
+
+CostSheet.Cells[tmp_rowid_increase+1][5].value:=0;
+CostSheet.Cells[tmp_rowid_increase+1][5].NumberFormatLocal:="0.0%";
+
+
 CostSheet.Range[CostSheet.Cells[tmp_rowid_increase+2][5]][CostSheet.Cells[tmp_rowid_increase+2][8]].merge();
 Formula1 := "="+SumFormulaText+"("+RId+LBr+IntToStr(recent_rowid-tmp_rowid_increase-2)+RBr+CId+LBr+"2"+RBr+":"+RId+LBr+"-2"+RBr+CId+Lbr+"2"+RBr+")*(1+"+RId+LBr+"-1"+RBr+CId+")";
-CostSheet.Cells[tmp_rowid_increase+2][5].FormulaR1C1:=Formula1;*/
+CostSheet.Cells[tmp_rowid_increase+2][5].FormulaR1C1:=Formula1;
 
 CostSheet.Range[CostSheet.Cells[RowId+1][1]][CostSheet.Cells[RowId+1][8]].Interior.Color:=14935011;
 CostSheet.Range[CostSheet.Cells[RowId+2][1]][CostSheet.Cells[RowId+2][8]].Interior.Color:=14935011;
 
 
+RowId_2:=tmp_rowid_increase+2;
+
+/*
 a_fee_row:=tmp_rowid_increase+1;
 row_increase:=row_increase+1;
-
+*/

@@ -33,7 +33,7 @@ defines
   M_COST_TIME       = (%DB_COST_TIME%*%DB_COST_CURRENCY%)
 
   ESTIMATION_TEMPLATE=baojia
-  ALLOW_COST_RATES=0
+  ALLOW_COST_RATES=1
 
 fields
   DSP_COST_ID      ="@%DB_COST_ID%"            DISPLAY AS LEFT(90)
