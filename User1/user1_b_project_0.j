@@ -261,6 +261,7 @@ CurrentCell := CostSheet.Cells[RowId][ColC5];
 CurrentCell.Borders.LineStyle := 1;
 
 
+
 %% detail
 ; ******************************Estim Excel************************************
 ; *****************************************************************************
@@ -294,7 +295,7 @@ CurrentCell.Font.Bold := True;
 CurrentCell.Borders.LineStyle := 1;
 
 ; Priceblock cost
-TempValue   := %IF{%EVAL{@%DB_RES_COST%>0},@%DB_RES_COST%,0};
+TempValue   := %IF{%EVAL{%ALLOW_COST_RATES%=1},%IF{%EVAL{@%DB_RES_COST%>0},@%DB_RES_COST%,0},0};
 CurrentCell := CostSheet.Cells[RowId][ColCT];
 CurrentCell.Value := TempValue;
 CurrentCell.HorizontalAlignment := 1;
@@ -304,8 +305,7 @@ CurrentCell.Font.Italic := %IF{%EVAL{@%DB_RES_COST%>0},False,True};
 CurrentCell.Borders.LineStyle := 1;
 
 ; Priceblock loss
-/*TempValue   := @%DB_RES_LOSS%/100;*/
-TempValue:=0;
+TempValue   := %IF{%EVAL{%ALLOW_COST_RATES%=1},@%DB_RES_LOSS%/100,0};
 CurrentCell := CostSheet.Cells[RowId][ColC1];
 CurrentCell.Value := TempValue;
 CurrentCell.HorizontalAlignment := 1;
@@ -314,7 +314,7 @@ CurrentCell.NumberFormat := CellPercentFormat;
 CurrentCell.Borders.LineStyle := 1;
 
 ; Priceblock discount
-TempValue   := @%DB_RES_DISCOUNT%/100;
+TempValue   := %IF{%EVAL{%ALLOW_COST_RATES%=1},@%DB_RES_DISCOUNT%/100,0};
 CurrentCell := CostSheet.Cells[RowId][ColC2];
 CurrentCell.Value := TempValue;
 CurrentCell.HorizontalAlignment := 1;
@@ -323,7 +323,7 @@ CurrentCell.NumberFormat := CellPercentFormat;
 CurrentCell.Borders.LineStyle := 1;
 
 ; Priceblock system
-TempValue   := @%DB_COST_RATION%;
+TempValue   := %IF{%EVAL{%ALLOW_COST_RATES%=1},@%DB_COST_RATION%,1};
 CurrentCell := CostSheet.Cells[RowId][ColC7];
 CurrentCell.Value := TempValue;
 CurrentCell.HorizontalAlignment := 1;
@@ -332,7 +332,7 @@ CurrentCell.NumberFormat := CellFactorFormat;
 CurrentCell.Borders.LineStyle := 1;
 
 ; Priceblock factor
-TempValue   := @%DB_COST_FACTOR%;
+TempValue   := %IF{%EVAL{%ALLOW_COST_RATES%=1},@%DB_COST_FACTOR%,1};
 CurrentCell := CostSheet.Cells[RowId][ColC3];
 CurrentCell.Value := TempValue;
 CurrentCell.HorizontalAlignment := 1;
@@ -341,7 +341,7 @@ CurrentCell.NumberFormat := CellFactorFormat;
 CurrentCell.Borders.LineStyle := 1;
 
 ; Priceblock charge
-TempValue   := @%DB_RES_CHARGE%/100;
+TempValue   := %IF{%EVAL{%ALLOW_COST_RATES%=1},@%DB_RES_CHARGE%/100,0};
 CurrentCell := CostSheet.Cells[RowId][ColC6];
 CurrentCell.Value := TempValue;
 CurrentCell.HorizontalAlignment := 1;
@@ -350,7 +350,7 @@ CurrentCell.NumberFormat := CellPercentFormat;
 CurrentCell.Borders.LineStyle := 1;
 
 ; Priceblock profit
-TempValue   := @%DB_RES_PROFIT%/100;
+TempValue   := %IF{%EVAL{%ALLOW_COST_RATES%=1},@%DB_RES_PROFIT%/100,0};
 CurrentCell := CostSheet.Cells[RowId][ColC4];
 CurrentCell.Value := TempValue;
 CurrentCell.HorizontalAlignment := 1;
@@ -359,7 +359,7 @@ CurrentCell.NumberFormat := CellPercentFormat;
 CurrentCell.Borders.LineStyle := 1;
 
 ; Priceblock rebate
-TempValue   := @%DB_RES_REFUND%/100;
+TempValue   := %IF{%EVAL{%ALLOW_COST_RATES%=1},@%DB_RES_REFUND%/100,0};
 CurrentCell := CostSheet.Cells[RowId][ColC5];
 CurrentCell.Value := TempValue;
 CurrentCell.HorizontalAlignment := 1;
