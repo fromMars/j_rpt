@@ -45,6 +45,8 @@ CostSheet.Range[CostSheet.Cells[tmp_rowid_increase+1][2]][CostSheet.Cells[tmp_ro
 CostSheet.Cells[tmp_rowid_increase+1][2].Value:="材料费小计";
 
 CostSheet.Range[CostSheet.Cells[tmp_rowid_increase+1][3]][CostSheet.Cells[tmp_rowid_increase+1][8]].merge();
+CostSheet.Cells[tmp_rowid_increase+1][3].NumberFormat:=CellPriceFormat;
+
 
 s0:=RId+LBr+IntToStr(RowId_0-tmp_rowid_increase-1)+RBr+CId+LBr+"2"+RBr;
 s1:=RId+LBr+IntToStr(RowId_1-tmp_rowid_increase-1)+RBr+CId+LBr+"2"+RBr;
@@ -58,7 +60,7 @@ if RowId_2=0 then
 
 
 Formula0 := "="+SumFormulaText+"("+s0+","+s1+","+s2+")";
-CostSheet.Cells[tmp_rowid_increase+1][3].formulaR1C1:=formula0;
+CostSheet.Cells[tmp_rowid_increase+1][3].FormulaR1C1:=Formula0;
 
 /*
 CostSheet.Range[CostSheet.Cells[RowId+1][1]][CostSheet.Cells[RowId+1][8]].Interior.Color:=14935011;*/
