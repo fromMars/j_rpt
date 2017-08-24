@@ -122,17 +122,19 @@ tmp_rowid_increase:=RowId+row_increase;
 
 CostSheet.Range[CostSheet.Cells[tmp_rowid_increase+1][1]][CostSheet.Cells[tmp_rowid_increase+2][1]].merge();
 CostSheet.Cells[tmp_rowid_increase+1][1].Value:="小计";
+costsheet.cells[tmp_rowid_increase+1][1].VerticalAlignment:=-4108;
+costsheet.cells[tmp_rowid_increase+1][1].HorizontalAlignment:=-4108;
 CostSheet.Range[CostSheet.Cells[tmp_rowid_increase+1][2]][CostSheet.Cells[tmp_rowid_increase+1][3]].merge();
 CostSheet.Cells[tmp_rowid_increase+1][2].Value:="附件损耗";
 CostSheet.Cells[tmp_rowid_increase+2][2].Value:="附件小计";
 CostSheet.Range[CostSheet.Cells[tmp_rowid_increase+2][2]][CostSheet.Cells[tmp_rowid_increase+2][3]].merge();
-CostSheet.Range[CostSheet.Cells[tmp_rowid_increase+1][5]][CostSheet.Cells[tmp_rowid_increase+1][8]].merge();
+CostSheet.Range[CostSheet.Cells[tmp_rowid_increase+1][5]][CostSheet.Cells[tmp_rowid_increase+1][7]].merge();
 
 /*CostSheet.Cells[tmp_rowid_increase+1][5].formula:='=Indirect("Cost!"&address('+sList.Strings[cList.IndexOf(IntToStr(RowId))]+","+IntToStr(ColC1)+"))";*/
 CostSheet.Cells[tmp_rowid_increase+1][5].value:=0;
 
 CostSheet.Cells[tmp_rowid_increase+1][5].NumberFormatLocal:="0.0%";
-CostSheet.Range[CostSheet.Cells[tmp_rowid_increase+2][5]][CostSheet.Cells[tmp_rowid_increase+2][8]].merge();
+CostSheet.Range[CostSheet.Cells[tmp_rowid_increase+2][5]][CostSheet.Cells[tmp_rowid_increase+2][7]].merge();
 Formula1 := "="+SumFormulaText+"("+RId+LBr+IntToStr(recent_rowid-tmp_rowid_increase-2)+RBr+CId+LBr+"2"+RBr+":"+RId+LBr+"-2"+RBr+CId+Lbr+"2"+RBr+")*(1+"+RId+LBr+"-1"+RBr+CId+")";
 CostSheet.Cells[tmp_rowid_increase+2][5].FormulaR1C1:=Formula1;
 

@@ -131,7 +131,7 @@ CostSheet.Cells[tmp_rowid_increase+2][2].Value:="²ÄÁÏÐ¡¼Æ";
 
 CostSheet.Range[CostSheet.Cells[tmp_rowid_increase+2][2]][CostSheet.Cells[tmp_rowid_increase+2][3]].merge();
 
-CostSheet.Range[CostSheet.Cells[tmp_rowid_increase+1][5]][CostSheet.Cells[tmp_rowid_increase+1][8]].merge();
+CostSheet.Range[CostSheet.Cells[tmp_rowid_increase+1][5]][CostSheet.Cells[tmp_rowid_increase+1][7]].merge();
 
 /*Formula0 := "="+SumFormulaText+"("+RId+LBr+IntToStr(recent_rowid-tmp_rowid_increase-1)+RBr+CId+LBr+"4"+RBr+":"+RId+LBr+"-1"+RBr+CId+Lbr+"4"+RBr+")";
 CostSheet.Cells[tmp_rowid_increase+1][5].formula:=formula0;*/
@@ -140,7 +140,7 @@ CostSheet.Cells[tmp_rowid_increase+1][5].value:=0;
 CostSheet.Cells[tmp_rowid_increase+1][5].NumberFormatLocal:="0.0%";
 
 
-CostSheet.Range[CostSheet.Cells[tmp_rowid_increase+2][5]][CostSheet.Cells[tmp_rowid_increase+2][8]].merge();
+CostSheet.Range[CostSheet.Cells[tmp_rowid_increase+2][5]][CostSheet.Cells[tmp_rowid_increase+2][7]].merge();
 Formula1 := "="+SumFormulaText+"("+RId+LBr+IntToStr(recent_rowid-tmp_rowid_increase-2)+RBr+CId+LBr+"2"+RBr+":"+RId+LBr+"-2"+RBr+CId+Lbr+"2"+RBr+")*(1+"+RId+LBr+"-1"+RBr+CId+")";
 CostSheet.Cells[tmp_rowid_increase+2][5].FormulaR1C1:=Formula1;
 

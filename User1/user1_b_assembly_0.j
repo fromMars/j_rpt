@@ -282,17 +282,19 @@ row_increase:=2;
 
 CostSheet.Range[CostSheet.Cells[RowId+1][1]][CostSheet.Cells[RowId+2][1]].merge();
 CostSheet.Cells[RowId+1][1].Value:="小计";
+costsheet.cells[rowid+1][1].VerticalAlignment:=-4108;
+costsheet.cells[rowid+1][1].HorizontalAlignment:=-4108;
 CostSheet.Range[CostSheet.Cells[RowId+1][2]][CostSheet.Cells[RowId+1][3]].merge();
 CostSheet.Cells[RowId+1][2].Value:="型材损耗";
 CostSheet.Range[CostSheet.Cells[RowId+2][2]][CostSheet.Cells[RowId+2][3]].merge();
 CostSheet.Cells[RowId+2][2].Value:="型材小计";
-CostSheet.Range[CostSheet.Cells[RowId+1][5]][CostSheet.Cells[RowId+1][8]].merge();
+CostSheet.Range[CostSheet.Cells[RowId+1][5]][CostSheet.Cells[RowId+1][7]].merge();
 
 /*CostSheet.Cells[RowId+1][5].formula:='='+CellC1;*/
 CostSheet.Cells[RowId+1][5].value:=0;
 
 CostSheet.Cells[RowId+1][5].NumberFormatLocal:="0.0%";
-CostSheet.Range[CostSheet.Cells[RowId+2][5]][CostSheet.Cells[RowId+2][8]].merge();
+CostSheet.Range[CostSheet.Cells[RowId+2][5]][CostSheet.Cells[RowId+2][7]].merge();
 
 Formula1 := "="+SumFormulaText+"("+RId+LBr+IntToStr(recent_rowid-rowid-2)+RBr+CId+LBr+"2"+RBr+":"+RId+LBr+"-2"+RBr+CId+Lbr+"2"+RBr+")*(1+"+RId+LBr+"-1"+RBr+CId+")";
 CostSheet.Cells[RowId+2][5].FormulaR1C1:=Formula1;

@@ -9,22 +9,27 @@ tmp_rowid_increase:=RowId+row_increase;
 CostSheet.Range[CostSheet.Cells[tmp_rowid_increase+1][1]][CostSheet.Cells[tmp_rowid_increase+2][1]].merge();*/
 CostSheet.Cells[tmp_rowid_increase+1][1].Value:="B";
 CostSheet.Cells[tmp_rowid_increase+2][1].Value:="C";
+CostSheet.Cells[tmp_rowid_increase+1][1].VerticalAlignment:=-4108;
+CostSheet.Cells[tmp_rowid_increase+1][1].HorizontalAlignment:=-4108;
+CostSheet.Cells[tmp_rowid_increase+2][1].VerticalAlignment:=-4108;
+CostSheet.Cells[tmp_rowid_increase+2][1].HorizontalAlignment:=-4108;
 
 /*
 CostSheet.Range[CostSheet.Cells[tmp_rowid_increase+1][2]][CostSheet.Cells[tmp_rowid_increase+1][3]].merge();*/
 
 CostSheet.Cells[tmp_rowid_increase+1][2].Value:="人工机械直接费";
 CostSheet.Cells[tmp_rowid_increase+2][2].Value:="直接费合计";
+CostSheet.Cells[tmp_rowid_increase+2][8].Value:="A+B";
 
 /*
 CostSheet.Range[CostSheet.Cells[tmp_rowid_increase+2][2]][CostSheet.Cells[tmp_rowid_increase+2][3]].merge();*/
 
-CostSheet.Range[CostSheet.Cells[tmp_rowid_increase+1][3]][CostSheet.Cells[tmp_rowid_increase+1][8]].merge();
+CostSheet.Range[CostSheet.Cells[tmp_rowid_increase+1][3]][CostSheet.Cells[tmp_rowid_increase+1][7]].merge();
 Formula0 := "="+SumFormulaText+"("+RId+LBr+IntToStr(recent_rowid-tmp_rowid_increase-1)+RBr+CId+LBr+"4"+RBr+":"+RId+LBr+"-1"+RBr+CId+Lbr+"4"+RBr+")";
 CostSheet.Cells[tmp_rowid_increase+1][3].formula:=formula0;
 /*CostSheet.Cells[tmp_rowid_increase+1][3].NumberFormatLocal:="0.0%";*/
 
-CostSheet.Range[CostSheet.Cells[tmp_rowid_increase+2][3]][CostSheet.Cells[tmp_rowid_increase+2][8]].merge();
+CostSheet.Range[CostSheet.Cells[tmp_rowid_increase+2][3]][CostSheet.Cells[tmp_rowid_increase+2][7]].merge();
 
 /*
 Formula1 := "="+SumFormulaText+"("+RId+LBr+IntToStr(recent_rowid-tmp_rowid_increase-2)+RBr+CId+LBr+"2"+RBr+":"+RId+LBr+"-2"+RBr+CId+Lbr+"2"+RBr+")";*/
@@ -107,18 +112,87 @@ CurrentCell.Borders.LineStyle := 1;
 
 ; Total batch/project price
 
-/*
 
-costsheet.columns[4].delete();
-costsheet.columns[8].delete();
+/*add indirect fees, planned vats, vats etc.*/
+rowid:=rowid+row_increase;
+list_no:=rowid-3+1;
+RowId_C:=rowid;
+costsheet.cells[rowid+1][1].value:=list_no;
+costsheet.cells[rowid+1][2].value:="现场管理费";
+costsheet.range[costsheet.cells[rowid+1][3]][costsheet.cells[rowid+1][6]].merge();
+costsheet.cells[rowid+1][3].value:=0;
+costsheet.cells[rowid+1][3].NumberFormatLocal:="0.0%";
+costsheet.cells[rowid+1][7].FormulaR1C1:="="+RId+LBr+"-1"+RBr+CId+LBr+"-4"+RBr+"*"+RId+CId+LBr+"-4"+RBr;
 
-s_index := bList.IndexOf("-3");
+rowid:=rowid+1;
+list_no:=list_no+1;
+costsheet.cells[rowid+1][1].value:=list_no;
+costsheet.cells[rowid+1][2].value:="企业管理费";
+costsheet.range[costsheet.cells[rowid+1][3]][costsheet.cells[rowid+1][6]].merge();
+costsheet.cells[rowid+1][3].value:=0;
+costsheet.cells[rowid+1][3].NumberFormatLocal:="0.0%";
+costsheet.cells[rowid+1][7].FormulaR1C1:="="+RId+LBr+"-2"+RBr+CId+LBr+"-4"+RBr+"*"+RId+CId+LBr+"-4"+RBr;
 
-CostSheet.Usedrange.Borders.LineStyle:=1;
+rowid:=rowid+1;
+/*list_no:=list_no+1;*/
+costsheet.cells[rowid+1][1].value:="D";
+costsheet.cells[rowid+1][1].VerticalAlignment:=-4108;
+costsheet.cells[rowid+1][1].HorizontalAlignment:=-4108;
+costsheet.cells[rowid+1][2].value:="间接费合计";
+costsheet.range[costsheet.cells[rowid+1][3]][costsheet.cells[rowid+1][7]].merge();
+costsheet.cells[rowid+1][3].value:=0;
+costsheet.cells[rowid+1][3].FormulaR1C1:="=sum("+RId+LBr+"-2"+RBr+CId+LBr+"0"+RBr+":"+RId+LBr+"-1"+RBr+CId+LBr+"0"+RBr+")";
+
+rowid:=rowid+1;
+/*list_no:=list_no+1;*/
+costsheet.cells[rowid+1][1].value:="E";
+costsheet.cells[rowid+1][1].VerticalAlignment:=-4108;
+costsheet.cells[rowid+1][1].HorizontalAlignment:=-4108;
+costsheet.cells[rowid+1][2].value:="小计";
+costsheet.range[costsheet.cells[rowid+1][3]][costsheet.cells[rowid+1][7]].merge();
+costsheet.cells[rowid+1][3].value:=0;
+costsheet.cells[rowid+1][3].NumberFormat:=CellPriceFormat;
+costsheet.cells[rowid+1][3].FormulaR1C1:="=sum("+RId+LBr+inttostr(RowId_C-rowid-1)+RBr+CId+LBr+"0"+RBr+","+RId+LBr+"-1"+RBr+CId+LBr+"0"+RBr+")";
+costsheet.cells[rowid+1][8].value:="C+D";
+
+rowid:=rowid+1;
+/*list_no:=list_no+1;*/
+costsheet.cells[rowid+1][1].value:="F";
+costsheet.cells[rowid+1][1].VerticalAlignment:=-4108;
+costsheet.cells[rowid+1][1].HorizontalAlignment:=-4108;
+costsheet.cells[rowid+1][2].value:="计划利润";
+costsheet.range[costsheet.cells[rowid+1][3]][costsheet.cells[rowid+1][6]].merge();
+costsheet.cells[rowid+1][3].value:=0;
+costsheet.cells[rowid+1][3].NumberFormatLocal:="0.0%";
+costsheet.cells[rowid+1][7].FormulaR1C1:="="+RId+LBr+"-1"+RBr+CId+LBr+"-4"+RBr+"*"+RId+LBr+"0"+RBr+CId+LBr+"-4"+RBr;
+
+rowid:=rowid+1;
+/*list_no:=list_no+1;*/
+costsheet.cells[rowid+1][1].value:="G";
+costsheet.cells[rowid+1][1].VerticalAlignment:=-4108;
+costsheet.cells[rowid+1][1].HorizontalAlignment:=-4108;
+costsheet.cells[rowid+1][2].value:="税金";
+costsheet.range[costsheet.cells[rowid+1][3]][costsheet.cells[rowid+1][6]].merge();
+costsheet.cells[rowid+1][3].value:=0;
+costsheet.cells[rowid+1][3].NumberFormatLocal:="0.0%";
+costsheet.cells[rowid+1][7].FormulaR1C1:="="+RId+LBr+"-2"+RBr+CId+LBr+"-4"+RBr+"*"+RId+LBr+"0"+RBr+CId+LBr+"-4"+RBr;
+
+rowid:=rowid+1;
+/*list_no:=list_no+1;*/
+costsheet.cells[rowid+1][1].value:="H";
+costsheet.cells[rowid+1][1].VerticalAlignment:=-4108;
+costsheet.cells[rowid+1][1].HorizontalAlignment:=-4108;
+costsheet.cells[rowid+1][2].value:="单价（元/㎡）";
+costsheet.range[costsheet.cells[rowid+1][3]][costsheet.cells[rowid+1][7]].merge();
+costsheet.cells[rowid+1][5].value:=0;
+costsheet.cells[rowid+1][5].NumberFormat:=CellPriceFormat;
+costsheet.cells[rowid+1][8].FormulaR1C1:="=sum("+RId+LBr+"-2"+RBr+CId+LBr+"4"+RBr+"*"+RId+LBr+"-1"+RBr+CId+LBr+"4"+RBr+")";
 
 
-if s_index <> -1 then
-{
-CostSheet.Columns.Autofit;
-}
-*/
+
+rowid:=rowid+1;
+costsheet.range[costsheet.cells[rowid+1][1]][costsheet.cells[rowid+2][8]].merge();
+costsheet.cells[rowid+1][1].value:="                                制单人："+"                                                                "+"批准：";
+costsheet.cells[rowid+1][1].VerticalAlignment:=-4108;    /*xlCenter: -4108  xlLeft: -4131  xlRight: -4152*/
+
+

@@ -41,10 +41,12 @@ excel.Selection.EntireRow.Insert();
 tmp_rowid_increase:=RowId+row_increase;
 
 CostSheet.Cells[tmp_rowid_increase+1][1].Value:="A";
+costsheet.cells[tmp_rowid_increase+1][1].VerticalAlignment:=-4108;
+costsheet.cells[tmp_rowid_increase+1][1].HorizontalAlignment:=-4108;
 CostSheet.Range[CostSheet.Cells[tmp_rowid_increase+1][2]][CostSheet.Cells[tmp_rowid_increase+1][2]].merge();
 CostSheet.Cells[tmp_rowid_increase+1][2].Value:="材料费小计";
 
-CostSheet.Range[CostSheet.Cells[tmp_rowid_increase+1][3]][CostSheet.Cells[tmp_rowid_increase+1][8]].merge();
+CostSheet.Range[CostSheet.Cells[tmp_rowid_increase+1][3]][CostSheet.Cells[tmp_rowid_increase+1][7]].merge();
 CostSheet.Cells[tmp_rowid_increase+1][3].NumberFormat:=CellPriceFormat;
 
 

@@ -290,7 +290,7 @@ CurrentCell := CostSheet.Cells[RowId][ColId];
 CurrentCell.Value := TempValue;
 CurrentCell.NumberFormat := CellTextFormat;
 /*CurrentCell.Orientation := 90;*/
-CurrentCell.Font.Bold := True;
+CurrentCell.Font.Bold := False;
 /*CurrentCell.Interior.Color := Color;*/
 CurrentCell.Borders.LineStyle := 1;
 
