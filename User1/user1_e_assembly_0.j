@@ -4,7 +4,7 @@ costsheet.range[costsheet.columns[8]][costsheet.columns[16]].delete();
 
 s_index := bList.IndexOf("-3");
 
-CostSheet.Usedrange.Borders.LineStyle:=1;
+CostSheet.Range[costsheet.cells[3][1]][costsheet.cells[rowid+2][7]].Borders.LineStyle:=1;
 
 
 if s_index <> -1 then

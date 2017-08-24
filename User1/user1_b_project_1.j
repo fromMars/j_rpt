@@ -18,7 +18,7 @@ while (i < cList.Count-3) do
   /*CurrentCell.NumberFormat := CellPriceFormat;*/
   /*CurrentCell.Font.Italic := True;*/
   /*CurrentCell.Interior.Color := Color;*/
-  CurrentCell.Borders.LineStyle := 1;
+  CurrentCell.Borders.linestyle := 0;
   i := i + 1;
 };
 
@@ -37,7 +37,7 @@ CurrentCell := CostSheet.Cells[RowId][ColId];
 CurrentCell.Value := TempValue;
 CurrentCell.NumberFormat := CellLineFormat;
 CurrentCell.Interior.Color := Color;
-CurrentCell.Borders.LineStyle := 1;*/
+CurrentCell.Borders.linestyle := 0;*/
 
 /*
 ; Item description
@@ -47,7 +47,7 @@ CurrentCell := CostSheet.Cells[RowId][ColId];
 CurrentCell.Value := TempValue;
 CurrentCell.NumberFormat := CellTextFormat;
 CurrentCell.Interior.Color := Color;
-CurrentCell.Borders.LineStyle := 1;
+CurrentCell.Borders.linestyle := 0;
 
 ; Item width
 RowId       := 3;
@@ -56,7 +56,7 @@ CurrentCell := CostSheet.Cells[RowId][ColId];
 CurrentCell.Value := TempValue;
 CurrentCell.NumberFormat := CellTextFormat;
 CurrentCell.Interior.Color := Color;
-CurrentCell.Borders.LineStyle := 1;
+CurrentCell.Borders.linestyle := 0;
 
 ; Item height
 RowId       := 4;
@@ -65,7 +65,7 @@ CurrentCell := CostSheet.Cells[RowId][ColId];
 CurrentCell.Value := TempValue;
 CurrentCell.NumberFormat := CellTextFormat;
 CurrentCell.Interior.Color := Color;
-CurrentCell.Borders.LineStyle := 1;
+CurrentCell.Borders.linestyle := 0;
 
 ; Item surface
 RowId       := 5;
@@ -74,7 +74,7 @@ CurrentCell := CostSheet.Cells[RowId][ColId];
 CurrentCell.Value := TempValue;
 CurrentCell.NumberFormat := CellTextFormat;
 CurrentCell.Interior.Color := Color;
-CurrentCell.Borders.LineStyle := 1;
+CurrentCell.Borders.linestyle := 0;
 */
 
 ; Item price
@@ -111,7 +111,7 @@ if (StrToNum(StrReplace(pList.Strings[cList.IndexOf(IntToStr(RowId))],"%DECIMALS
 /*  CurrentCell.NumberFormat := CellPriceFormat;*/
   CurrentCell.Font.Italic := False;
   /*CurrentCell.Interior.Color := Color;*/
-  CurrentCell.Borders.LineStyle := 1;
+  CurrentCell.Borders.linestyle := 0;
 }
 else
 {
@@ -122,7 +122,7 @@ else
 /*  CurrentCell.NumberFormat := CellPriceFormat;*/
   CurrentCell.Font.Italic := False;
   /*CurrentCell.Interior.Color := Color;*/
-  CurrentCell.Borders.LineStyle := 1;
+  CurrentCell.Borders.linestyle := 0;
 };
 
 ; Item formula
@@ -132,7 +132,7 @@ CurrentCell.Formula := TempFormula;
 /*CurrentCell.NumberFormat := CellPriceFormat;*/
 CurrentCell.Font.Italic := %IF{@%DB_RES_PRICE%,False,True};
 /*CurrentCell.Interior.Color := Color;*/
-CurrentCell.Borders.LineStyle := 1;
+CurrentCell.Borders.linestyle := 0;
 
 
 %% break header

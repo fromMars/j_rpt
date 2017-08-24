@@ -119,146 +119,146 @@ CurrentCell.NumberFormat := CellTextFormat;
 /*
 CurrentCell := CostSheet.Cells[RowId+1][ColId];
 CurrentCell.Interior.Color := Color;
-CurrentCell.Borders.LineStyle := 1;
+CurrentCell.Borders.linestyle:=0;
 CurrentCell := CostSheet.Cells[RowId+1][ColCT];
 CurrentCell.Interior.Color := Color;
-CurrentCell.Borders.LineStyle := 1;
+CurrentCell.Borders.linestyle:=0;
 CurrentCell := CostSheet.Cells[RowId+1][ColC1];
 CurrentCell.Interior.Color := Color;
-CurrentCell.Borders.LineStyle := 1;
+CurrentCell.Borders.linestyle:=0;
 CurrentCell := CostSheet.Cells[RowId+1][ColC2];
 CurrentCell.Interior.Color := Color;
-CurrentCell.Borders.LineStyle := 1;
+CurrentCell.Borders.linestyle:=0;
 CurrentCell := CostSheet.Cells[RowId+1][ColC7];
 CurrentCell.Interior.Color := Color;
-CurrentCell.Borders.LineStyle := 1;
+CurrentCell.Borders.linestyle:=0;
 CurrentCell := CostSheet.Cells[RowId+1][ColC3];
 CurrentCell.Interior.Color := Color;
-CurrentCell.Borders.LineStyle := 1;
+CurrentCell.Borders.linestyle:=0;
 CurrentCell := CostSheet.Cells[RowId+1][ColC6];
 CurrentCell.Interior.Color := Color;
-CurrentCell.Borders.LineStyle := 1;
+CurrentCell.Borders.linestyle:=0;
 CurrentCell := CostSheet.Cells[RowId+1][ColC4];
 CurrentCell.Interior.Color := Color;
-CurrentCell.Borders.LineStyle := 1;
+CurrentCell.Borders.linestyle:=0;
 CurrentCell := CostSheet.Cells[RowId+1][ColC5];
 CurrentCell.Interior.Color := Color;
-CurrentCell.Borders.LineStyle := 1;
+CurrentCell.Borders.linestyle:=0;
 RowId := RowId + 1;
 CurrentCell := CostSheet.Cells[RowId][ColId];
 CurrentCell.Interior.Color := Color;
-CurrentCell.Borders.LineStyle := 1;
+CurrentCell.Borders.linestyle:=0;
 CurrentCell := CostSheet.Cells[RowId][ColCT];
 CurrentCell.Interior.Color := Color;
-CurrentCell.Borders.LineStyle := 1;
+CurrentCell.Borders.linestyle:=0;
 CurrentCell := CostSheet.Cells[RowId][ColC1];
 CurrentCell.Interior.Color := Color;
-CurrentCell.Borders.LineStyle := 1;
+CurrentCell.Borders.linestyle:=0;
 CurrentCell := CostSheet.Cells[RowId][ColC2];
 CurrentCell.Interior.Color := Color;
-CurrentCell.Borders.LineStyle := 1;
+CurrentCell.Borders.linestyle:=0;
 CurrentCell := CostSheet.Cells[RowId][ColC7];
 CurrentCell.Interior.Color := Color;
-CurrentCell.Borders.LineStyle := 1;
+CurrentCell.Borders.linestyle:=0;
 CurrentCell := CostSheet.Cells[RowId][ColC3];
 CurrentCell.Interior.Color := Color;
-CurrentCell.Borders.LineStyle := 1;
+CurrentCell.Borders.linestyle:=0;
 CurrentCell := CostSheet.Cells[RowId][ColC6];
 CurrentCell.Interior.Color := Color;
-CurrentCell.Borders.LineStyle := 1;
+CurrentCell.Borders.linestyle:=0;
 CurrentCell := CostSheet.Cells[RowId][ColC4];
 CurrentCell.Interior.Color := Color;
-CurrentCell.Borders.LineStyle := 1;
+CurrentCell.Borders.linestyle:=0;
 CurrentCell := CostSheet.Cells[RowId][ColC5];
 CurrentCell.Interior.Color := Color;
-CurrentCell.Borders.LineStyle := 1;
+CurrentCell.Borders.linestyle:=0;
 RowId := RowId + 1;
 CurrentCell := CostSheet.Cells[RowId][ColId];
 CurrentCell.Interior.Color := Color;
-CurrentCell.Borders.LineStyle := 1;
+CurrentCell.Borders.linestyle:=0;
 CurrentCell := CostSheet.Cells[RowId][ColCT];
 CurrentCell.Interior.Color := Color;
-CurrentCell.Borders.LineStyle := 1;
+CurrentCell.Borders.linestyle:=0;
 CurrentCell := CostSheet.Cells[RowId][ColC1];
 CurrentCell.Interior.Color := Color;
-CurrentCell.Borders.LineStyle := 1;
+CurrentCell.Borders.linestyle:=0;
 CurrentCell := CostSheet.Cells[RowId][ColC2];
 CurrentCell.Interior.Color := Color;
-CurrentCell.Borders.LineStyle := 1;
+CurrentCell.Borders.linestyle:=0;
 CurrentCell := CostSheet.Cells[RowId][ColC7];
 CurrentCell.Interior.Color := Color;
-CurrentCell.Borders.LineStyle := 1;
+CurrentCell.Borders.linestyle:=0;
 CurrentCell := CostSheet.Cells[RowId][ColC3];
 CurrentCell.Interior.Color := Color;
-CurrentCell.Borders.LineStyle := 1;
+CurrentCell.Borders.linestyle:=0;
 CurrentCell := CostSheet.Cells[RowId][ColC6];
 CurrentCell.Interior.Color := Color;
-CurrentCell.Borders.LineStyle := 1;
+CurrentCell.Borders.linestyle:=0;
 CurrentCell := CostSheet.Cells[RowId][ColC4];
 CurrentCell.Interior.Color := Color;
-CurrentCell.Borders.LineStyle := 1;
+CurrentCell.Borders.linestyle:=0;
 CurrentCell := CostSheet.Cells[RowId][ColC5];
 CurrentCell.Interior.Color := Color;
-CurrentCell.Borders.LineStyle := 1;
+CurrentCell.Borders.linestyle:=0;
 */
 
 RowId := RowId + 1;
 CurrentCell := CostSheet.Cells[RowId][ColId];
 /*CurrentCell.Interior.Color := Color;*/
-CurrentCell.Borders.LineStyle := 1;
+CurrentCell.Borders.linestyle:=0;
 CurrentCell := CostSheet.Cells[RowId][ColCT];
 /*CurrentCell.Interior.Color := Color;*/
-CurrentCell.Borders.LineStyle := 1;
+CurrentCell.Borders.linestyle:=0;
 CurrentCell := CostSheet.Cells[RowId][ColC1];
 /*CurrentCell.Interior.Color := Color;*/
-CurrentCell.Borders.LineStyle := 1;
+CurrentCell.Borders.linestyle:=0;
 CurrentCell := CostSheet.Cells[RowId][ColC2];
 /*CurrentCell.Interior.Color := Color;*/
-CurrentCell.Borders.LineStyle := 1;
+CurrentCell.Borders.linestyle:=0;
 CurrentCell := CostSheet.Cells[RowId][ColC7];
 /*CurrentCell.Interior.Color := Color;*/
-CurrentCell.Borders.LineStyle := 1;
+CurrentCell.Borders.linestyle:=0;
 CurrentCell := CostSheet.Cells[RowId][ColC3];
 /*CurrentCell.Interior.Color := Color;*/
-CurrentCell.Borders.LineStyle := 1;
+CurrentCell.Borders.linestyle:=0;
 CurrentCell := CostSheet.Cells[RowId][ColC6];
 /*CurrentCell.Interior.Color := Color;*/
-CurrentCell.Borders.LineStyle := 1;
+CurrentCell.Borders.linestyle:=0;
 CurrentCell := CostSheet.Cells[RowId][ColC4];
 /*CurrentCell.Interior.Color := Color;*/
-CurrentCell.Borders.LineStyle := 1;
+CurrentCell.Borders.linestyle:=0;
 CurrentCell := CostSheet.Cells[RowId][ColC5];
 /*CurrentCell.Interior.Color := Color;*/
-CurrentCell.Borders.LineStyle := 1;
+CurrentCell.Borders.linestyle:=0;
 
 RowId := RowId + 1;
 CurrentCell := CostSheet.Cells[RowId][ColId];
 /*CurrentCell.Interior.Color := Color;*/
-CurrentCell.Borders.LineStyle := 1;
+CurrentCell.Borders.linestyle:=0;
 CurrentCell := CostSheet.Cells[RowId][ColCT];
 /*CurrentCell.Interior.Color := Color;*/
-CurrentCell.Borders.LineStyle := 1;
+CurrentCell.Borders.linestyle:=0;
 CurrentCell := CostSheet.Cells[RowId][ColC1];
 /*CurrentCell.Interior.Color := Color;*/
-CurrentCell.Borders.LineStyle := 1;
+CurrentCell.Borders.linestyle:=0;
 CurrentCell := CostSheet.Cells[RowId][ColC2];
 /*CurrentCell.Interior.Color := Color;*/
-CurrentCell.Borders.LineStyle := 1;
+CurrentCell.Borders.linestyle:=0;
 CurrentCell := CostSheet.Cells[RowId][ColC7];
 /*CurrentCell.Interior.Color := Color;*/
-CurrentCell.Borders.LineStyle := 1;
+CurrentCell.Borders.linestyle:=0;
 CurrentCell := CostSheet.Cells[RowId][ColC3];
 /*CurrentCell.Interior.Color := Color;*/
-CurrentCell.Borders.LineStyle := 1;
+CurrentCell.Borders.linestyle:=0;
 CurrentCell := CostSheet.Cells[RowId][ColC6];
 /*CurrentCell.Interior.Color := Color;*/
-CurrentCell.Borders.LineStyle := 1;
+CurrentCell.Borders.linestyle:=0;
 CurrentCell := CostSheet.Cells[RowId][ColC4];
 /*CurrentCell.Interior.Color := Color;*/
-CurrentCell.Borders.LineStyle := 1;
+CurrentCell.Borders.linestyle:=0;
 CurrentCell := CostSheet.Cells[RowId][ColC5];
 /*CurrentCell.Interior.Color := Color;*/
-CurrentCell.Borders.LineStyle := 1;
+CurrentCell.Borders.linestyle:=0;
 
 
 
@@ -282,7 +282,7 @@ pList.Add(StrReplace("TempValue",".","%DECIMALSEP%"));
 sList.Add(inttostr(RowId));
 
 CostSheet.Cells[RowId][1].value:=rowid-3;
-CostSheet.Cells[RowId][1].Borders.linestyle:=1;
+CostSheet.Cells[RowId][1].Borders.linestyle:=0;
 
 ; Priceblock description
 TempValue   := "@%DB_RES_DESC%";
@@ -292,7 +292,7 @@ CurrentCell.NumberFormat := CellTextFormat;
 /*CurrentCell.Orientation := 90;*/
 CurrentCell.Font.Bold := False;
 /*CurrentCell.Interior.Color := Color;*/
-CurrentCell.Borders.LineStyle := 1;
+CurrentCell.Borders.linestyle:=0;
 
 ; Priceblock cost
 TempValue   := %IF{%EVAL{%ALLOW_COST_RATES%=1},%IF{%EVAL{@%DB_RES_COST%>0},@%DB_RES_COST%,0},0};
@@ -302,7 +302,7 @@ CurrentCell.HorizontalAlignment := 1;
 CurrentCell.NumberFormat := CellCostFormat;
 CurrentCell.Font.Italic := %IF{%EVAL{@%DB_RES_COST%>0},False,True};
 /*CurrentCell.Interior.Color := Color;*/
-CurrentCell.Borders.LineStyle := 1;
+CurrentCell.Borders.linestyle:=0;
 
 ; Priceblock loss
 TempValue   := %IF{%EVAL{%ALLOW_COST_RATES%=1},@%DB_RES_LOSS%/100,0};
@@ -311,7 +311,7 @@ CurrentCell.Value := TempValue;
 CurrentCell.HorizontalAlignment := 1;
 CurrentCell.NumberFormat := CellPercentFormat;
 /*CurrentCell.Interior.Color := Color;*/
-CurrentCell.Borders.LineStyle := 1;
+CurrentCell.Borders.linestyle:=0;
 
 ; Priceblock discount
 TempValue   := %IF{%EVAL{%ALLOW_COST_RATES%=1},@%DB_RES_DISCOUNT%/100,0};
@@ -320,7 +320,7 @@ CurrentCell.Value := TempValue;
 CurrentCell.HorizontalAlignment := 1;
 CurrentCell.NumberFormat := CellPercentFormat;
 /*CurrentCell.Interior.Color := Color;*/
-CurrentCell.Borders.LineStyle := 1;
+CurrentCell.Borders.linestyle:=0;
 
 ; Priceblock system
 TempValue   := %IF{%EVAL{%ALLOW_COST_RATES%=1},@%DB_COST_RATION%,1};
@@ -329,7 +329,7 @@ CurrentCell.Value := TempValue;
 CurrentCell.HorizontalAlignment := 1;
 CurrentCell.NumberFormat := CellFactorFormat;
 /*CurrentCell.Interior.Color := Color;*/
-CurrentCell.Borders.LineStyle := 1;
+CurrentCell.Borders.linestyle:=0;
 
 ; Priceblock factor
 TempValue   := %IF{%EVAL{%ALLOW_COST_RATES%=1},@%DB_COST_FACTOR%,1};
@@ -338,7 +338,7 @@ CurrentCell.Value := TempValue;
 CurrentCell.HorizontalAlignment := 1;
 CurrentCell.NumberFormat := CellFactorFormat;
 /*CurrentCell.Interior.Color := Color;*/
-CurrentCell.Borders.LineStyle := 1;
+CurrentCell.Borders.linestyle:=0;
 
 ; Priceblock charge
 TempValue   := %IF{%EVAL{%ALLOW_COST_RATES%=1},@%DB_RES_CHARGE%/100,0};
@@ -347,7 +347,7 @@ CurrentCell.Value := TempValue;
 CurrentCell.HorizontalAlignment := 1;
 CurrentCell.NumberFormat := CellPercentFormat;
 /*CurrentCell.Interior.Color := Color;*/
-CurrentCell.Borders.LineStyle := 1;
+CurrentCell.Borders.linestyle:=0;
 
 ; Priceblock profit
 TempValue   := %IF{%EVAL{%ALLOW_COST_RATES%=1},@%DB_RES_PROFIT%/100,0};
@@ -356,7 +356,7 @@ CurrentCell.Value := TempValue;
 CurrentCell.HorizontalAlignment := 1;
 CurrentCell.NumberFormat := CellPercentFormat;
 /*CurrentCell.Interior.Color := Color;*/
-CurrentCell.Borders.LineStyle := 1;
+CurrentCell.Borders.linestyle:=0;
 
 ; Priceblock rebate
 TempValue   := %IF{%EVAL{%ALLOW_COST_RATES%=1},@%DB_RES_REFUND%/100,0};
@@ -365,7 +365,7 @@ CurrentCell.Value := TempValue;
 CurrentCell.HorizontalAlignment := 1;
 CurrentCell.NumberFormat := CellPercentFormat;
 /*CurrentCell.Interior.Color := Color;*/
-CurrentCell.Borders.LineStyle := 1;
+CurrentCell.Borders.linestyle:=0;
 
 %% break header
 ; ******************************Estim Excel************************************

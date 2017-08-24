@@ -28,6 +28,7 @@ curr_width:=curr_assembly.width;
 curr_height:=curr_assembly.height;
 curr_surface:=curr_width*curr_height/1000000;
 costsheet.range["mianji"].value:=curr_surface;
+costsheet.range["mianji"].HorizontalAlignment:=-4131;
 a_fee_row:=0;
 
 /*used to calculate A*/
@@ -54,8 +55,10 @@ while (i < cList.Count-3) do
   TempValue   := 0.0;
   CurrentCell := CostSheet.Cells[RowId][ColId];
   CurrentCell.Value := TempValue;
+  currentcell.NumberFormat:=CellCostFormat;
   CurrentCell1 := CostSheet.Cells[RowId][ColId-1];
   CurrentCell1.Value := TempValue;
+  currentcell1.NumberFormat:=CellCostFormat;
   CurrentCell0 := CostSheet.Cells[RowId][ColId-2];
   CurrentCell0.Value := TempValue;
   /*CurrentCell.NumberFormat := CellPriceFormat;*/
@@ -295,6 +298,7 @@ CostSheet.Cells[RowId+1][5].value:=0;
 
 CostSheet.Cells[RowId+1][5].NumberFormatLocal:="0.0%";
 CostSheet.Range[CostSheet.Cells[RowId+2][5]][CostSheet.Cells[RowId+2][7]].merge();
+costsheet.cells[rowid+2][5].NumberFormat:=CellPriceFormat;
 
 Formula1 := "="+SumFormulaText+"("+RId+LBr+IntToStr(recent_rowid-rowid-2)+RBr+CId+LBr+"2"+RBr+":"+RId+LBr+"-2"+RBr+CId+Lbr+"2"+RBr+")*(1+"+RId+LBr+"-1"+RBr+CId+")";
 CostSheet.Cells[RowId+2][5].FormulaR1C1:=Formula1;
