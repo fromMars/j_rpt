@@ -196,5 +196,6 @@ rowid:=rowid+1;
 costsheet.range[costsheet.cells[rowid+1][1]][costsheet.cells[rowid+2][8]].merge();
 costsheet.cells[rowid+1][1].value:="                                制单人："+"                                                                "+"批准：";
 costsheet.cells[rowid+1][1].VerticalAlignment:=-4108;    /*xlCenter: -4108  xlLeft: -4131  xlRight: -4152*/
+costsheet.cells[rowid+1][1].Font.Size:=12;
 
 
