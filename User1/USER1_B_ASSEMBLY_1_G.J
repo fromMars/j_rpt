@@ -1,5 +1,5 @@
 
-list_no:=rowid-row_increase-3+1;
+list_no:=rowid-3+1;
 
 if RowId_1<>0 then
     rowid:=RowId_1;
