@@ -300,7 +300,7 @@ CostSheet.Cells[RowId+1][5].value:=0;
 
 CostSheet.Cells[RowId+1][5].NumberFormatLocal:="0.0%";
 CostSheet.Range[CostSheet.Cells[RowId+2][5]][CostSheet.Cells[RowId+2][7]].merge();
-costsheet.cells[rowid+2][5].NumberFormat:=CellPriceFormat;
+costsheet.cells[rowid+2][5].NumberFormat:=CellCostFormat;
 
 Formula1 := "="+SumFormulaText+"("+RId+LBr+IntToStr(recent_rowid-rowid-2)+RBr+CId+LBr+"2"+RBr+":"+RId+LBr+"-2"+RBr+CId+Lbr+"2"+RBr+")*(1+"+RId+LBr+"-1"+RBr+CId+")";
 CostSheet.Cells[RowId+2][5].FormulaR1C1:=Formula1;
