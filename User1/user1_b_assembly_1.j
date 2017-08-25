@@ -73,7 +73,7 @@ currentcell.borders.linestyle:=1;
 u_colid:=colid-1;
 currentcell:=costsheet.cells[rowid+row_increase][u_colid];
 u_recent_value:=currentcell.value;
-if u_recent_value<>0 then
+if "@%DB_COST_ASSEMBLY%"="" then
 {
 	costsheet.cells[rowid+row_increase][u_colid+1].value:=u_recent_value;
 	currentcell.value:="";
@@ -89,10 +89,10 @@ currentcell.borders.linestyle:=1;
 ;quantity per surface
 wps_colid:=colid-2;
 currentcell:=costsheet.cells[rowid+row_increase][wps_colid];
-if @COST_QUANTITY<>1 then
+if "@%DB_COST_ASSEMBLY%"<>"" then
 	currentcell.formulaR1C1:="=@COST_QUANTITY/mianji";
 else
-	currentcell.formulaR1C1:="=@COST_QUANTITY";
+	currentcell.value:="";
 currentcell.borders.linestyle:=1;
 
 

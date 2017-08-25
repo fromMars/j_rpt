@@ -55,7 +55,8 @@ using %REPORTNAME%_B_ASSEMBLY_0.%REPORTTYPE%%IF{%REPORTTYPE%=J,,%LANGUAGE%}
 
 next
 report
-  select   %DB_COST_ARTICLE%,
+  select   min(%DB_COST_ASSEMBLY%) as %DB_COST_ASSEMBLY%,
+            %DB_COST_ARTICLE%,
            %DB_COST_LOSSTYPE%,
            %DB_COST_RATION%,
 	   %DB_COST_FACTOR%,
@@ -80,7 +81,8 @@ using %REPORTNAME%_B_ASSEMBLY_1.%REPORTTYPE%%IF{%REPORTTYPE%=J,,%LANGUAGE%}
 
 next
 report
-  select   %DB_COST_ARTICLE%,
+  select   min(%DB_COST_ASSEMBLY%) as %DB_COST_ASSEMBLY%,
+            %DB_COST_ARTICLE%,
            %DB_COST_LOSSTYPE%,
            %DB_COST_RATION%,
 	   %DB_COST_FACTOR%,
@@ -103,7 +105,8 @@ using %REPORTNAME%_B_ASSEMBLY_2.%REPORTTYPE%%IF{%REPORTTYPE%=J,,%LANGUAGE%}
 
 next
 report
-  select   %DB_COST_ARTICLE%,
+  select   min(%DB_COST_ASSEMBLY%) as %DB_COST_ASSEMBLY%,
+            %DB_COST_ARTICLE%,
            %DB_COST_LOSSTYPE%,
            %DB_COST_RATION%,
 	   %DB_COST_FACTOR%,
@@ -125,7 +128,8 @@ using %REPORTNAME%_B_ASSEMBLY_2_0.%REPORTTYPE%%IF{%REPORTTYPE%=J,,%LANGUAGE%}
 
 next
 report
-  select   %DB_COST_ARTICLE%,
+  select   min(%DB_COST_ASSEMBLY%) as %DB_COST_ASSEMBLY%,
+            %DB_COST_ARTICLE%,
            %DB_COST_LOSSTYPE%,
            %DB_COST_RATION%,
 	   %DB_COST_FACTOR%,

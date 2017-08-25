@@ -59,7 +59,8 @@ while (i < cList.Count-3) do
   CurrentCell.Value := TempValue;
   currentcell.NumberFormat:=CellCostFormat;
   CurrentCell1 := CostSheet.Cells[RowId][ColId-1];
-  CurrentCell1.Value := TempValue;
+  if CurrentCell1.offset.Value=0 then
+    CurrentCell1.Value := TempValue;
   currentcell1.NumberFormat:=CellCostFormat;
   CurrentCell0 := CostSheet.Cells[RowId][ColId-2];
   CurrentCell0.Value := TempValue;
