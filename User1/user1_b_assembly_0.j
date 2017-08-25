@@ -29,6 +29,8 @@ curr_height:=curr_assembly.height;
 curr_surface:=curr_width*curr_height/1000000;
 costsheet.range["mianji"].value:=curr_surface;
 costsheet.range["mianji"].HorizontalAlignment:=-4131;
+costsheet.range["mianji"].offset[0][-1].HorizontalAlignment:=-4152;
+
 a_fee_row:=0;
 
 /*used to calculate A*/

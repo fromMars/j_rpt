@@ -188,8 +188,8 @@ costsheet.cells[rowid+1][2].value:="单价（元/㎡）";
 costsheet.range[costsheet.cells[rowid+1][3]][costsheet.cells[rowid+1][7]].merge();
 costsheet.cells[rowid+1][5].value:=0;
 costsheet.cells[rowid+1][5].NumberFormat:=CellCostFormat;
-costsheet.cells[rowid+1][3].FormulaR1C1:="=sum("+RId+LBr+"-2"+RBr+CId+LBr+"4"+RBr+","+RId+LBr+"-1"+RBr+CId+LBr+"4"+RBr+","+RId+LBr+"-3"+RBr+CId+LBr+"0"+RBr+")";
-
+costsheet.cells[rowid+1][3].FormulaR1C1:="=sum("+RId+LBr+"-2"+RBr+CId+LBr+"4"+RBr+","+RId+LBr+"-1"+RBr+CId+LBr+"4"+RBr+","+RId+LBr+"-3"+RBr+CId+LBr+"0"+RBr+")/mianji";
+costsheet.cells[rowid+1][8].value:="(E+F+G)/面积";
 
 
 rowid:=rowid+1;
