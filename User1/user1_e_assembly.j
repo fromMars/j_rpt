@@ -117,7 +117,7 @@ CurrentCell.Borders.LineStyle := 1;
 
 /*add indirect fees, planned vats, vats etc.*/
 rowid:=rowid+row_increase;
-list_no:=rowid-3+1;
+/*list_no:=rowid-row_increase-3+1;*/
 RowId_C:=rowid;
 costsheet.cells[rowid+1][1].value:=list_no;
 costsheet.cells[rowid+1][2].value:="现场管理费";

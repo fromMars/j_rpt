@@ -113,7 +113,7 @@ currentcell.borders.linestyle:=1;
 ; *****************************************************************************
 ; %NAME% (%BATCH%) - Detail footer
 ; 
-
+/*
 CostSheet.Rows[RowId+1+row_increase].select();
 excel.Selection.EntireRow.Insert();
 excel.Selection.EntireRow.Insert();
@@ -130,7 +130,7 @@ CostSheet.Cells[tmp_rowid_increase+2][2].Value:="¸½¼þÐ¡¼Æ";
 CostSheet.Range[CostSheet.Cells[tmp_rowid_increase+2][2]][CostSheet.Cells[tmp_rowid_increase+2][3]].merge();
 CostSheet.Range[CostSheet.Cells[tmp_rowid_increase+1][5]][CostSheet.Cells[tmp_rowid_increase+1][7]].merge();
 
-/*CostSheet.Cells[tmp_rowid_increase+1][5].formula:='=Indirect("Cost!"&address('+sList.Strings[cList.IndexOf(IntToStr(RowId))]+","+IntToStr(ColC1)+"))";*/
+
 CostSheet.Cells[tmp_rowid_increase+1][5].value:=0;
 
 CostSheet.Cells[tmp_rowid_increase+1][5].NumberFormatLocal:="0.0%";
@@ -143,10 +143,10 @@ CostSheet.Cells[tmp_rowid_increase+2][5].FormulaR1C1:=Formula1;
 
 row_increase:=row_increase+2;
 
-/*
-CostSheet.Range[costsheet.cells[RowId+1][1]][costsheet.cells[Rowid+2][1]].merge;*/
+
 
 CostSheet.Range[CostSheet.Cells[tmp_rowid_increase+1][1]][CostSheet.Cells[tmp_rowid_increase+1][8]].Interior.Color:=14935011;
 CostSheet.Range[CostSheet.Cells[tmp_rowid_increase+2][1]][CostSheet.Cells[tmp_rowid_increase+2][8]].Interior.Color:=14935011;
-
-RowId_1:=tmp_rowid_increase+2;
+*/
+tmp_rowid_increase:=RowId+row_increase;
+RowId_1:=tmp_rowid_increase;

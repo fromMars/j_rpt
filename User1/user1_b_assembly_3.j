@@ -64,7 +64,8 @@ CurrentCell.Font.Italic := %IF{@%DB_RES_PRICE%,False,True};
 CurrentCell.Interior.Color := Color;
 CurrentCell.Borders.LineStyle := 1;
 
-
+/*add list no*/
+costsheet.cells[rowid+row_increase][1].value:=list_no;
 
 ;supplier
 s_colid:=colid+1;
@@ -99,7 +100,7 @@ if "@%DB_COST_ASSEMBLY%"<>"" then
 else
 	currentcell.value:="";
 currentcell.borders.linestyle:=1;
-
+list_no:=list_no+1;
 
 %% break header
 ; ******************************Estim Excel************************************

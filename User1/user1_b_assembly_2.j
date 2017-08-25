@@ -94,7 +94,7 @@ if "@%DB_COST_ASSEMBLY%"<>"" then
 else
 	currentcell.value:="";
 currentcell.borders.linestyle:=1;
-
+list_no:=list_no+1;
 
 %% break header
 ; ******************************Estim Excel************************************
