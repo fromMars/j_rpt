@@ -150,6 +150,7 @@ CostSheet.Range[CostSheet.Cells[RowId+1][1]][CostSheet.Cells[RowId+1][8]].Interi
 CostSheet.Range[CostSheet.Cells[RowId+2][1]][CostSheet.Cells[RowId+2][8]].Interior.Color:=14935011;
 
 
+row_increase:=row_increase+2;
 RowId_2:=tmp_rowid_increase+2;
 
 /*
