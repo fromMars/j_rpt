@@ -13,6 +13,7 @@ mop := 'V_DRAIN_SLIDING';
 slide_cnt := 0;                /* number of vents in this opening */ 
 triple_rail:=false;
 
+
 counter := 0;
 child_cnt := frame.childcount;
 while counter < child_cnt do
@@ -95,7 +96,6 @@ if target.isventelement  then
 
 else
 if target.IsOuterFrame && open.IsFrameOpening then
-
 {/*1*/
    vent := open.children[0];
    if vent.isventpart then
@@ -127,116 +127,16 @@ if target.IsOuterFrame && open.IsFrameOpening then
             Drain_max_dist                :=800;
             Drain_min_dist                :=250;
          }/*4*/
+         
+         pos1:=120;
+         pos2:=len2-120;
 
-         if vent.link = 1 then /**ÄÚÉÈ **/
-         {/*4*/
-            if vent.sense = 0 then
-            {/*5*/  
-               if slide_cnt < 10 then /**by pan 10**/
-               {/*6*/
-                  Pos1:= Drain_opt_corner - ofs;
-                  Pos2:= Len - Drain_opt_corner - ofs + 30;
-                  if triple_rail=false then
-                     {
-                     Machine.Do(target,mop2,POS_OFFSET,Pos1); /**ÄÚ×óÉÈ¿òÅÅË®¿×**/
-                     /*Machine.Do(target,mop2,POS_OFFSET,Pos2);*/ /**ÄÚ×óÉÈ¿òÅÅË®¿×**/
-                     }
-                  else if triple_rail=true then
-                  {
-                     Machine.Do(target,mop2,POS_OFFSET,Pos1-65); /**µ¥¹ìÄÚ×óÉÈ¿òÅÅË®¿×**/
-                     goto stop; 
-                  }
-               }/*6*/
-              
-            }/*5*/
-            if vent.sense = 1 then
-            {/*5*/
-               if slide_cnt < 10 then /**4 to 10**/
-               {/*6*/
-                  Pos1:= Drain_opt_corner - ofs - 30;
-                  Pos2:= Len - Drain_opt_corner - ofs;
-                  if triple_rail=false then
-                  {
-                     /*Machine.Do(target,mop2,POS_OFFSET,Pos1);*/ /**ÓÒÄÚÉÈ¿òÅÅË®¿×**/
-                     /*Machine.Do(target,mop2,POS_OFFSET,Pos2);*/ /**ÓÒÄÚÉÈ¿òÅÅË®¿×**/
-                     }
-                  else if triple_rail=true then
-                     {
-                     /*Machine.Do(target,mop3,POS_OFFSET,Pos2+65);*/ /**µ¥¹ìÄÚÓÒÉÈ¿òÉÏÅÅË®¿×**/
-                     goto stop; 
-                     }
-               }/*6*/
-               
-            }/*5*/
-         }/*4*/
-         if (vent.link = 2 && triple_rail=true) then
-         {/*4*/
-            if vent.sense = 0 then
-            {/*5*/
-               if slide_cnt = 3 then
-               {/*6*/
-                  pos1:= Drain_opt_corner - ofs;
-                  pos2:= len2 - Drain_opt_corner;
-                  /*Machine.Do(target,mop3,POS_OFFSET,Pos1-65);*/ /**×óÍâÉÈ**/
-               }/*6*/
-             
-            }/*5*/
-            if vent.sense = 1 then 
-            {/*5*/
-               if slide_cnt = 3 then
-               {/*6*/
-                  pos1:= Drain_opt_corner ;
-                  Pos2:= len - Drain_opt_corner - ofs;
-                  /*Machine.Do(target,mop2,POS_OFFSET,Pos2+65);*/ 
-               }/*6*/
-               else if slide_cnt = 6 then goto stop;
-            }/*5*/ 
-         }/*4*/
-
-         if (vent.link = 2 && triple_rail=false) || (vent.link = 3) then /* outer rail pos settings */
-        {
-          {/*4*/ 
-            Drain_opt_corner              :=100;
-            Drain_max_dist                :=800;
-            Drain_min_dist                :=250;
-
-            if vent.kind = ventkind_slide then
-            {/*5*/
-               if vent.sense = 0 then
-               {/*6*/
-                  Pos1:= Drain_opt_corner - ofs;
-                  Pos2:= Len - Drain_opt_corner - ofs + 30;
-               }/*6*/
-               if vent.sense = 1 then
-               {/*6*/
-                  Pos1:= Drain_opt_corner-ofs ;
-                  Pos2:= Len - Drain_opt_corner - ofs;
-               }/*6*/
-            }/*5*/
-            if vent.kind = ventkind_fixed then
-            {/*5*/
-               Pos1:= Drain_opt_corner - ofs;
-               Pos2:= Len - Drain_opt_corner - ofs;
-            }/*5*/
-         }/*4*/
-         /*Machine.Do(target,mop,POS_OFFSET,Pos1);*/ /**ÍâÉÈ**/
-         Machine.Do(target,mop,POS_OFFSET,Pos2);
-         }
-         Rest_length:= pos2-pos1;
-         extra_number:= trunc(Rest_length // Drain_max_dist);
-         counter:=0;
-         While (counter < extra_number) do
-         {/*4*/
-            Pos:=pos1 + (counter+1) * (Rest_length / (Extra_number + 1));
-            /*if(vent.link = 1) then 
-            
-            Machine.Do(target,mop2,POS_OFFSET,Pos);
-            else 
-            Machine.Do(target,mop,POS_OFFSET,Pos);*/
-            
-            counter:=counter+1;
-         }/*4*/
-      }/*3*/
+         if vent.definition.contour[0].bar.Xb<100 then
+         {
+            Machine.Do(target,mop2,POS_OFFSET,pos1);
+            Machine.Do(target,mop,POS_OFFSET,pos2);
+         }       
+    }/*3*/
    }/*2*/
 }/*1*/
 @Stop:
