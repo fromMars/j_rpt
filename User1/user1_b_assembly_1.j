@@ -1,6 +1,9 @@
 /* USER1_B_ASSEMBLY_1.J
  * show accessory prices */
 
+/*add assembly code to range("chuanghao")*/
+/*costsheet.range["chuanghao"].value:="´°ºÅ£º@%DB_COST_ASSEMBLY%";*/
+
 list_no_formula:="=row()-"+inttostr(row_increase+3);
 recent_rowid:=-1;
 

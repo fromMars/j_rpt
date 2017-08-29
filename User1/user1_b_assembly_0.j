@@ -18,10 +18,22 @@ ColId:=ColId-8;
 recent_rowid:=-1;
 
 
-curr_assembly:=getcurrentproject().projectdata.children[cnt-1];
+/*curr_assembly:=getcurrentproject().projectdata.children[cnt-1];*/
+curr_assembly:=getcurrentproject().projectdata.currentassembly;
+assembly_cnt:=getcurrentproject().projectdata.childcount;
+i_cnt:=0;
+while i_cnt<assembly_cnt do
+{
+    curr_assembly:=getcurrentproject().projectdata.children[i_cnt];
+    if curr_assembly.code="%ASSEMBLY_TEXT%" then
+        break;
+    i_cnt:=i_cnt+1;
+}
+
 ;assembly name
 curr_name:=curr_assembly.code;
-costsheet.range["chuanghao"].value:="´°ºÅ£º"+curr_name;
+/*costsheet.range["chuanghao"].value:="´°ºÅ£º"+"@%DB_PIECE_ASSEMBLY%";*/
+costsheet.range["chuanghao"].value:="´°ºÅ£º"+curr_assembly.code;
 
 ;surface
 curr_width:=curr_assembly.width;
