@@ -14,14 +14,13 @@ recent_rowid:=-1;
 ; 
 
 
-
 ; Item price
 /*RowId  := StrToNum(cList.Strings[bList.IndexOf("@%DB_COST_ARTICLE%"+"@%DB_COST_LOSSTYPE%"+"@%DB_COST_RATION%"+"@%DB_COST_FACTOR%"+"@%DB_COST_RATIO%")]);*/
 RowId  := StrToNum(cList.Strings[bList.IndexOf("@%DB_COST_ARTICLE%"+"@%DB_COST_LOSSTYPE%")]);
 if recent_rowid=-1 then
 	recent_rowid:=rowid+row_increase;
 
-CellCT := 'Indirect(Cost!address('+numtostr(strtonum(sList.Strings[cList.IndexOf(IntToStr(RowId))]))+","+IntToStr(ColCT)+"))/"+pList.Strings[cList.IndexOf(IntToStr(RowId))];
+CellCT := 'Indirect("Cost!"&address('+numtostr(strtonum(sList.Strings[cList.IndexOf(IntToStr(RowId))]))+","+IntToStr(ColCT)+"))/"+pList.Strings[cList.IndexOf(IntToStr(RowId))];
 CellC1 := 'Indirect("Cost!"&address('+numtostr(strtonum(sList.Strings[cList.IndexOf(IntToStr(RowId))]))+","+IntToStr(ColC1)+"))";
 CellC2 := 'Indirect("Cost!"&address('+numtostr(strtonum(sList.Strings[cList.IndexOf(IntToStr(RowId))]))+","+IntToStr(ColC2)+"))";
 CellC7 := 'Indirect("Cost!"&address('+numtostr(strtonum(sList.Strings[cList.IndexOf(IntToStr(RowId))]))+","+IntToStr(ColC7)+"))";
@@ -65,7 +64,8 @@ CurrentCell.Interior.Color := Color;
 CurrentCell.Borders.LineStyle := 1;
 
 /*add list no*/
-costsheet.cells[rowid+row_increase][1].value:=list_no;
+list_no_formula:="=row()-"+inttostr(row_increase+2);    /* 3->2 ? */
+costsheet.cells[rowid+row_increase][1].formula:=list_no_formula;
 
 ;supplier
 s_colid:=colid+1;
@@ -76,10 +76,10 @@ currentcell.borders.linestyle:=1;
 ;unit
 u_colid:=colid-1;
 currentcell:=costsheet.cells[rowid+row_increase][u_colid];
-u_recent_value:=currentcell.value;
+u_recent_value:=currentcell.formula;
 if "@%DB_COST_ASSEMBLY%"="" then
 {
-	costsheet.cells[rowid+row_increase][u_colid+1].value:=u_recent_value;
+	costsheet.cells[rowid+row_increase][u_colid+1].formula:=u_recent_value;
 	currentcell.value:="";
 	/*costsheet.cells[rowid+row_increase][u_colid-1].value:=1;*/
 }
@@ -96,11 +96,12 @@ currentcell:=costsheet.cells[rowid+row_increase][wps_colid];
 /*if @COST_QUANTITY<>1 then*/
 /*if @%DB_COST_ARTICLE%<>194 && @%DB_COST_ARTICLE%<>195 && @%DB_COST_ARTICLE%<>196 then*/
 if "@%DB_COST_ASSEMBLY%"<>"" then
-	currentcell.formulaR1C1:="=@COST_QUANTITY/mianji";
+	/*currentcell.formulaR1C1:="=@COST_QUANTITY/mianji";*/
+    currentcell.formulaR1C1:="=@COST_QUANTITY";
 else
 	currentcell.value:="";
 currentcell.borders.linestyle:=1;
-list_no:=list_no+1;
+/*list_no_formula:="=row()-"+inttostr(row_increase+3);*/
 
 %% break header
 ; ******************************Estim Excel************************************
@@ -118,4 +119,3 @@ list_no:=list_no+1;
 ; ******************************Estim Excel************************************
 ; *****************************************************************************
 ; %[3].FormulaR1C1:=Formula1;
-

@@ -3,7 +3,9 @@
 ; %NAME% (%BATCH%)
 ; 
 
+
 Count := Count + 1;
+/*
 ColId := ColId + 12;
 Color := DataSheet.Range["CellFormat"].Interior.Color;
 
@@ -15,12 +17,12 @@ while (i < cList.Count-3) do
   TempValue   := 0.0;
   CurrentCell := CostSheet.Cells[RowId][ColId];
   CurrentCell.Value := TempValue;
-  /*CurrentCell.NumberFormat := CellPriceFormat;*/
-  /*CurrentCell.Font.Italic := True;*/
-  /*CurrentCell.Interior.Color := Color;*/
   CurrentCell.Borders.linestyle := 0;
   i := i + 1;
 };
+*/
+
+
 
 %% detail
 ; ******************************Estim Excel************************************
@@ -91,7 +93,7 @@ CellC5 := "Indirect(address("+sList.Strings[cList.IndexOf(IntToStr(RowId))]+","+
 CellC6 := "Indirect(address("+sList.Strings[cList.IndexOf(IntToStr(RowId))]+","+IntToStr(ColC6)+"))";*/
 
 
-CellCT := 'Indirect(Cost!address('+sList.Strings[cList.IndexOf(IntToStr(RowId))]+","+IntToStr(ColCT)+"))/"+pList.Strings[cList.IndexOf(IntToStr(RowId))];
+CellCT := 'Indirect("Cost!"&address('+sList.Strings[cList.IndexOf(IntToStr(RowId))]+","+IntToStr(ColCT)+"))/"+pList.Strings[cList.IndexOf(IntToStr(RowId))];
 CellC1 := 'Indirect("Cost!"&address('+sList.Strings[cList.IndexOf(IntToStr(RowId))]+","+IntToStr(ColC1)+"))";
 CellC2 := 'Indirect("Cost!"&address('+sList.Strings[cList.IndexOf(IntToStr(RowId))]+","+IntToStr(ColC2)+"))";
 CellC7 := 'Indirect("Cost!"&address('+sList.Strings[cList.IndexOf(IntToStr(RowId))]+","+IntToStr(ColC7)+"))";
@@ -152,8 +154,6 @@ CurrentCell.Borders.linestyle := 0;
 ; *****************************************************************************
 ; %NAME% (%BATCH%) - Detail footer
 ; 
-
-
 
 
 

@@ -86,7 +86,8 @@ report
            sum(%DB_GLASS_NO%) as %DB_GLASS_NO%,
            sum(%DB_GLASS_SURFACE%) as %DB_GLASS_SURFACE%,
            sum(%DB_GLASS_WEIGHT%) as %DB_GLASS_WEIGHT%,
-           min(%DB_GLASS_SUPPLIER%) as %DB_GLASS_SUPPLIER%
+           min(%DB_GLASS_SUPPLIER%) as %DB_GLASS_SUPPLIER%,
+           sum(%DB_GLASS_PRICE%) as %DB_GLASS_PRICE%
   from     %TBL_GLASS%
   where    %DB_COST_PROJECT%  = "%PROJECT_TEXT%"
   and 		%DB_GLASS_ASSEMBLY% = "%ASSEMBLY_TEXT%" or %DB_GLASS_ASSEMBLY% = ""

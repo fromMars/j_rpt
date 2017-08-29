@@ -1,10 +1,10 @@
-
-list_no:=rowid-3+1;
+/* USER1_B_ASSEMBLY_1_G.J
+ * add custom glass prices */
 
 if RowId_1<>0 then
     rowid:=RowId_1;
 
-
+/*glass_price:=0;*/
 ; ******************************Estim Excel************************************
 ; *****************************************************************************
 ; %NAME% (%BATCH%)
@@ -27,8 +27,42 @@ if recent_rowid=-1 then
 	recent_rowid:=rowid;
 */
 
-costsheet.cells[rowid][1].value:=list_no;
+costsheet.cells[rowid][1].formula:=list_no_formula;
 costsheet.cells[rowid][2].value:="@%DB_GLASS_DESC%";
+
+
+TempValue   := StrReplace("@%DB_GLASS_PRICE%/%ASSEMBLYCOUNT%",".","%DECIMALSEP%");
+
+;price
+if @%DB_GLASS_PRICE%<>0 then
+{
+    /*glass_price:=1;*/
+    CellCT := 'Indirect("Cost!"&address('+inttostr(strtonum(sList.Strings[cList.IndexOf(IntToStr(RowId_G))]))+","+IntToStr(ColCT)+"))/"+pList.Strings[cList.IndexOf(IntToStr(RowId_G))];
+    CellC1 := 'Indirect("Cost!"&address('+inttostr(strtonum(sList.Strings[cList.IndexOf(IntToStr(RowId_G))]))+","+IntToStr(ColC1)+"))";
+    CellC2 := 'Indirect("Cost!"&address('+inttostr(strtonum(sList.Strings[cList.IndexOf(IntToStr(RowId_G))]))+","+IntToStr(ColC2)+"))";
+    CellC7 := 'Indirect("Cost!"&address('+inttostr(strtonum(sList.Strings[cList.IndexOf(IntToStr(RowId_G))]))+","+IntToStr(ColC7)+"))";
+    CellC3 := 'Indirect("Cost!"&address('+inttostr(strtonum(sList.Strings[cList.IndexOf(IntToStr(RowId_G))]))+","+IntToStr(ColC3)+"))";
+    CellC4 := 'Indirect("Cost!"&address('+inttostr(strtonum(sList.Strings[cList.IndexOf(IntToStr(RowId_G))]))+","+IntToStr(ColC4)+"))";
+    CellC5 := 'Indirect("Cost!"&address('+inttostr(strtonum(sList.Strings[cList.IndexOf(IntToStr(RowId_G))]))+","+IntToStr(ColC5)+"))";
+    CellC6 := 'Indirect("Cost!"&address('+inttostr(strtonum(sList.Strings[cList.IndexOf(IntToStr(RowId_G))]))+","+IntToStr(ColC6)+"))";
+}
+
+
+if (StrToNum(StrReplace(pList.Strings[cList.IndexOf(IntToStr(RowId))],"%DECIMALSEP%","."),0) > 0) then
+{
+    TempFormula := "=((((((((("+TempValue+")*("+CellCT+"))*(1+"+CellC1+"))*(1-"+CellC2+"))*"+CellC7+")*"+CellC3+")*(1+"+CellC6+"))*(1+"+CellC4+"))*(1-"+CellC5+"))";
+}
+else
+    TempFormula := "=((((((((("+TempValue+")*("+numtostr(1)+"))*(1+"+CellC1+"))*(1-"+CellC2+"))*"+CellC7+")*"+CellC3+")*(1+"+CellC6+"))*(1+"+CellC4+"))*(1-"+CellC5+"))";
+
+CurrentCell := CostSheet.Cells[rowid][ColId];
+CurrentCell.Formula := TempFormula;
+/*  CurrentCell.NumberFormat := CellPriceFormat;*/
+CurrentCell.Font.Italic := False;
+CurrentCell.Interior.Color := Color;
+CurrentCell.Borders.LineStyle := 1;
+
+
 
 ;supplier
 s_colid:=colid+1;
@@ -57,12 +91,13 @@ currentcell.borders.linestyle:=1;
 wps_colid:=colid-2;
 currentcell:=costsheet.cells[rowid][wps_colid];
 if "@%DB_GLASS_ASSEMBLY%"<>"" then
-	currentcell.formulaR1C1:="=@%DB_GLASS_SURFACE%/mianji";
+	/*currentcell.formulaR1C1:="=@%DB_GLASS_SURFACE%/mianji";*/
+    currentcell.formulaR1C1:="=@%DB_GLASS_SURFACE%";
 else
 	currentcell.value:="";
 
 currentcell.borders.linestyle:=1;
-list_no:=list_no+1;
+/*list_no_formula:="=row()-"+inttostr(row_increase+3);*/
 
 
 %% break header
@@ -117,6 +152,8 @@ rowid:=rowid-row_increase;
 
 row_increase:=row_increase+2;
 RowId_1:=tmp_rowid_increase+2;
+list_no_formula:="=row()-"+inttostr(row_increase+3);
+
 
 /*
 a_fee_row:=tmp_rowid_increase+1;

@@ -59,7 +59,7 @@ while (i < cList.Count-3) do
   CurrentCell.Value := TempValue;
   currentcell.NumberFormat:=CellCostFormat;
   CurrentCell1 := CostSheet.Cells[RowId][ColId-1];
-  if CurrentCell1.offset.Value=0 then
+  if CurrentCell1.Value=0 then
     CurrentCell1.Value := TempValue;
   currentcell1.NumberFormat:=CellCostFormat;
   CurrentCell0 := CostSheet.Cells[RowId][ColId-2];
@@ -140,10 +140,10 @@ else
 {
 	RowId  := StrToNum(cList.Strings[bList.IndexOf("@%DB_PIECE_ARTICLE%"+"@%DB_PIECE_LOSSTYPE%")]);
 }
-if recent_rowid=-1 then
+if recent_rowid=-1 && !(@%DB_PIECE_ARTICLE%=19 || @%DB_PIECE_ARTICLE%=18 || @%DB_PIECE_ARTICLE%=8 ||@%DB_PIECE_ARTICLE%=9 || @%DB_PIECE_ARTICLE%=10) then
 	recent_rowid:=rowid;
 
-CellCT := "Indirect(address("+sList.Strings[cList.IndexOf(IntToStr(RowId))]+","+IntToStr(ColCT)+"))/"+pList.Strings[cList.IndexOf(IntToStr(RowId))];
+CellCT := 'Indirect("Cost!"&address('+sList.Strings[cList.IndexOf(IntToStr(RowId))]+","+IntToStr(ColCT)+"))/"+pList.Strings[cList.IndexOf(IntToStr(RowId))];
 CellC1 := 'Indirect("Cost!"&address('+sList.Strings[cList.IndexOf(IntToStr(RowId))]+","+IntToStr(ColC1)+"))";
 CellC2 := 'Indirect("Cost!"&address('+sList.Strings[cList.IndexOf(IntToStr(RowId))]+","+IntToStr(ColC2)+"))";
 CellC7 := 'Indirect("Cost!"&address('+sList.Strings[cList.IndexOf(IntToStr(RowId))]+","+IntToStr(ColC7)+"))";
@@ -210,6 +210,13 @@ CurrentCell.Borders.LineStyle := 1;
 
 
 
+;unit name
+un_colid:=3;
+currentcell:=costsheet.cells[rowid][un_colid];
+currentcell.value:="Kg";
+currentcell.HorizontalAlignment:=-4108;
+
+
 ;supplier
 s_colid:=colid+1;
 currentcell:=costsheet.cells[rowid][s_colid];
@@ -223,12 +230,14 @@ currentcell:=costsheet.cells[rowid][wps_colid];
 if @%DB_PIECE_ARTICLE%=19 || @%DB_PIECE_ARTICLE%=18 || @%DB_PIECE_ARTICLE%=8 ||@%DB_PIECE_ARTICLE%=9 || @%DB_PIECE_ARTICLE%=10 then
 {
 	curr_profile_value:=currentcell.value;
-	currentcell.formulaR1C1:="=@%DB_PIECE_WEIGHT%/mianji+"+numtostr(curr_profile_value);
+	/*currentcell.formulaR1C1:="=@%DB_PIECE_WEIGHT%/mianji+"+numtostr(curr_profile_value);*/
+    currentcell.formulaR1C1:="=@%DB_PIECE_WEIGHT%+"+numtostr(curr_profile_value);
 	currentcell.borders.linestyle:=1;
 }
 else
 {
-	currentcell.formulaR1C1:="=@%DB_PIECE_WEIGHT%/mianji";
+	/*currentcell.formulaR1C1:="=@%DB_PIECE_WEIGHT%/mianji";*/
+    currentcell.formulaR1C1:="=@%DB_PIECE_WEIGHT%";
 	currentcell.borders.linestyle:=1;
 }
 
@@ -239,7 +248,7 @@ currentcell:=costsheet.cells[rowid][u_colid];
 u_recent_value:=currentcell.value;
 if u_recent_value<>0 && !(@%DB_PIECE_ARTICLE%=19 || @%DB_PIECE_ARTICLE%=18 || @%DB_PIECE_ARTICLE%=8 ||@%DB_PIECE_ARTICLE%=9 || @%DB_PIECE_ARTICLE%=10) then
 {
-	costsheet.cells[rowid+row_increase][u_colid+1].value:=u_recent_value;
+	costsheet.cells[rowid][u_colid+1].value:=u_recent_value;
 	currentcell.value:="";
 }
 else
@@ -247,7 +256,8 @@ else
 	if @%DB_PIECE_ARTICLE%=19 || @%DB_PIECE_ARTICLE%=18 || @%DB_PIECE_ARTICLE%=8 ||@%DB_PIECE_ARTICLE%=9 || @%DB_PIECE_ARTICLE%=10 then
 	{
 		curr_profile_value:=currentcell.value;
-		tot_formula:="="+RId+CId+LBr+"1"+RBr+"/"+RId+CId+LBr+"-1"+RBr+"/mianji";
+		/*tot_formula:="="+RId+CId+LBr+"1"+RBr+"/"+RId+CId+LBr+"-1"+RBr+"/mianji";*/
+        tot_formula:="="+RId+CId+LBr+"1"+RBr+"/"+RId+CId+LBr+"-1"+RBr;
 		currentcell.formulaR1C1:=tot_formula;
 	}
 	else

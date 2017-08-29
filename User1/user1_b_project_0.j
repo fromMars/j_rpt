@@ -262,6 +262,9 @@ CurrentCell.Borders.linestyle:=0;
 
 
 
+RowId_G:=0;
+glass_price:=0;
+
 %% detail
 ; ******************************Estim Excel************************************
 ; *****************************************************************************
@@ -280,6 +283,13 @@ bList.Add("@%DB_COST_ARTICLE%"+"@%DB_COST_LOSSTYPE%");
 cList.Add(IntToStr(RowId));
 pList.Add(StrReplace("TempValue",".","%DECIMALSEP%"));
 sList.Add(inttostr(RowId));
+
+/* record glass artikel lines and set with glass artikel(20) mark to 1*/
+if @%DB_COST_ARTICLE%=20 then
+{
+    RowId_G:=RowId;
+    glass_price:=1;
+}
 
 CostSheet.Cells[RowId][1].value:=rowid-3;
 CostSheet.Cells[RowId][1].Borders.linestyle:=0;
@@ -414,6 +424,30 @@ bList.Add("-3");
 cList.Add(IntToStr(RowId));
 sList.Add(inttostr(RowId));
 
+
+
+recent_count:=count;
+recent_colid:=colid;
+recent_cost_sheet:=CostSheet;
+
+
+
+
+/*Count := Count + 1;*/
+ColId := ColId + 12;
+Color := DataSheet.Range["CellFormat"].Interior.Color;
+
+; Initialize prices project level
+i := 0;
+while (i < cList.Count-3) do
+{
+  RowId       := StrToNum(cList.Strings[i]);
+  TempValue   := 0.0;
+  CurrentCell := CostSheet.Cells[RowId][ColId];
+  CurrentCell.Value := TempValue;
+  CurrentCell.Borders.linestyle := 0;
+  i := i + 1;
+};
 
 
 recent_count:=count;

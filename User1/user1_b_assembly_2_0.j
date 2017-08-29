@@ -72,4 +72,3 @@ CostSheet.Range[CostSheet.Cells[tmp_rowid_increase+1][1]][CostSheet.Cells[tmp_ro
 /*a_fee_row:=tmp_rowid_increase+1;*/
 RowId_A:=tmp_rowid_increase+1;
 row_increase:=row_increase+1;
-

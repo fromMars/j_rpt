@@ -26,7 +26,10 @@ CostSheet.Range[CostSheet.Cells[tmp_rowid_increase+2][2]][CostSheet.Cells[tmp_ro
 
 CostSheet.Range[CostSheet.Cells[tmp_rowid_increase+1][3]][CostSheet.Cells[tmp_rowid_increase+1][7]].merge();
 Formula0 := "="+SumFormulaText+"("+RId+LBr+IntToStr(recent_rowid-tmp_rowid_increase-1)+RBr+CId+LBr+"4"+RBr+":"+RId+LBr+"-1"+RBr+CId+Lbr+"4"+RBr+")";
-CostSheet.Cells[tmp_rowid_increase+1][3].formula:=formula0;
+if recent_rowid>RowId_A then
+    CostSheet.Cells[tmp_rowid_increase+1][3].formula:=formula0;
+else
+    costsheet.cells[tmp_rowid_increase+1][3].value:=0;
 costsheet.cells[tmp_rowid_increase+1][3].NumberFormat:=CellCostFormat;
 
 /*CostSheet.Cells[tmp_rowid_increase+1][3].NumberFormatLocal:="0.0%";*/
@@ -114,12 +117,12 @@ CurrentCell.Borders.LineStyle := 1;
 
 ; Total batch/project price
 
-
+list_no_formula:="=row()-"+inttostr(row_increase+2);
 /*add indirect fees, planned vats, vats etc.*/
 rowid:=rowid+row_increase;
 /*list_no:=rowid-row_increase-3+1;*/
 RowId_C:=rowid;
-costsheet.cells[rowid+1][1].value:=list_no;
+costsheet.cells[rowid+1][1].formula:=list_no_formula;
 costsheet.cells[rowid+1][2].value:="现场管理费";
 costsheet.range[costsheet.cells[rowid+1][3]][costsheet.cells[rowid+1][6]].merge();
 costsheet.cells[rowid+1][3].value:=0;
@@ -127,8 +130,8 @@ costsheet.cells[rowid+1][3].NumberFormatLocal:="0.0%";
 costsheet.cells[rowid+1][7].FormulaR1C1:="="+RId+LBr+"-1"+RBr+CId+LBr+"-4"+RBr+"*"+RId+CId+LBr+"-4"+RBr;
 
 rowid:=rowid+1;
-list_no:=list_no+1;
-costsheet.cells[rowid+1][1].value:=list_no;
+/*list_no:=list_no+1;*/
+costsheet.cells[rowid+1][1].formula:=list_no_formula;
 costsheet.cells[rowid+1][2].value:="企业管理费";
 costsheet.range[costsheet.cells[rowid+1][3]][costsheet.cells[rowid+1][6]].merge();
 costsheet.cells[rowid+1][3].value:=0;
@@ -196,6 +199,6 @@ rowid:=rowid+1;
 costsheet.range[costsheet.cells[rowid+1][1]][costsheet.cells[rowid+2][8]].merge();
 costsheet.cells[rowid+1][1].value:="                                制单人："+"                                                                "+"批准：";
 costsheet.cells[rowid+1][1].VerticalAlignment:=-4108;    /*xlCenter: -4108  xlLeft: -4131  xlRight: -4152*/
-costsheet.cells[rowid+1][1].Font.Size:=12;
+/*costsheet.cells[rowid+1][1].Font.Size:=12;*/
 
 

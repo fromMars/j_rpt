@@ -46,7 +46,6 @@ report
   and      %DB_COST_ARTICLE% != %C_OPERATIONS%
   and      ((%DB_COST_PRICE% <> 0) or (%DB_COST_TIME% <> 0))
   group by %DB_COST_ARTICLE%, %DB_COST_LOSSTYPE%, %DB_COST_RATION%, %DB_COST_FACTOR%, %DB_COST_RATIO%
-  having count(*)>0
 
 using %REPORTNAME%_E_ASSEMBLY.%REPORTTYPE%%IF{%REPORTTYPE%=J,,%LANGUAGE%}
 
