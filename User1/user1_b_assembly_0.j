@@ -142,17 +142,41 @@ CurrentCell.Borders.LineStyle := 1;
 */
 
 
+a_link:="";
+aa:=pricegroups.create();
+aa.code.group:="A";
+aa.code.block:=@%DB_COST_ARTICLE%;
+if aa.find() then
+{
+	a_link:=aa.link;
+}
+else
+{
+	msgbox("no article block "+inttostr(aa.code.block)+" found!");
+}
+
+
+
 ; Item price
 /*RowId  := StrToNum(cList.Strings[bList.IndexOf("@%DB_COST_ARTICLE%"+"@%DB_COST_LOSSTYPE%"+"@%DB_COST_RATION%"+"@%DB_COST_FACTOR%"+"@%DB_COST_RATIO%")]);*/
-if @%DB_PIECE_ARTICLE%=19 || @%DB_PIECE_ARTICLE%=18 || @%DB_PIECE_ARTICLE%=8 ||@%DB_PIECE_ARTICLE%=9 || @%DB_PIECE_ARTICLE%=10 then
+if a_link<>"" then
 {
-	RowId  := StrToNum(cList.Strings[bList.IndexOf("19"+"@%DB_PIECE_LOSSTYPE%")]);
+	RowId  := StrToNum(cList.Strings[bList.IndexOf(a_link+"@%DB_PIECE_LOSSTYPE%")]);
 }
 else
 {
 	RowId  := StrToNum(cList.Strings[bList.IndexOf("@%DB_PIECE_ARTICLE%"+"@%DB_PIECE_LOSSTYPE%")]);
 }
-if recent_rowid=-1 && !(@%DB_PIECE_ARTICLE%=19 || @%DB_PIECE_ARTICLE%=18 || @%DB_PIECE_ARTICLE%=8 ||@%DB_PIECE_ARTICLE%=9 || @%DB_PIECE_ARTICLE%=10) then
+
+
+if a_link="" then
+	RowId  := StrToNum(cList.Strings[bList.IndexOf("@%DB_PIECE_ARTICLE%"+"@%DB_PIECE_LOSSTYPE%")]);
+else
+	RowId  := StrToNum(cList.Strings[bList.IndexOf(a_link+"@%DB_PIECE_LOSSTYPE%")]);
+
+
+
+if recent_rowid=-1 || recent_rowid>rowid then
 	recent_rowid:=rowid;
 
 CellCT := 'Indirect("Cost!"&address('+sList.Strings[cList.IndexOf(IntToStr(RowId))]+","+IntToStr(ColCT)+"))/"+pList.Strings[cList.IndexOf(IntToStr(RowId))];
@@ -167,7 +191,7 @@ if (StrToNum(StrReplace(pList.Strings[cList.IndexOf(IntToStr(RowId))],"%DECIMALS
 {
   CurrentCell := CostSheet.Cells[RowId][ColId];
   TempValue   := StrReplace("@%DB_PIECE_PRICE%/%ASSEMBLYCOUNT%",".","%DECIMALSEP%");
-  if @%DB_PIECE_ARTICLE%=18 || @%DB_PIECE_ARTICLE%=8 ||@%DB_PIECE_ARTICLE%=9 || @%DB_PIECE_ARTICLE%=10 then
+  if a_link<>"" then
   {
 	tmp_tmp_value:=tempvalue;
 	curr_profile_value:="((((((((("+recent_profile_value+")*("+CellCT+"))*(1+"+CellC1+"))*(1-"+CellC2+"))*"+CellC7+")*"+CellC3+")*(1+"+CellC6+"))*(1+"+CellC4+"))*(1-"+CellC5+"))";
@@ -181,7 +205,7 @@ if (StrToNum(StrReplace(pList.Strings[cList.IndexOf(IntToStr(RowId))],"%DECIMALS
   
   CurrentCell.Formula := TempFormula;
 /*  CurrentCell.NumberFormat := CellPriceFormat;*/
-  CurrentCell.Font.Italic := False;
+/*  CurrentCell.Font.Italic := False;*/
   CurrentCell.Interior.Color := Color;
   CurrentCell.Borders.LineStyle := 1;
 }
@@ -190,7 +214,7 @@ else
   TempValue   := StrReplace("@%DB_PIECE_PRICE%/%ASSEMBLYCOUNT%",".","%DECIMALSEP%");
   CurrentCell := CostSheet.Cells[RowId][ColId];
 
-  if @%DB_PIECE_ARTICLE%=19 || @%DB_PIECE_ARTICLE%=18 || @%DB_PIECE_ARTICLE%=8 ||@%DB_PIECE_ARTICLE%=9 || @%DB_PIECE_ARTICLE%=10 then
+  if a_link<>"" then
   {
 	tmp_tmp_value:=tempvalue;
 	curr_profile_value:="(((((((("+recent_profile_value+")*(1+"+CellC1+"))*(1-"+CellC2+"))*"+CellC7+")*"+CellC3+")*(1+"+CellC6+"))*(1+"+CellC4+"))*(1-"+CellC5+"))";
@@ -239,7 +263,7 @@ currentcell.borders.linestyle:=1;
 ;weight per surface
 wps_colid:=colid-2;
 currentcell:=costsheet.cells[rowid][wps_colid];
-if @%DB_PIECE_ARTICLE%=19 || @%DB_PIECE_ARTICLE%=18 || @%DB_PIECE_ARTICLE%=8 ||@%DB_PIECE_ARTICLE%=9 || @%DB_PIECE_ARTICLE%=10 then
+if a_link<>"" then
 {
 	curr_profile_value:=currentcell.value;
 	/*currentcell.formulaR1C1:="=@%DB_PIECE_WEIGHT%/mianji+"+numtostr(curr_profile_value);*/
@@ -258,14 +282,14 @@ else
 u_colid:=colid-1;
 currentcell:=costsheet.cells[rowid][u_colid];
 u_recent_value:=currentcell.value;
-if u_recent_value<>0 && !(@%DB_PIECE_ARTICLE%=19 || @%DB_PIECE_ARTICLE%=18 || @%DB_PIECE_ARTICLE%=8 ||@%DB_PIECE_ARTICLE%=9 || @%DB_PIECE_ARTICLE%=10) then
+if u_recent_value<>0 && a_link="" then
 {
 	costsheet.cells[rowid][u_colid+1].value:=u_recent_value;
 	currentcell.value:="";
 }
 else
 {
-	if @%DB_PIECE_ARTICLE%=19 || @%DB_PIECE_ARTICLE%=18 || @%DB_PIECE_ARTICLE%=8 ||@%DB_PIECE_ARTICLE%=9 || @%DB_PIECE_ARTICLE%=10 then
+	if a_link<>"" then
 	{
 		curr_profile_value:=currentcell.value;
 		/*tot_formula:="="+RId+CId+LBr+"1"+RBr+"/"+RId+CId+LBr+"-1"+RBr+"/mianji";*/
