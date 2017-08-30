@@ -32,7 +32,7 @@ costsheet.cells[rowid][2].value:="@%DB_GLASS_DESC%";
 
 costsheet.cells[rowid][1].formula:=list_no_formula;
 costsheet.cells[rowid][3].value:="©O";
-currentcell.HorizontalAlignment:=-4108;
+costsheet.cells[rowid][3].HorizontalAlignment:=-4108;
 
 
 TempValue   := StrReplace("@%DB_GLASS_PRICE%/%ASSEMBLYCOUNT%",".","%DECIMALSEP%");
