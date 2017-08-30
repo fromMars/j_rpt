@@ -271,15 +271,34 @@ glass_price:=0;
 ; %NAME% (%BATCH%) - Detail
 ; 
 
+a_link:="";
+aa:=pricegroups.create();
+aa.code.group:="A";
+aa.code.block:=@%DB_COST_ARTICLE%;
+if aa.find() then
+{
+	a_link:=aa.link;
+}
+else
+{
+	msgbox("no article block "+inttostr(aa.code.block)+" found!");
+}
+
+
+
 RowId := RowId + 1;
 Range := Range + 1;
+
 TempValue    := %IF{%EVAL{@%DB_RES_COST%>0},"@%DB_RES_COST%","0"};
 /*
 ColumnLetter := SubStr(CostSheet.Cells[RowId][ColId].Address, 2, 3);
 ColumnLetter := SubStr(ColumnLetter, 1, StrPos("$", ColumnLetter) - 1);*/
 
 /*bList.Add("@%DB_COST_ARTICLE%"+"@%DB_COST_LOSSTYPE%"+"@%DB_COST_RATION%"+"@%DB_COST_FACTOR%"+"@%DB_COST_RAT%");*/
-bList.Add("@%DB_COST_ARTICLE%"+"@%DB_COST_LOSSTYPE%");
+if a_link<>"" then
+	bList.Add(a_link+"@%DB_COST_LOSSTYPE%");
+else
+	bList.Add("@%DB_COST_ARTICLE%"+"@%DB_COST_LOSSTYPE%");
 cList.Add(IntToStr(RowId));
 pList.Add(StrReplace("TempValue",".","%DECIMALSEP%"));
 sList.Add(inttostr(RowId));
