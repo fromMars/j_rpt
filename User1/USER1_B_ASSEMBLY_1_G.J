@@ -38,7 +38,7 @@ costsheet.cells[rowid][3].HorizontalAlignment:=-4108;
 TempValue   := StrReplace("@%DB_GLASS_PRICE%/%ASSEMBLYCOUNT%",".","%DECIMALSEP%");
 
 ;price
-if @%DB_GLASS_PRICE%<>0 then
+if @%DB_GLASS_PRICE%<>0 || RowId_G<>0 then
 {
     /*glass_price:=1;*/
     CellCT := 'Indirect("Cost!"&address('+inttostr(strtonum(sList.Strings[cList.IndexOf(IntToStr(RowId_G))]))+","+IntToStr(ColCT)+"))/"+pList.Strings[cList.IndexOf(IntToStr(RowId_G))];
@@ -49,15 +49,22 @@ if @%DB_GLASS_PRICE%<>0 then
     CellC4 := 'Indirect("Cost!"&address('+inttostr(strtonum(sList.Strings[cList.IndexOf(IntToStr(RowId_G))]))+","+IntToStr(ColC4)+"))";
     CellC5 := 'Indirect("Cost!"&address('+inttostr(strtonum(sList.Strings[cList.IndexOf(IntToStr(RowId_G))]))+","+IntToStr(ColC5)+"))";
     CellC6 := 'Indirect("Cost!"&address('+inttostr(strtonum(sList.Strings[cList.IndexOf(IntToStr(RowId_G))]))+","+IntToStr(ColC6)+"))";
-}
 
 
-if (StrToNum(StrReplace(pList.Strings[cList.IndexOf(IntToStr(RowId))],"%DECIMALSEP%","."),0) > 0) then
-{
-    TempFormula := "=((((((((("+TempValue+")*("+CellCT+"))*(1+"+CellC1+"))*(1-"+CellC2+"))*"+CellC7+")*"+CellC3+")*(1+"+CellC6+"))*(1+"+CellC4+"))*(1-"+CellC5+"))";
+    if (StrToNum(StrReplace(pList.Strings[cList.IndexOf(IntToStr(RowId))],"%DECIMALSEP%","."),0) > 0) then
+    {
+        TempFormula := "=((((((((("+TempValue+")*("+CellCT+"))*(1+"+CellC1+"))*(1-"+CellC2+"))*"+CellC7+")*"+CellC3+")*(1+"+CellC6+"))*(1+"+CellC4+"))*(1-"+CellC5+"))";
+    }
+    else
+    {
+        TempFormula := "=((((((((("+TempValue+")*("+numtostr(1)+"))*(1+"+CellC1+"))*(1-"+CellC2+"))*"+CellC7+")*"+CellC3+")*(1+"+CellC6+"))*(1+"+CellC4+"))*(1-"+CellC5+"))";
+    }
 }
 else
-    TempFormula := "=((((((((("+TempValue+")*("+numtostr(1)+"))*(1+"+CellC1+"))*(1-"+CellC2+"))*"+CellC7+")*"+CellC3+")*(1+"+CellC6+"))*(1+"+CellC4+"))*(1-"+CellC5+"))";
+{
+    TempFormula:="="+TempValue;
+    
+}
 
 CurrentCell := CostSheet.Cells[rowid][ColId];
 CurrentCell.Formula := TempFormula;
