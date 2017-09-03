@@ -143,16 +143,16 @@ CurrentCell.Borders.LineStyle := 1;
 
 
 a_link:="";
-aa:=pricegroups.create();
-aa.code.group:="A";
-aa.code.block:=@%DB_COST_ARTICLE%;
-if aa.find() then
+z_pg:=pricegroups.create();
+z_pg.code.group:="A";
+z_pg.code.block:=@%DB_COST_ARTICLE%;
+if z_pg.find() then
 {
-	a_link:=aa.link;
+	a_link:=z_pg.link;
 }
 else
 {
-	msgbox("no article block "+inttostr(aa.code.block)+" found!");
+	msgbox("no article block "+inttostr(z_pg.code.block)+" found!");
 }
 
 
