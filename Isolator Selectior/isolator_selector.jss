@@ -17,9 +17,10 @@ while i<pc_cnt do
         if ac.isframepart then
         {
             if ac_system="ES70A" || ac_system="ES78" || ac_system="ES101" then
-                ac.isolator:=2;
-            else
                 ac.isolator:=1;
+            /*
+            else
+                ac.isolator:=0;*/
         }
         j:=j+1;
     }
