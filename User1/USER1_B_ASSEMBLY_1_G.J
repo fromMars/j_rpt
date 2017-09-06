@@ -51,7 +51,7 @@ if @%DB_GLASS_PRICE%<>0 || RowId_G<>0 then
     CellC6 := 'Indirect("Cost!"&address('+inttostr(strtonum(sList.Strings[cList.IndexOf(IntToStr(RowId_G))]))+","+IntToStr(ColC6)+"))";
 
 
-    if (StrToNum(StrReplace(pList.Strings[cList.IndexOf(IntToStr(RowId))],"%DECIMALSEP%","."),0) > 0) then
+    if (StrToNum(StrReplace(pList.Strings[cList.IndexOf(IntToStr(RowId_G))],"%DECIMALSEP%","."),0) > 0) then
     {
         TempFormula := "=((((((((("+TempValue+")*("+CellCT+"))*(1+"+CellC1+"))*(1-"+CellC2+"))*"+CellC7+")*"+CellC3+")*(1+"+CellC6+"))*(1+"+CellC4+"))*(1-"+CellC5+"))";
     }
