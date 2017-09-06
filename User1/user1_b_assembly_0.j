@@ -87,6 +87,8 @@ while (i < cList.Count-3) do
 recent_profile_value:="0";
 tmp_tmp_value:="0";
 
+a_linked:=strings.create();
+
 %% detail
 ; ******************************Estim Excel************************************
 ; *****************************************************************************
@@ -149,6 +151,8 @@ z_pg.code.block:=@%DB_COST_ARTICLE%;
 if z_pg.find() then
 {
 	a_link:=z_pg.link;
+    if a_link<>"" && a_linked.indexof(a_link)=-1 then
+        a_linked.add(a_link);
 }
 else
 {
@@ -169,10 +173,11 @@ else
 }
 
 
+/*
 if a_link="" then
 	RowId  := StrToNum(cList.Strings[bList.IndexOf("@%DB_PIECE_ARTICLE%"+"@%DB_PIECE_LOSSTYPE%")]);
 else
-	RowId  := StrToNum(cList.Strings[bList.IndexOf(a_link+"@%DB_PIECE_LOSSTYPE%")]);
+	RowId  := StrToNum(cList.Strings[bList.IndexOf(a_link+"@%DB_PIECE_LOSSTYPE%")]);*/
 
 
 
@@ -191,7 +196,7 @@ if (StrToNum(StrReplace(pList.Strings[cList.IndexOf(IntToStr(RowId))],"%DECIMALS
 {
   CurrentCell := CostSheet.Cells[RowId][ColId];
   TempValue   := StrReplace("@%DB_PIECE_PRICE%/%ASSEMBLYCOUNT%",".","%DECIMALSEP%");
-  if a_link<>"" then
+  if a_link<>"" || a_linked.indexof("@%DB_COST_ARTICLE%")<>-1 then
   {
 	tmp_tmp_value:=tempvalue;
 	curr_profile_value:="((((((((("+recent_profile_value+")*("+CellCT+"))*(1+"+CellC1+"))*(1-"+CellC2+"))*"+CellC7+")*"+CellC3+")*(1+"+CellC6+"))*(1+"+CellC4+"))*(1-"+CellC5+"))";
@@ -214,7 +219,7 @@ else
   TempValue   := StrReplace("@%DB_PIECE_PRICE%/%ASSEMBLYCOUNT%",".","%DECIMALSEP%");
   CurrentCell := CostSheet.Cells[RowId][ColId];
 
-  if a_link<>"" then
+  if a_link<>"" || a_linked.indexof("@%DB_COST_ARTICLE%")<>-1 then
   {
 	tmp_tmp_value:=tempvalue;
 	curr_profile_value:="(((((((("+recent_profile_value+")*(1+"+CellC1+"))*(1-"+CellC2+"))*"+CellC7+")*"+CellC3+")*(1+"+CellC6+"))*(1+"+CellC4+"))*(1-"+CellC5+"))";
@@ -263,7 +268,7 @@ currentcell.borders.linestyle:=1;
 ;weight per surface
 wps_colid:=colid-2;
 currentcell:=costsheet.cells[rowid][wps_colid];
-if a_link<>"" then
+if a_link<>"" || a_linked.indexof("@%DB_COST_ARTICLE%")<>-1 then
 {
 	curr_profile_value:=currentcell.value;
 	/*currentcell.formulaR1C1:="=@%DB_PIECE_WEIGHT%/mianji+"+numtostr(curr_profile_value);*/
@@ -282,14 +287,14 @@ else
 u_colid:=colid-1;
 currentcell:=costsheet.cells[rowid][u_colid];
 u_recent_value:=currentcell.value;
-if u_recent_value<>0 && a_link="" then
+if u_recent_value<>0 && a_link="" && a_linked.indexof("@%DB_COST_ARTICLE%")=-1 then
 {
 	costsheet.cells[rowid][u_colid+1].value:=u_recent_value;
 	currentcell.value:="";
 }
 else
 {
-	if a_link<>"" then
+	if a_link<>"" || a_linked.indexof("@%DB_COST_ARTICLE%")<>-1 then
 	{
 		curr_profile_value:=currentcell.value;
 		/*tot_formula:="="+RId+CId+LBr+"1"+RBr+"/"+RId+CId+LBr+"-1"+RBr+"/mianji";*/
