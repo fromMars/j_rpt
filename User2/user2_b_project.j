@@ -107,9 +107,9 @@ else
 	while seperated_cnt<5 do
 	{
 		if seperated_profile.accessories[seperated_cnt].colour=2 then
-			inside_profile:=seperated_profile.accessories[seperated_cnt].code.code;
+			inside_profile:=trim(seperated_profile.accessories[seperated_cnt].code.code);
 		else if seperated_profile.accessories[seperated_cnt].colour=1 then
-			outside_profile:=seperated_profile.accessories[seperated_cnt].code.code;
+			outside_profile:=trim(seperated_profile.accessories[seperated_cnt].code.code);
 		seperated_cnt:=seperated_cnt+1;
 	}
 }
@@ -118,6 +118,11 @@ else
 
 if "@%DB_PIECE_INSIDE%"<>"" && "@%DB_PIECE_OUTSIDE%"<>"" then
 {
+    if strpos("_",inside_profile)=1 then
+        inside_profile:=strdeletel(inside_profile,1);
+    if strpos("_",outside_profile)=1 then
+        outside_profile:=strdeletel(outside_profile,1);
+    
 	curr_cell:=curr_sheet.cells[rowid][8];
 	curr_cell.value:=inside_profile;
 	curr_cell:=curr_sheet.cells[rowid+1][8];
