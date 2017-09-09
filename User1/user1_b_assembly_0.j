@@ -36,9 +36,23 @@ curr_name:=curr_assembly.code;
 costsheet.range["chuanghao"].value:="´°ºÅ£º"+curr_assembly.code;
 
 ;surface
+f_cnt:=0;
+curr_frame:=curr_assembly.children[0];
+frame_cnt:=curr_assembly.childcount;
+a_mianji:=0;
+while f_cnt<frame_cnt do
+{
+    curr_frame:=curr_assembly.children[f_cnt];
+    f_width:=curr_frame.width;
+    f_height:=curr_frame.height;
+    f_mianji:=f_width*f_height;
+    a_mianji:=a_mianji+f_mianji;
+    f_cnt:=f_cnt+1;
+}
+/*
 curr_width:=curr_assembly.width;
-curr_height:=curr_assembly.height;
-curr_surface:=curr_width*curr_height/1000000;
+curr_height:=curr_assembly.height;*/
+curr_surface:=a_mianji/1000000;
 costsheet.range["mianji"].value:=curr_surface;
 costsheet.range["mianji"].HorizontalAlignment:=-4131;
 costsheet.range["mianji"].offset[0][-1].HorizontalAlignment:=-4152;
