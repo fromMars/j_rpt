@@ -88,7 +88,7 @@ if "@%DB_COST_ASSEMBLY%"="" then
 }
 else
 {
-	tot_formula:="="+RId+LBr+inttostr(0)+RBr+CId+Lbr+"1"+RBr+"/@COST_QUANTITY";
+	tot_formula:="="+RId+LBr+inttostr(0)+RBr+CId+Lbr+"1"+RBr+"/"+RId+LBr+inttostr(0)+RBr+CId+Lbr+"-1"+RBr;
 	currentcell.formulaR1C1:=tot_formula;
 }
 currentcell.borders.linestyle:=1;
@@ -98,7 +98,7 @@ wps_colid:=colid-2;
 currentcell:=costsheet.cells[rowid+row_increase][wps_colid];
 if "@%DB_COST_ASSEMBLY%"<>"" then
 	/*currentcell.formulaR1C1:="=@COST_QUANTITY/mianji";*/
-    currentcell.formulaR1C1:="=@COST_QUANTITY";
+    currentcell.formulaR1C1:="=@COST_QUANTITY/%ASSEMBLYCOUNT%";
 else
 	currentcell.value:="";
 currentcell.borders.linestyle:=1;

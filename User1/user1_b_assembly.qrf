@@ -9,6 +9,7 @@ include Cost.QIF
 include Part.QIF
 include Piece.QIF
 include Glass.QIF
+include Attrib.QIF
 
 
 defines
@@ -79,6 +80,22 @@ report
 
 using %REPORTNAME%_B_ASSEMBLY_1.%REPORTTYPE%%IF{%REPORTTYPE%=J,,%LANGUAGE%}
 
+
+next
+report
+    select  sum(%DB_ATTRIB_NO%) as %DB_ATTRIB_NO%,
+            %DB_ATTRIB_ARTICLE%,
+            %DB_ATTRIB_LOSSTYPE%
+    from    %TBL_ATTRIB%
+    where   %DB_ATTRIB_PROJECT%="%PROJECT_TEXT%"
+    and     %DB_ATTRIB_ASSEMBLY%="%ASSEMBLY_TEXT%"
+    and     %DB_ATTRIB_ARTICLE% in (select distinct(%DB_COST_ARTICLE%) from %TBL_COST%)
+    and     %DB_ATTRIB_ARTICLE% not in (select distinct(%DB_COST_ARTICLE%) from %TBL_PIECE%)
+    group by %DB_ATTRIB_ARTICLE%,%DB_ATTRIB_LOSSTYPE%
+    having count(*)>0
+    
+using %REPORTNAME%_B_ASSEMBLY_1_A.%REPORTTYPE%%IF{%REPORTTYPE%=J,,%LANGUAGE%}
+    
 
 next
 report

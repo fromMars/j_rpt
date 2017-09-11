@@ -286,13 +286,13 @@ if a_link<>"" || a_linked.indexof("@%DB_COST_ARTICLE%")<>-1 then
 {
 	curr_profile_value:=currentcell.value;
 	/*currentcell.formulaR1C1:="=@%DB_PIECE_WEIGHT%/mianji+"+numtostr(curr_profile_value);*/
-    currentcell.formulaR1C1:="=@%DB_PIECE_WEIGHT%+"+numtostr(curr_profile_value);
+    currentcell.formulaR1C1:="=@%DB_PIECE_WEIGHT%/%ASSEMBLYCOUNT%+"+numtostr(curr_profile_value);
 	currentcell.borders.linestyle:=1;
 }
 else
 {
 	/*currentcell.formulaR1C1:="=@%DB_PIECE_WEIGHT%/mianji";*/
-    currentcell.formulaR1C1:="=@%DB_PIECE_WEIGHT%";
+    currentcell.formulaR1C1:="=@%DB_PIECE_WEIGHT%/%ASSEMBLYCOUNT%";
 	currentcell.borders.linestyle:=1;
 }
 
@@ -317,7 +317,7 @@ else
 	}
 	else
 	{
-		tot_formula:="="+RId+CId+Lbr+"1"+RBr+"/@%DB_PIECE_WEIGHT%";
+		tot_formula:="="+RId+CId+Lbr+"1"+RBr+"/(@%DB_PIECE_WEIGHT%/%ASSEMBLYCOUNT%)";
 		currentcell.formulaR1C1:=tot_formula;
 	}
 }

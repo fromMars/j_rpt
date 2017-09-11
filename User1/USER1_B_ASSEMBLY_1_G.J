@@ -103,7 +103,7 @@ wps_colid:=colid-2;
 currentcell:=costsheet.cells[rowid][wps_colid];
 if "@%DB_GLASS_ASSEMBLY%"<>"" then
 	/*currentcell.formulaR1C1:="=@%DB_GLASS_SURFACE%/mianji";*/
-    currentcell.formulaR1C1:="=@%DB_GLASS_SURFACE%";
+    currentcell.formulaR1C1:="=@%DB_GLASS_SURFACE%/%ASSEMBLYCOUNT%";
 else
 	currentcell.value:="";
 
