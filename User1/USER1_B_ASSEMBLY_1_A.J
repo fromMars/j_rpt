@@ -1,5 +1,5 @@
 /* USER1_B_ASSEMBLY_1_A.J
- * show accessory prices */
+ * correct quantity per assembly */
 
 
 
@@ -12,7 +12,7 @@
 %% detail
 ; ******************************Estim Excel************************************
 ; *****************************************************************************
-; %NAME% (%BATCH%) - Detail   b_assembly_1.j
+; %NAME% (%BATCH%) - Detail   b_assembly_1_A.j
 ; 
 
 
@@ -29,9 +29,13 @@ if recent_rowid=-1 || recent_rowid>(rowid+row_increase) then
 ;quantity per surface
 wps_colid:=colid-2;
 currentcell:=costsheet.cells[rowid+row_increase][wps_colid];
-if "@%DB_ATTRIB_NO%"<>"" then
+if @%DB_ATTRIB_NO%<>0 || @%DB_ATTRIB_CFLENGTH%<>0 then
+{
 	/*currentcell.formulaR1C1:="=@COST_QUANTITY/mianji";*/
     currentcell.formulaR1C1:="=@%DB_ATTRIB_NO%/%ASSEMBLYCOUNT%";
+    if @%DB_ATTRIB_ARTICLE%=35 then
+        currentcell.formulaR1C1:="=@%DB_ATTRIB_CFLENGTH%/%ASSEMBLYCOUNT%";
+}
 else
 	currentcell.value:="";
 currentcell.borders.linestyle:=1;

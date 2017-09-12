@@ -84,6 +84,7 @@ using %REPORTNAME%_B_ASSEMBLY_1.%REPORTTYPE%%IF{%REPORTTYPE%=J,,%LANGUAGE%}
 next
 report
     select  sum(%DB_ATTRIB_NO%) as %DB_ATTRIB_NO%,
+            sum(%DB_ATTRIB_CFLENGTH%) as %DB_ATTRIB_CFLENGTH%,
             %DB_ATTRIB_ARTICLE%,
             %DB_ATTRIB_LOSSTYPE%
     from    %TBL_ATTRIB%
