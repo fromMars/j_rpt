@@ -1,0 +1,1 @@
+Param.Value['BARCODE']:=StrRight('0000'+PARAM.Value['_RUNTAG'],4)

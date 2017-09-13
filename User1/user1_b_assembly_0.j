@@ -33,7 +33,7 @@ while i_cnt<assembly_cnt do
 ;assembly name
 curr_name:=curr_assembly.code;
 /*costsheet.range["chuanghao"].value:="´°ºÅ£º"+"@%DB_PIECE_ASSEMBLY%";*/
-costsheet.range["chuanghao"].value:="´°ºÅ£º"+curr_assembly.code;
+costsheet.range["chuanghao"].value:=curr_assembly.code;
 
 ;surface
 f_cnt:=0;

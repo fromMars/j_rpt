@@ -207,6 +207,9 @@ costsheet.cells[rowid+1][3].NumberFormat:=CellCostFormat;
 costsheet.cells[rowid+1][3].FormulaR1C1:="="+RId+LBr+"-1"+RBr+CId+LBr+"0"+RBr+"/mianji";
 /*costsheet.cells[rowid+1][8].value:="(E+F+G)/面积";*/
 
+costsheet.range["danjia"].formula:="="+costsheet.cells[rowid+1][3].address;
+
+
 rowid:=rowid+1;
 costsheet.range[costsheet.cells[rowid+1][1]][costsheet.cells[rowid+2][8]].merge();
 costsheet.cells[rowid+1][1].value:="                                制单人："+"                                                                "+"批准：";

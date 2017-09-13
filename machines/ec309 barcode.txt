@@ -1,0 +1,3 @@
+Param.Value['BARCODE']:=StrRight('0000'+PARAM.Value['_RUNTAG'],4)
++StrRight('00'+PARAM.Value['BATCHREF'],2)
++StrRight('0000'+PARAM.Value['CUTCNT'],4)
