@@ -1,0 +1,45 @@
+^MODIFY
+  Table=PRODUKT
+  Condition=1
+  Field1=finishes[%a].price[%b].price
+  NewValue1=finishes[%a].price[%b].price*1.02
+  RepeatFor1=a=0,100;b=0,4
+  Condition1=1
+
+
+^MODIFY
+  Table=BESLAG
+  Condition1=FINISHES[%a].FINISH="43"
+  Field1=FINISHES[%a].FINISH
+  NewValue1="32"
+  RepeatFor1=a=0,499
+  Condition=1
+
+
+^MODIFY
+  Table=BESLAG
+  Condition=1
+  Condition1=FINISHES[%a].ORDERCODE="43"
+  Field1=FINISHES[%a].ORDERCODE
+  NewValue1="32"
+  RepeatFor1=a=0,499
+ 
+
+^MODIFY
+  Table=PRODUKT
+  Condition1=CODE.PRODUCT="0111201"
+  Field1=Finishes[%a].Price[4].Price
+  NewValue1=FINISHES[%a].Price[4].Price+0.47
+  RepeatFor1=a=0,499
+  Condition=1
+----------------------------------------------------------
+
+20161029
+
+^MODIFY
+  Table=PRODUKT
+  Condition=1
+  Field1=finishes[%a].price[5].price
+  NewValue1=finishes[%a].price[5].price/4.16*6.93
+  RepeatFor1=a=0,1999
+  Condition1=1
