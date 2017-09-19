@@ -57,7 +57,7 @@ row_increase:=row_increase+2;
 ; ******************************Estim Excel************************************
 ; *****************************************************************************
 ; %NAME% (%BATCH%)
-; 
+; e_assembly
 /*
 ColId:= ColId + 1;
 Color := DataSheet.Range["HeadFormat"].Interior.Color;
