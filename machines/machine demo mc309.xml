@@ -1,0 +1,441 @@
+<Order>
+  <Version>1.0</Version>
+  <Generator>JoPPS</Generator>
+  <Unit>mm</Unit>
+  <Name>03EA</Name>
+  <Description>MACHINE DEMO</Description>
+  <DateCreation>2017-09-14T15:25:09.056+08:00</DateCreation>
+  <DateFirstPiece>2017-09-14T15:25:09.056+08:00</DateFirstPiece>
+  <DateLastPiece>2017-09-14T15:25:09.056+08:00</DateLastPiece>
+</Order>
+<Bar>
+  <DXF_Name>0010311.dxf</DXF_Name>
+  <DXFMirror>0</DXFMirror>
+  <Material>AL</Material>
+  <BarNumber>1</BarNumber>
+  <Length>6000.0</Length>
+  <MaxY>76.0</MaxY>
+  <MaxZ>61.0</MaxZ>
+  <Extra_Ord>0010311, 76MM&#28598;&#26664;&#58635;, 49</Extra_Ord>
+</Bar>
+<Piece>
+  <PieceNumber>1</PieceNumber>
+  <Num>1</Num>
+  <BarCode>03EA</BarCode>
+  <Cut>
+    <sxB>90.0</sxB>
+    <dxB>90.0</dxB>
+    <sxC>90.0</sxC>
+    <dxC>90.0</dxC>
+    <Length>804.0</Length>
+  </Cut>
+  <Material>AL</Material>
+  <CtrsX>0.0</CtrsX>
+  <CtrsYp>0.0</CtrsYp>
+  <CtrsYm>0.0</CtrsYm>
+  <CtrsZ>0.0</CtrsZ>
+  <Mirror>1</Mirror>
+  <Extra_Pie>Machine Demo*00003*1: ON</Extra_Pie>
+</Piece>
+<Piece>
+  <PieceNumber>2</PieceNumber>
+  <Num>1</Num>
+  <BarCode>03EA</BarCode>
+  <Cut>
+    <sxB>90.0</sxB>
+    <dxB>90.0</dxB>
+    <sxC>135.0</sxC>
+    <dxC>135.0</dxC>
+    <Length>900.0</Length>
+  </Cut>
+  <Material>AL</Material>
+  <CtrsX>0.0</CtrsX>
+  <CtrsYp>0.0</CtrsYp>
+  <CtrsYm>0.0</CtrsYm>
+  <CtrsZ>0.0</CtrsZ>
+  <Mirror>1</Mirror>
+  <Extra_Pie>Machine Demo*00003*1: BO</Extra_Pie>
+</Piece>
+<Piece>
+  <PieceNumber>3</PieceNumber>
+  <Num>1</Num>
+  <BarCode>03EA</BarCode>
+  <Cut>
+    <sxB>90.0</sxB>
+    <dxB>90.0</dxB>
+    <sxC>135.0</sxC>
+    <dxC>90.0</dxC>
+    <Length>2000.0</Length>
+  </Cut>
+  <Material>AL</Material>
+  <CtrsX>0.0</CtrsX>
+  <CtrsYp>0.0</CtrsYp>
+  <CtrsYm>0.0</CtrsYm>
+  <CtrsZ>0.0</CtrsZ>
+  <Mirror>1</Mirror>
+  <Extra_Pie>Machine Demo*00003*1: RE</Extra_Pie>
+</Piece>
+<Piece>
+  <PieceNumber>4</PieceNumber>
+  <Num>1</Num>
+  <BarCode>03EA</BarCode>
+  <Cut>
+    <sxB>90.0</sxB>
+    <dxB>90.0</dxB>
+    <sxC>90.0</sxC>
+    <dxC>135.0</dxC>
+    <Length>2000.0</Length>
+  </Cut>
+  <Material>AL</Material>
+  <CtrsX>0.0</CtrsX>
+  <CtrsYp>0.0</CtrsYp>
+  <CtrsYm>0.0</CtrsYm>
+  <CtrsZ>0.0</CtrsZ>
+  <Mirror>1</Mirror>
+  <Extra_Pie>Machine Demo*00003*1: LI</Extra_Pie>
+</Piece>
+<Bar>
+  <DXF_Name>0010422.dxf</DXF_Name>
+  <DXFMirror>0</DXFMirror>
+  <Material>AL</Material>
+  <BarNumber>2</BarNumber>
+  <Length>6000.0</Length>
+  <MaxY>110.0</MaxY>
+  <MaxZ>70.0</MaxZ>
+  <Extra_Ord>0010422, 110MM&#37712;&#21613;&#32017;&#37813;? 49</Extra_Ord>
+</Bar>
+<Piece>
+  <PieceNumber>1</PieceNumber>
+  <Num>1</Num>
+  <BarCode>03EA</BarCode>
+  <Cut>
+    <sxB>90.0</sxB>
+    <dxB>90.0</dxB>
+    <sxC>135.0</sxC>
+    <dxC>135.0</dxC>
+    <Length>807.0</Length>
+  </Cut>
+  <Material>AL</Material>
+  <CtrsX>0.0</CtrsX>
+  <CtrsYp>0.0</CtrsYp>
+  <CtrsYm>0.0</CtrsYm>
+  <CtrsZ>0.0</CtrsZ>
+  <Mirror>1</Mirror>
+  <Extra_Pie>Machine Demo*00003*1: BO</Extra_Pie>
+</Piece>
+<Piece>
+  <PieceNumber>2</PieceNumber>
+  <Num>1</Num>
+  <BarCode>03EA</BarCode>
+  <Cut>
+    <sxB>90.0</sxB>
+    <dxB>90.0</dxB>
+    <sxC>135.0</sxC>
+    <dxC>135.0</dxC>
+    <Length>807.0</Length>
+  </Cut>
+  <Material>AL</Material>
+  <CtrsX>0.0</CtrsX>
+  <CtrsYp>0.0</CtrsYp>
+  <CtrsYm>0.0</CtrsYm>
+  <CtrsZ>0.0</CtrsZ>
+  <Mirror>1</Mirror>
+  <Extra_Pie>Machine Demo*00003*1: ON</Extra_Pie>
+</Piece>
+<Piece>
+  <PieceNumber>3</PieceNumber>
+  <Num>1</Num>
+  <BarCode>03EA</BarCode>
+  <Cut>
+    <sxB>90.0</sxB>
+    <dxB>90.0</dxB>
+    <sxC>135.0</sxC>
+    <dxC>135.0</dxC>
+    <Length>1907.0</Length>
+  </Cut>
+  <Material>AL</Material>
+  <CtrsX>0.0</CtrsX>
+  <CtrsYp>0.0</CtrsYp>
+  <CtrsYm>0.0</CtrsYm>
+  <CtrsZ>0.0</CtrsZ>
+  <Mirror>1</Mirror>
+  <Extra_Pie>Machine Demo*00003*1: RE</Extra_Pie>
+</Piece>
+<Piece>
+  <PieceNumber>4</PieceNumber>
+  <Num>1</Num>
+  <BarCode>03EA</BarCode>
+  <Cut>
+    <sxB>90.0</sxB>
+    <dxB>90.0</dxB>
+    <sxC>135.0</sxC>
+    <dxC>135.0</dxC>
+    <Length>1907.0</Length>
+  </Cut>
+  <Material>AL</Material>
+  <CtrsX>0.0</CtrsX>
+  <CtrsYp>0.0</CtrsYp>
+  <CtrsYm>0.0</CtrsYm>
+  <CtrsZ>0.0</CtrsZ>
+  <Mirror>1</Mirror>
+  <Extra_Pie>Machine Demo*00003*1: LI</Extra_Pie>
+</Piece>
+<Bar>
+  <DXF_Name>0010738.dxf</DXF_Name>
+  <DXFMirror>0</DXFMirror>
+  <Material>AL</Material>
+  <BarNumber>3</BarNumber>
+  <Length>6000.0</Length>
+  <MaxY>14.6</MaxY>
+  <MaxZ>34.7</MaxZ>
+  <Extra_Ord>0010738, 032&#38338;&#12582;&#22678;&#37815;&#20860;&#24116;&#37833;? 42</Extra_Ord>
+</Bar>
+<Piece>
+  <PieceNumber>1</PieceNumber>
+  <Num>1</Num>
+  <BarCode>03EA</BarCode>
+  <Cut>
+    <sxB>90.0</sxB>
+    <dxB>90.0</dxB>
+    <sxC>90.0</sxC>
+    <dxC>90.0</dxC>
+    <Length>807.0</Length>
+  </Cut>
+  <Material>AL</Material>
+  <CtrsX>0.0</CtrsX>
+  <CtrsYp>0.0</CtrsYp>
+  <CtrsYm>0.0</CtrsYm>
+  <CtrsZ>0.0</CtrsZ>
+  <Mirror>1</Mirror>
+  <Extra_Pie>Machine Demo*00003*1: ON</Extra_Pie>
+</Piece>
+<Bar>
+  <DXF_Name>0011018.dxf</DXF_Name>
+  <DXFMirror>0</DXFMirror>
+  <Material>AL</Material>
+  <BarNumber>4</BarNumber>
+  <Length>6000.0</Length>
+  <MaxY>0.0</MaxY>
+  <MaxZ>0.0</MaxZ>
+  <Extra_Ord>0011018, &#37816;&#8451;&#25353;&#37833;? 42</Extra_Ord>
+</Bar>
+<Piece>
+  <PieceNumber>1</PieceNumber>
+  <Num>1</Num>
+  <BarCode>03EA</BarCode>
+  <Cut>
+    <sxB>90.0</sxB>
+    <dxB>90.0</dxB>
+    <sxC>90.0</sxC>
+    <dxC>90.0</dxC>
+    <Length>613.5</Length>
+  </Cut>
+  <Material>AL</Material>
+  <CtrsX>0.0</CtrsX>
+  <CtrsYp>0.0</CtrsYp>
+  <CtrsYm>0.0</CtrsYm>
+  <CtrsZ>0.0</CtrsZ>
+  <Mirror>1</Mirror>
+  <Extra_Pie>Machine Demo*00004*1: ON</Extra_Pie>
+</Piece>
+<Bar>
+  <DXF_Name>1030211.dxf</DXF_Name>
+  <DXFMirror>0</DXFMirror>
+  <Material>AL</Material>
+  <BarNumber>5</BarNumber>
+  <Length>6000.0</Length>
+  <MaxY>63.0</MaxY>
+  <MaxZ>70.0</MaxZ>
+  <Extra_Ord>1030211, 63MM&#28598;&#26664;&#58635;, 49</Extra_Ord>
+</Bar>
+<Piece>
+  <PieceNumber>1</PieceNumber>
+  <Num>1</Num>
+  <BarCode>03EA</BarCode>
+  <Cut>
+    <sxB>90.0</sxB>
+    <dxB>90.0</dxB>
+    <sxC>135.0</sxC>
+    <dxC>135.0</dxC>
+    <Length>1470.0</Length>
+  </Cut>
+  <Material>AL</Material>
+  <CtrsX>0.0</CtrsX>
+  <CtrsYp>0.0</CtrsYp>
+  <CtrsYm>0.0</CtrsYm>
+  <CtrsZ>0.0</CtrsZ>
+  <Mirror>1</Mirror>
+  <Extra_Pie>Machine Demo*00004*1: RE</Extra_Pie>
+</Piece>
+<Piece>
+  <PieceNumber>2</PieceNumber>
+  <Num>1</Num>
+  <BarCode>03EA</BarCode>
+  <Cut>
+    <sxB>90.0</sxB>
+    <dxB>90.0</dxB>
+    <sxC>135.0</sxC>
+    <dxC>135.0</dxC>
+    <Length>1470.0</Length>
+  </Cut>
+  <Material>AL</Material>
+  <CtrsX>0.0</CtrsX>
+  <CtrsYp>0.0</CtrsYp>
+  <CtrsYm>0.0</CtrsYm>
+  <CtrsZ>0.0</CtrsZ>
+  <Mirror>1</Mirror>
+  <Extra_Pie>Machine Demo*00004*1: LI</Extra_Pie>
+</Piece>
+<Piece>
+  <PieceNumber>3</PieceNumber>
+  <Num>1</Num>
+  <BarCode>03EA</BarCode>
+  <Cut>
+    <sxB>90.0</sxB>
+    <dxB>90.0</dxB>
+    <sxC>135.0</sxC>
+    <dxC>135.0</dxC>
+    <Length>1470.0</Length>
+  </Cut>
+  <Material>AL</Material>
+  <CtrsX>0.0</CtrsX>
+  <CtrsYp>0.0</CtrsYp>
+  <CtrsYm>0.0</CtrsYm>
+  <CtrsZ>0.0</CtrsZ>
+  <Mirror>1</Mirror>
+  <Extra_Pie>Machine Demo*00004*1: BO</Extra_Pie>
+</Piece>
+<Piece>
+  <PieceNumber>4</PieceNumber>
+  <Num>1</Num>
+  <BarCode>03EA</BarCode>
+  <Cut>
+    <sxB>90.0</sxB>
+    <dxB>90.0</dxB>
+    <sxC>135.0</sxC>
+    <dxC>135.0</dxC>
+    <Length>1470.0</Length>
+  </Cut>
+  <Material>AL</Material>
+  <CtrsX>0.0</CtrsX>
+  <CtrsYp>0.0</CtrsYp>
+  <CtrsYm>0.0</CtrsYm>
+  <CtrsZ>0.0</CtrsZ>
+  <Mirror>1</Mirror>
+  <Extra_Pie>Machine Demo*00004*1: ON</Extra_Pie>
+</Piece>
+<Bar>
+  <DXF_Name>1030220.dxf</DXF_Name>
+  <DXFMirror>0</DXFMirror>
+  <Material>AL</Material>
+  <BarNumber>6</BarNumber>
+  <Length>6000.0</Length>
+  <MaxY>87.0</MaxY>
+  <MaxZ>70.0</MaxZ>
+  <Extra_Ord>1030220, 87MM&#28051;&#57695;&#58728;, 49</Extra_Ord>
+</Bar>
+<Piece>
+  <PieceNumber>1</PieceNumber>
+  <Num>1</Num>
+  <BarCode>03EA</BarCode>
+  <Cut>
+    <sxB>90.0</sxB>
+    <dxB>90.0</dxB>
+    <sxC>90.0</sxC>
+    <dxC>90.0</dxC>
+    <Length>1400.0</Length>
+  </Cut>
+  <Material>AL</Material>
+  <CtrsX>0.0</CtrsX>
+  <CtrsYp>0.0</CtrsYp>
+  <CtrsYm>0.0</CtrsYm>
+  <CtrsZ>0.0</CtrsZ>
+  <Mirror>1</Mirror>
+  <Extra_Pie>Machine Demo*00004*1: V1</Extra_Pie>
+</Piece>
+<Bar>
+  <DXF_Name>1030222.dxf</DXF_Name>
+  <DXFMirror>0</DXFMirror>
+  <Material>AL</Material>
+  <BarNumber>7</BarNumber>
+  <Length>6000.0</Length>
+  <MaxY>80.5</MaxY>
+  <MaxZ>79.0</MaxZ>
+  <Extra_Ord>1030222, 80.5MM&#37712;&#21613;&#32017;&#37813;? 49</Extra_Ord>
+</Bar>
+<Piece>
+  <PieceNumber>1</PieceNumber>
+  <Num>1</Num>
+  <BarCode>03EA</BarCode>
+  <Cut>
+    <sxB>90.0</sxB>
+    <dxB>90.0</dxB>
+    <sxC>135.0</sxC>
+    <dxC>135.0</dxC>
+    <Length>687.5</Length>
+  </Cut>
+  <Material>AL</Material>
+  <CtrsX>0.0</CtrsX>
+  <CtrsYp>0.0</CtrsYp>
+  <CtrsYm>0.0</CtrsYm>
+  <CtrsZ>0.0</CtrsZ>
+  <Mirror>1</Mirror>
+  <Extra_Pie>Machine Demo*00004*1: BO</Extra_Pie>
+</Piece>
+<Piece>
+  <PieceNumber>2</PieceNumber>
+  <Num>1</Num>
+  <BarCode>03EA</BarCode>
+  <Cut>
+    <sxB>90.0</sxB>
+    <dxB>90.0</dxB>
+    <sxC>135.0</sxC>
+    <dxC>135.0</dxC>
+    <Length>687.5</Length>
+  </Cut>
+  <Material>AL</Material>
+  <CtrsX>0.0</CtrsX>
+  <CtrsYp>0.0</CtrsYp>
+  <CtrsYm>0.0</CtrsYm>
+  <CtrsZ>0.0</CtrsZ>
+  <Mirror>1</Mirror>
+  <Extra_Pie>Machine Demo*00004*1: ON</Extra_Pie>
+</Piece>
+<Piece>
+  <PieceNumber>3</PieceNumber>
+  <Num>1</Num>
+  <BarCode>03EA</BarCode>
+  <Cut>
+    <sxB>90.0</sxB>
+    <dxB>90.0</dxB>
+    <sxC>135.0</sxC>
+    <dxC>135.0</dxC>
+    <Length>1403.0</Length>
+  </Cut>
+  <Material>AL</Material>
+  <CtrsX>0.0</CtrsX>
+  <CtrsYp>0.0</CtrsYp>
+  <CtrsYm>0.0</CtrsYm>
+  <CtrsZ>0.0</CtrsZ>
+  <Mirror>1</Mirror>
+  <Extra_Pie>Machine Demo*00004*1: RE</Extra_Pie>
+</Piece>
+<Piece>
+  <PieceNumber>4</PieceNumber>
+  <Num>1</Num>
+  <BarCode>03EA</BarCode>
+  <Cut>
+    <sxB>90.0</sxB>
+    <dxB>90.0</dxB>
+    <sxC>135.0</sxC>
+    <dxC>135.0</dxC>
+    <Length>1403.0</Length>
+  </Cut>
+  <Material>AL</Material>
+  <CtrsX>0.0</CtrsX>
+  <CtrsYp>0.0</CtrsYp>
+  <CtrsYm>0.0</CtrsYm>
+  <CtrsZ>0.0</CtrsZ>
+  <Mirror>1</Mirror>
+  <Extra_Pie>Machine Demo*00004*1: LI</Extra_Pie>
+</Piece>
