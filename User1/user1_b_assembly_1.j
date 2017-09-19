@@ -82,8 +82,9 @@ currentcell:=costsheet.cells[rowid+row_increase][u_colid];
 u_recent_value:=currentcell.formula;
 if "@%DB_COST_ASSEMBLY%"="" then
 {
+    /*
 	costsheet.cells[rowid+row_increase][u_colid+1].formula:=u_recent_value;
-	currentcell.value:="";
+	currentcell.value:="";*/
 	/*costsheet.cells[rowid+row_increase][u_colid-1].value:=1;*/
 }
 else
@@ -97,10 +98,23 @@ currentcell.borders.linestyle:=1;
 wps_colid:=colid-2;
 currentcell:=costsheet.cells[rowid+row_increase][wps_colid];
 if "@%DB_COST_ASSEMBLY%"<>"" then
+{
 	/*currentcell.formulaR1C1:="=@COST_QUANTITY/mianji";*/
     currentcell.formulaR1C1:="=@COST_QUANTITY/%ASSEMBLYCOUNT%";
+}
+
 else
-	currentcell.value:="";
+{
+    pla_formula:="="+numtostr(currentcell.value)+"*mianji/Cost!mianji";
+	currentcell.formula:=pla_formula;
+    currentcell_tmp:=costsheet.cells[rowid+row_increase][wps_colid+1];
+    datasheet.range["HNDRate"].formula:='=Indirect("Cost!"&address('+inttostr(rowid)+","+inttostr(colid+7)+"))"+"/Cost!mianji";
+    currentcell_tmp.formula:="=Data!HNDRate";
+    currentcell_tmp:=costsheet.cells[rowid+row_increase][wps_colid+2];
+    currentcell_tmp.formulaR1C1:="="+RId+CId+LBr+"-2"+RBr+"*"+RId+CId+LBr+"-1"+RBr;
+    currentcell_tmp:=costsheet.cells[rowid+row_increase][wps_colid-2];
+    currentcell_tmp.value:="©O";
+}
 currentcell.borders.linestyle:=1;
 
 

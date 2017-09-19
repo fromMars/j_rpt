@@ -6,6 +6,8 @@ defines
 
 include JoPPS.QIF
 include Cost.QIF
+include Charge.QIF
+
 
 defines
   DB_COST_ID         =CFLABEL
@@ -95,3 +97,18 @@ report
 
 using %REPORTNAME%_B_PROJECT_1.%REPORTTYPE%%IF{%REPORTTYPE%=J,,%LANGUAGE%}
 
+
+next
+report
+    select  sum(ce.%DB_CHARGE_QUANTITY%) as %DB_CHARGE_QUANTITY%,
+            sum(ce.%DB_CHARGE_PRICE%) as %DB_CHARGE_PRICE%,
+            ce.%DB_CHARGE_ARTICLE%,
+            ct.%DB_COST_LOSSTYPE%
+    from    %TBL_CHARGE% ce, %TBL_COST% ct
+    where   ce.%DB_CHARGE_PROJECT%="%PROJECT_TEXT%"
+    and     ce.%DB_CHARGE_PROJECT%=%DB_COST_PROJECT%
+    and     ce.%DB_CHARGE_ARTICLE%=ct.%DB_COST_ARTICLE%
+    group by ce.%DB_CHARGE_ARTICLE%,ct.%DB_COST_LOSSTYPE%
+    having count(*)>0
+    
+using %REPORTNAME%_B_PROJECT_C.%REPORTTYPE%%IF{%REPORTTYPE%=J,,%LANGUAGE%}

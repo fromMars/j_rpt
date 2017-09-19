@@ -22,6 +22,8 @@ while (i < cList.Count-3) do
 };
 */
 
+/* project total area, used to calculate project level articles */
+total_area:=0;
 
 
 %% detail

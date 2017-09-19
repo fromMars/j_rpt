@@ -65,6 +65,12 @@ RowId_1:=0;
 RowId_2:=0;
 RowId_A:=0;
 
+/* project total area, used to calculate project level articles */
+total_area:=total_area+curr_surface;
+cost_ori:=template.worksheets["cost"];
+cost_ori.range["mianji"].value:=total_area;
+
+
 ; ******************************Estim Excel************************************
 ; *****************************************************************************
 ; %NAME% (%BATCH%)  b_assembly_0.j
@@ -89,7 +95,8 @@ while (i < cList.Count-3) do
     CurrentCell1.Value := TempValue;
   currentcell1.NumberFormat:=CellCostFormat;
   CurrentCell0 := CostSheet.Cells[RowId][ColId-2];
-  CurrentCell0.Value := TempValue;
+  if CurrentCell0.value=0 then
+    CurrentCell0.Value := TempValue;
   /*CurrentCell.NumberFormat := CellPriceFormat;*/
   CurrentCell.Font.Italic := True;
   CurrentCell.Interior.Color := Color;
@@ -268,7 +275,7 @@ CurrentCell.Borders.LineStyle := 1;
 ;unit name
 un_colid:=3;
 currentcell:=costsheet.cells[rowid][un_colid];
-currentcell.value:="Kg";
+currentcell.value:="kg";
 currentcell.HorizontalAlignment:=-4108;
 
 

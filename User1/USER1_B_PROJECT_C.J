@@ -1,4 +1,5 @@
-/* USER1_B_ASSEMBLY_1_A.J
+/* USER1_B_PROJECT_C.J
+ * get handling tab values from charge table
  * correct quantity per assembly */
 
 
@@ -12,7 +13,7 @@
 %% detail
 ; ******************************Estim Excel************************************
 ; *****************************************************************************
-; %NAME% (%BATCH%) - Detail   b_assembly_1_A.j
+; %NAME% (%BATCH%) - Detail   b_project_C.j
 ; 
 
 
@@ -20,31 +21,21 @@
 ; Item price
 /*RowId  := StrToNum(cList.Strings[bList.IndexOf("@%DB_COST_ARTICLE%"+"@%DB_COST_LOSSTYPE%"+"@%DB_COST_RATION%"+"@%DB_COST_FACTOR%"+"@%DB_COST_RATIO%")]);*/
 RowId  := StrToNum(cList.Strings[bList.IndexOf("@%DB_COST_ARTICLE%"+"@%DB_COST_LOSSTYPE%")]);
-if recent_rowid=-1 || recent_rowid>(rowid+row_increase) then
-	recent_rowid:=rowid+row_increase;
-
-
 
 
 ;quantity per surface
-wps_colid:=colid-2;
-currentcell:=costsheet.cells[rowid+row_increase][wps_colid];
-currentcell0:=costsheet.cells[rowid+row_increase][wps_colid-2];
+wps_colid:=colid-1;
+currentcell:=costsheet.cells[rowid][wps_colid];
+currentcell0:=costsheet.cells[rowid][wps_colid-3];
 currentcell0.HorizontalAlignment:=-4108;
-if @%DB_ATTRIB_NO%<>0 || @%DB_ATTRIB_CFLENGTH%<>0 then
+if @%DB_CHARGE_QUANTITY%<>0 then
 {
 	/*currentcell.formulaR1C1:="=@COST_QUANTITY/mianji";*/
-    currentcell.formulaR1C1:="=@%DB_ATTRIB_NO%/%ASSEMBLYCOUNT%";
-    currentcell0.value:="¼þ";
-    if @%DB_ATTRIB_ARTICLE%=35 then
-    {
-        currentcell.formulaR1C1:="=@%DB_ATTRIB_CFLENGTH%/%ASSEMBLYCOUNT%";
-        currentcell0.value:="m";
-    }   
-    
+    currentcell.formulaR1C1:="=@%DB_CHARGE_QUANTITY%";
+    /*currentcell0.value:="´¦";*/
 }
 else
-	currentcell.value:="";
+	currentcell.value:=0;
 currentcell.borders.linestyle:=1;
 
 

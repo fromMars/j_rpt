@@ -463,7 +463,9 @@ while (i < cList.Count-3) do
   RowId       := StrToNum(cList.Strings[i]);
   TempValue   := 0.0;
   CurrentCell := CostSheet.Cells[RowId][ColId];
+  CurrentCell0 := CostSheet.Cells[RowId][ColId-1];
   CurrentCell.Value := TempValue;
+  CurrentCell0.Value := TempValue;
   CurrentCell.Borders.linestyle := 0;
   i := i + 1;
 };

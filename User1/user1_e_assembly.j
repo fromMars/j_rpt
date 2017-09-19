@@ -125,7 +125,7 @@ RowId_C:=rowid;
 costsheet.cells[rowid+1][1].formula:=list_no_formula;
 costsheet.cells[rowid+1][2].value:="现场管理费";
 costsheet.range[costsheet.cells[rowid+1][3]][costsheet.cells[rowid+1][6]].merge();
-costsheet.cells[rowid+1][3].value:=0;
+costsheet.cells[rowid+1][3].formula:="=Data!CMRate";
 costsheet.cells[rowid+1][3].NumberFormatLocal:="0.0%";
 costsheet.cells[rowid+1][7].FormulaR1C1:="="+RId+LBr+"-1"+RBr+CId+LBr+"-4"+RBr+"*"+RId+CId+LBr+"-4"+RBr;
 
@@ -134,7 +134,7 @@ rowid:=rowid+1;
 costsheet.cells[rowid+1][1].formula:=list_no_formula;
 costsheet.cells[rowid+1][2].value:="企业管理费";
 costsheet.range[costsheet.cells[rowid+1][3]][costsheet.cells[rowid+1][6]].merge();
-costsheet.cells[rowid+1][3].value:=0;
+costsheet.cells[rowid+1][3].formula:="=Data!SMRate";
 costsheet.cells[rowid+1][3].NumberFormatLocal:="0.0%";
 costsheet.cells[rowid+1][7].FormulaR1C1:="="+RId+LBr+"-2"+RBr+CId+LBr+"-4"+RBr+"*"+RId+CId+LBr+"-4"+RBr;
 
@@ -167,7 +167,7 @@ costsheet.cells[rowid+1][1].VerticalAlignment:=-4108;
 costsheet.cells[rowid+1][1].HorizontalAlignment:=-4108;
 costsheet.cells[rowid+1][2].value:="计划利润";
 costsheet.range[costsheet.cells[rowid+1][3]][costsheet.cells[rowid+1][6]].merge();
-costsheet.cells[rowid+1][3].value:=0;
+costsheet.cells[rowid+1][3].formula:="=Data!PPRate";
 costsheet.cells[rowid+1][3].NumberFormatLocal:="0.0%";
 costsheet.cells[rowid+1][7].FormulaR1C1:="="+RId+LBr+"-1"+RBr+CId+LBr+"-4"+RBr+"*"+RId+LBr+"0"+RBr+CId+LBr+"-4"+RBr;
 
@@ -178,7 +178,7 @@ costsheet.cells[rowid+1][1].VerticalAlignment:=-4108;
 costsheet.cells[rowid+1][1].HorizontalAlignment:=-4108;
 costsheet.cells[rowid+1][2].value:="税金";
 costsheet.range[costsheet.cells[rowid+1][3]][costsheet.cells[rowid+1][6]].merge();
-costsheet.cells[rowid+1][3].value:=0;
+costsheet.cells[rowid+1][3].formula:="=Data!VRate";
 costsheet.cells[rowid+1][3].NumberFormatLocal:="0.0%";
 costsheet.cells[rowid+1][7].FormulaR1C1:="="+RId+LBr+"-2"+RBr+CId+LBr+"-4"+RBr+"*"+RId+LBr+"0"+RBr+CId+LBr+"-4"+RBr;
 

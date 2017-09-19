@@ -10,6 +10,7 @@ include Part.QIF
 include Piece.QIF
 include Glass.QIF
 include Attrib.QIF
+include Charge.QIF
 
 
 defines
@@ -97,6 +98,25 @@ report
     
 using %REPORTNAME%_B_ASSEMBLY_1_A.%REPORTTYPE%%IF{%REPORTTYPE%=J,,%LANGUAGE%}
     
+
+next
+report
+    select  sum(ce.%DB_CHARGE_QUANTITY%) as %DB_CHARGE_QUANTITY%,
+            sum(ce.%DB_CHARGE_PRICE%) as %DB_CHARGE_PRICE%,
+            ce.%DB_CHARGE_ARTICLE%,
+            ct.%DB_COST_LOSSTYPE%
+    from    %TBL_CHARGE% ce, %TBL_COST% ct
+    where   ce.%DB_CHARGE_PROJECT%="%PROJECT_TEXT%"
+    and     (ce.%DB_CHARGE_ASSEMBLY%="%ASSEMBLY_TEXT%" or ce.%DB_CHARGE_ASSEMBLY%="")
+    and     ce.%DB_CHARGE_PROJECT%=%DB_COST_PROJECT%
+    and     ce.%DB_CHARGE_ASSEMBLY%=ct.%DB_COST_ASSEMBLY%
+    and     ce.%DB_CHARGE_ARTICLE%=ct.%DB_COST_ARTICLE%
+    group by ce.%DB_CHARGE_ARTICLE%,ct.%DB_COST_LOSSTYPE%
+    having count(*)>0
+    
+using %REPORTNAME%_B_ASSEMBLY_1_C.%REPORTTYPE%%IF{%REPORTTYPE%=J,,%LANGUAGE%}
+    
+
 
 next
 report
