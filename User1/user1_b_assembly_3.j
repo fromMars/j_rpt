@@ -111,7 +111,7 @@ else
     currentcell_tmp:=costsheet.cells[rowid+row_increase][wps_colid+2];
     currentcell_tmp.formulaR1C1:="="+RId+CId+LBr+"-2"+RBr+"*"+RId+CId+LBr+"-1"+RBr;
     currentcell_tmp:=costsheet.cells[rowid+row_increase][wps_colid-2];
-    currentcell_tmp.value:="„é°";
+    currentcell_tmp.value:="©O";
     currentcell_tmp.HorizontalAlignment:=-4108;
     
 }
