@@ -474,3 +474,6 @@ while (i < cList.Count-3) do
 recent_count:=count;
 recent_colid:=colid;
 recent_cost_sheet:=CostSheet;
+
+/* project total area, used to calculate project level articles */
+total_area:=0;
