@@ -28,6 +28,8 @@ defines
   C_ABSOLUTE_LOSS    =1
   C_REAL_LOSS        =2
 
+  Z_WEIGHT_EXTRA_RATE =(1+0.1)
+
 
 fields
   DSP_COST_ID      ="@%DB_COST_ID%"            DISPLAY AS LEFT(90)
@@ -42,7 +44,7 @@ report
   select   	%DB_PIECE_ARTICLE%,
 		%DB_PIECE_LOSSTYPE%,
            	sum(%DB_PIECE_PRICE%) as %DB_PIECE_PRICE%,
-	   	sum(%DB_PIECE_WEIGHT%) as %DB_PIECE_WEIGHT%,
+	   	sum(%DB_PIECE_WEIGHT%)*%Z_WEIGHT_EXTRA_RATE% as %DB_PIECE_WEIGHT%,
 		min(%DB_PIECE_SUPPLIER%) as %DB_PIECE_SUPPLIER%,
 		min(%DB_PIECE_ASSEMBLY%) as %DB_PIECE_ASSEMBLY%
   from     %TBL_PIECE%
