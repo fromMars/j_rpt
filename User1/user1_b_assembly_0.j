@@ -66,7 +66,7 @@ RowId_2:=0;
 RowId_A:=0;
 
 /* project total area, used to calculate project level articles */
-total_area:=total_area+curr_surface;
+total_area:=total_area+curr_surface*%ASSEMBLYCOUNT%;
 cost_ori:=template.worksheets["cost"];
 cost_ori.range["mianji"].value:=total_area;
 
