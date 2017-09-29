@@ -180,7 +180,7 @@ costsheet.cells[rowid+1][2].value:="Ë°½ð";
 costsheet.range[costsheet.cells[rowid+1][3]][costsheet.cells[rowid+1][6]].merge();
 costsheet.cells[rowid+1][3].formula:="=Data!VRate";
 costsheet.cells[rowid+1][3].NumberFormatLocal:="0.0%";
-costsheet.cells[rowid+1][7].FormulaR1C1:="="+RId+LBr+"-2"+RBr+CId+LBr+"-4"+RBr+"*"+RId+LBr+"0"+RBr+CId+LBr+"-4"+RBr;
+costsheet.cells[rowid+1][7].FormulaR1C1:="=("+RId+LBr+"-2"+RBr+CId+LBr+"-4"+RBr+"+"+RId+LBr+"-1"+RBr+CId+LBr+"-4"+RBr+")*"+RId+LBr+"0"+RBr+CId+LBr+"-4"+RBr;
 
 rowid:=rowid+1;
 /*list_no:=list_no+1;*/
