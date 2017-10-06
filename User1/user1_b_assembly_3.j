@@ -87,7 +87,7 @@ if "@%DB_COST_ASSEMBLY%"="" then
 }
 else
 {
-	tot_formula:="="+RId+LBr+inttostr(0)+RBr+CId+Lbr+"1"+RBr+"/@COST_QUANTITY";
+	tot_formula:="="+RId+LBr+inttostr(0)+RBr+CId+Lbr+"1"+RBr+"/mianji";
 	currentcell.formulaR1C1:=tot_formula;
 }
 currentcell.borders.linestyle:=1;
@@ -99,7 +99,7 @@ currentcell:=costsheet.cells[rowid+row_increase][wps_colid];
 /*if @%DB_COST_ARTICLE%<>194 && @%DB_COST_ARTICLE%<>195 && @%DB_COST_ARTICLE%<>196 then*/
 if "@%DB_COST_ASSEMBLY%"<>"" then
 	/*currentcell.formulaR1C1:="=@COST_QUANTITY/mianji";*/
-    currentcell.formulaR1C1:="=@COST_QUANTITY";
+    currentcell.formulaR1C1:="=mianji";
 else
 {
 	/*currentcell.value:="";*/
