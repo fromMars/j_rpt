@@ -28,7 +28,7 @@ defines
   C_ABSOLUTE_LOSS    =1
   C_REAL_LOSS        =2
 
-  Z_WEIGHT_EXTRA_RATE =(1+0.1)
+  Z_WEIGHT_EXTRA_RATE =(1+0.05)
 
 
 fields
