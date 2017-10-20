@@ -38,7 +38,7 @@ costsheet.cells[rowid][3].HorizontalAlignment:=-4108;
 TempValue   := StrReplace("@%DB_GLASS_PRICE%/%ASSEMBLYCOUNT%",".","%DECIMALSEP%");
 
 ;price
-if @%DB_GLASS_PRICE%<>0 || RowId_G<>0 then
+if @%DB_GLASS_PRICE%<>0 && RowId_G<>0 then
 {
     /*glass_price:=1;*/
     CellCT := 'Indirect("Cost!"&address('+inttostr(strtonum(sList.Strings[cList.IndexOf(IntToStr(RowId_G))]))+","+IntToStr(ColCT)+"))/"+pList.Strings[cList.IndexOf(IntToStr(RowId_G))];

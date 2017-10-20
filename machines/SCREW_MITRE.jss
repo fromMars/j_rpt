@@ -15,15 +15,23 @@ pos_p:=abs(p1-edge_ofs_p);
 msgbox(profile.profile.code);*/
 if profile.profile.system="ES70A" then
 {
-  Machine.Do(profile,"MITRE_SCREW_ES70A",POS_OFFSET,pos_s,0,0);
-  Machine.Do(profile,"MITRE_GLUE_ES70A",POS_OFFSET,pos_g,0,0);
-  Machine.Do(profile,"MITRE_PIN_ES70A",POS_OFFSET,pos_p,0,0);
+  if profile.profile.code="220" then
+  {
+  }
+  else
+  {
+    Machine.Do(profile,"MITRE_SCREW_ES70A",POS_OFFSET,pos_s,0,0);
+    Machine.Do(profile,"MITRE_GLUE_ES70A",POS_OFFSET,pos_g,0,0);
+    Machine.Do(profile,"MITRE_PIN_ES70A",POS_OFFSET,pos_p,0,0);
+    Machine.Do(profile,"MITRE_GLUE1_ES70A",POS_OFFSET,pos_g,0,0);
+  }
 }
 else if profile.profile.system="ES61" then
 {
   Machine.Do(profile,"MITRE_SCREW_ES61",POS_OFFSET,pos_s,0,0);
   Machine.Do(profile,"MITRE_GLUE_ES61",POS_OFFSET,pos_g,0,0);
   Machine.Do(profile,"MITRE_PIN_ES61",POS_OFFSET,pos_p,0,0);
+  Machine.Do(profile,"MITRE_GLUE1_ES61",POS_OFFSET,pos_g,0,0);
 }
 else
  msgbox("profile.profile.code is neither ES70A nor ES61");
