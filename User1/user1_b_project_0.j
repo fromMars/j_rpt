@@ -98,6 +98,9 @@ bList := Strings.Create();                                  /*artikel+verliestyp
 cList := Strings.Create();                                  /*rowid*/
 pList := Strings.Create();                                  /*db_res_cost【price】*/
 sList := Strings.Create();                                  /*rowid*/
+/*用于记录E_PROJECT.J计算所用数据，当前记录顺序：窗号-类型-樘数*/
+/*hList:=Strings.Create();*/
+help_cnt:=4;
 
 
 RowId := RowId + 1;                                         /*更改标题单元格线型格式*/

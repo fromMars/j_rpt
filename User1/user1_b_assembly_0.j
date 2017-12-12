@@ -49,6 +49,16 @@ while f_cnt<frame_cnt do
     curr_frame:=curr_assembly.children[f_cnt];
     f_width:=curr_frame.width;
     f_height:=curr_frame.height;
+    if f_cnt=0 then
+    {
+        helpsheet.cells[help_cnt][4].value:=f_width;            /*helpsheet主框尺寸_宽*/
+        helpsheet.cells[help_cnt][5].value:=f_height;           /*helpsheet主框尺寸_高*/
+    }
+    if f_cnt>0 then
+    {
+        helpsheet.cells[help_cnt][4].value:='';                  /*门联窗*/
+        helpsheet.cells[help_cnt][5].value:='';                  /*不填写*/
+    }
     f_mianji:=f_width*f_height;
     a_mianji:=a_mianji+f_mianji;
     f_cnt:=f_cnt+1;
@@ -71,6 +81,11 @@ total_area:=total_area+curr_surface*%ASSEMBLYCOUNT%;
 cost_ori:=template.worksheets["cost"];
 cost_ori.range["mianji"].value:=total_area;
 
+/*窗型及樘数，用于XXX_E_PROJECT.J计算*/
+/*上文计算面积过程中已输出其主框尺寸的宽高值*/
+helpsheet.cells[help_cnt][3].value:='';                           /*窗型*/
+helpsheet.cells[help_cnt][6].value:="%ASSEMBLYCOUNT%";             /*樘数*/
+help_cnt:=help_cnt+1;
 
 ; ******************************Estim Excel************************************
 ; *****************************************************************************
