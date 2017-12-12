@@ -3,6 +3,7 @@
  *                      */
 
 helpsheet:=template.worksheets['Help'];
+helpsheet.activate();
 sheet_count:=template.worksheets.count-3;
 helpsheet.cells[1][1].value:="%PROJECT_TEXT%";
 
@@ -48,6 +49,19 @@ while s0<=sheet_count do
     s0:=s0+1;
     
 }
+
+s:=s+3;
+helpsheet.range[helpsheet.cells[s][1]][helpsheet.cells[s][2]].merge();
+helpsheet.cells[s][1].value:='小计';
+helpsheet.cells[s][6].select();
+helpsheet.cells[s][6].formular1c1:='=sum(R[-'+inttostr(s0)+']C:R[-1]C)';
+helpsheet.cells[s][7].select();
+helpsheet.cells[s][7].formular1c1:='=sum(R[-'+inttostr(s0)+']C:R[-1]C)';
+
+helpsheet.range[helpsheet.cells[s0+1][1]][helpsheet.cells[s+1][2]].merge();
+helpsheet.cells[s+1][1].value:='合计';
+helpsheet.cells[s][10].select();
+helpsheet.cells[s][10].formular1c1:='=sum(R[-'+(s0+1)+']C:R[-2]C)';
 
 helpsheet.usedrange.borders.linestyle:=1;
 helpsheet.columns.Autofit;
