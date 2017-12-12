@@ -1,3 +1,6 @@
+/* USER1_B_ASSEMBLY_1.J
+ * artikel>900 items */
+
 
 recent_rowid:=-1;
 
@@ -16,7 +19,6 @@ recent_rowid:=-1;
 
 
 ; Item price
-/*RowId  := StrToNum(cList.Strings[bList.IndexOf("@%DB_COST_ARTICLE%"+"@%DB_COST_LOSSTYPE%"+"@%DB_COST_RATION%"+"@%DB_COST_FACTOR%"+"@%DB_COST_RATIO%")]);*/
 RowId  := StrToNum(cList.Strings[bList.IndexOf("@%DB_COST_ARTICLE%"+"@%DB_COST_LOSSTYPE%")]);
 if recent_rowid=-1 || recent_rowid>(rowid+row_increase) then
 	recent_rowid:=rowid+row_increase;
@@ -35,7 +37,6 @@ if (StrToNum(StrReplace(pList.Strings[cList.IndexOf(IntToStr(RowId))],"%DECIMALS
   TempFormula := "=((((((((("+TempValue+")*("+CellCT+"))*(1+"+CellC1+"))*(1-"+CellC2+"))*"+CellC7+")*"+CellC3+")*(1+"+CellC6+"))*(1+"+CellC4+"))*(1-"+CellC5+"))";
   CurrentCell := CostSheet.Cells[RowId+row_increase][ColId];
   CurrentCell.Formula := TempFormula;
-/*  CurrentCell.NumberFormat := CellPriceFormat;*/
   CurrentCell.Font.Italic := False;
   CurrentCell.Interior.Color := Color;
   CurrentCell.Borders.LineStyle := 1;
@@ -46,30 +47,28 @@ else
   TempFormula := "=(((((((("+TempValue+")*(1+"+CellC1+"))*(1-"+CellC2+"))*"+CellC7+")*"+CellC3+")*(1+"+CellC6+"))*(1+"+CellC4+"))*(1-"+CellC5+"))";
   CurrentCell := CostSheet.Cells[RowId+row_increase][ColId];
   CurrentCell.Formula := TempFormula;
-/*  CurrentCell.NumberFormat := CellPriceFormat;*/
   CurrentCell.Font.Italic := False;
   CurrentCell.Interior.Color := Color;
   CurrentCell.Borders.LineStyle := 1;
 }
 
-; Item formula
+/*
 TempFormula := '=Indirect(address('+sList.Strings[cList.IndexOf(IntToStr(RowId))]+','+IntToStr(ColId)+',,,"Cost"))*Indirect(address('+sList.Strings[bList.IndexOf("-2")]+','+IntToStr(ColId)+',,,"Cost"))';
 CurrentCell := HelpSheet.Cells[RowId][ColId];
 CurrentCell.Formula := TempFormula;
-/*CurrentCell.NumberFormat := CellPriceFormat;*/
 CurrentCell.Font.Italic := %IF{@%DB_RES_PRICE%,False,True};
 CurrentCell.Interior.Color := Color;
-CurrentCell.Borders.LineStyle := 1;
+CurrentCell.Borders.LineStyle := 1;*/
 
 
 
-;supplier
+;供应商
 s_colid:=colid+1;
 currentcell:=costsheet.cells[rowid+row_increase][s_colid];
 currentcell.value:="%DSP_COST_SUPPLIER%";
 currentcell.borders.linestyle:=1;
 
-;unit
+;单价
 u_colid:=colid-1;
 currentcell:=costsheet.cells[rowid+row_increase][u_colid];
 u_recent_value:=currentcell.formula;
@@ -77,7 +76,6 @@ if "@%DB_COST_ASSEMBLY%"="" then
 {
 	costsheet.cells[rowid+row_increase][u_colid+1].formula:=u_recent_value;
 	currentcell.value:="";
-	/*costsheet.cells[rowid+row_increase][u_colid-1].value:=1;*/
 }
 else
 {
@@ -86,16 +84,15 @@ else
 }
 currentcell.borders.linestyle:=1;
 
-;quantity per surface
+;单樘用量
 wps_colid:=colid-2;
 currentcell:=costsheet.cells[rowid+row_increase][wps_colid];
 if "@%DB_COST_ASSEMBLY%"<>"" then
-	/*currentcell.formulaR1C1:="=@COST_QUANTITY/mianji";*/
     currentcell.formulaR1C1:="=@COST_QUANTITY";
 else
 	currentcell.value:="";
 currentcell.borders.linestyle:=1;
-/*list_no_formula:="=row()-"+inttostr(row_increase+3);*/
+
 
 %% break header
 ; ******************************Estim Excel************************************
@@ -123,9 +120,7 @@ tmp_rowid_increase:=RowId+row_increase;
 
 
 CostSheet.Range[CostSheet.Cells[tmp_rowid_increase+1][1]][CostSheet.Cells[tmp_rowid_increase+2][1]].merge();
-/*CostSheet.Cells[tmp_rowid_increase+1][1].Value:="A";*/
 CostSheet.Range[CostSheet.Cells[tmp_rowid_increase+1][2]][CostSheet.Cells[tmp_rowid_increase+1][3]].merge();
-/*CostSheet.Cells[tmp_rowid_increase+1][2].Value:="材料费小计";*/
 
 CostSheet.Cells[tmp_rowid_increase+1][2].Value:="材料损耗";
 CostSheet.Cells[tmp_rowid_increase+2][2].Value:="材料小计";
@@ -134,8 +129,6 @@ CostSheet.Range[CostSheet.Cells[tmp_rowid_increase+2][2]][CostSheet.Cells[tmp_ro
 
 CostSheet.Range[CostSheet.Cells[tmp_rowid_increase+1][5]][CostSheet.Cells[tmp_rowid_increase+1][7]].merge();
 
-/*Formula0 := "="+SumFormulaText+"("+RId+LBr+IntToStr(recent_rowid-tmp_rowid_increase-1)+RBr+CId+LBr+"4"+RBr+":"+RId+LBr+"-1"+RBr+CId+Lbr+"4"+RBr+")";
-CostSheet.Cells[tmp_rowid_increase+1][5].formula:=formula0;*/
 
 CostSheet.Cells[tmp_rowid_increase+1][5].value:=0;
 CostSheet.Cells[tmp_rowid_increase+1][5].NumberFormatLocal:="0.0%";
@@ -153,8 +146,3 @@ CostSheet.Range[CostSheet.Cells[RowId+2][1]][CostSheet.Cells[RowId+2][8]].Interi
 
 row_increase:=row_increase+2;
 RowId_2:=tmp_rowid_increase+2;
-
-/*
-a_fee_row:=tmp_rowid_increase+1;
-row_increase:=row_increase+1;
-*/

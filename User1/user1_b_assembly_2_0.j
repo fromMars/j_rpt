@@ -1,3 +1,6 @@
+/* USER1_B_ASSEMBLY_2_0.J
+ * 材料费小计（型材、配件、材料） */
+
 
 ; ******************************Estim Excel************************************
 ; *****************************************************************************
@@ -64,11 +67,8 @@ if RowId_2=0 then
 Formula0 := "="+SumFormulaText+"("+s0+","+s1+","+s2+")";
 CostSheet.Cells[tmp_rowid_increase+1][3].FormulaR1C1:=Formula0;
 
-/*
-CostSheet.Range[CostSheet.Cells[RowId+1][1]][CostSheet.Cells[RowId+1][8]].Interior.Color:=14935011;*/
 CostSheet.Range[CostSheet.Cells[tmp_rowid_increase+1][1]][CostSheet.Cells[tmp_rowid_increase+1][8]].Interior.Color:=16777215;
 
 
-/*a_fee_row:=tmp_rowid_increase+1;*/
 RowId_A:=tmp_rowid_increase+1;
 row_increase:=row_increase+1;

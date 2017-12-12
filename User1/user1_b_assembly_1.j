@@ -1,9 +1,7 @@
 /* USER1_B_ASSEMBLY_1.J
  * show accessory prices */
 
-/*add assembly code to range("chuanghao")*/
-/*costsheet.range["chuanghao"].value:="窗号：@%DB_COST_ASSEMBLY%";*/
-
+/*序号*/
 list_no_formula:="=row()-"+inttostr(row_increase+3);
 recent_rowid:=-1;
 
@@ -19,10 +17,7 @@ recent_rowid:=-1;
 ; %NAME% (%BATCH%) - Detail   b_assembly_1.j
 ; 
 
-
-
 ; Item price
-/*RowId  := StrToNum(cList.Strings[bList.IndexOf("@%DB_COST_ARTICLE%"+"@%DB_COST_LOSSTYPE%"+"@%DB_COST_RATION%"+"@%DB_COST_FACTOR%"+"@%DB_COST_RATIO%")]);*/
 RowId  := StrToNum(cList.Strings[bList.IndexOf("@%DB_COST_ARTICLE%"+"@%DB_COST_LOSSTYPE%")]);
 if recent_rowid=-1 || recent_rowid>(rowid+row_increase) then
 	recent_rowid:=rowid+row_increase;
@@ -41,7 +36,6 @@ if (StrToNum(StrReplace(pList.Strings[cList.IndexOf(IntToStr(RowId))],"%DECIMALS
   TempFormula := "=((((((((("+TempValue+")*("+CellCT+"))*(1+"+CellC1+"))*(1-"+CellC2+"))*"+CellC7+")*"+CellC3+")*(1+"+CellC6+"))*(1+"+CellC4+"))*(1-"+CellC5+"))";
   CurrentCell := CostSheet.Cells[RowId+row_increase][ColId];
   CurrentCell.Formula := TempFormula;
-/*  CurrentCell.NumberFormat := CellPriceFormat;*/
   CurrentCell.Font.Italic := False;
   CurrentCell.Interior.Color := Color;
   CurrentCell.Borders.LineStyle := 1;
@@ -52,64 +46,63 @@ else
   TempFormula := "=(((((((("+TempValue+")*(1+"+CellC1+"))*(1-"+CellC2+"))*"+CellC7+")*"+CellC3+")*(1+"+CellC6+"))*(1+"+CellC4+"))*(1-"+CellC5+"))";
   CurrentCell := CostSheet.Cells[RowId+row_increase][ColId];
   CurrentCell.Formula := TempFormula;
-/*  CurrentCell.NumberFormat := CellPriceFormat;*/
   CurrentCell.Font.Italic := False;
   CurrentCell.Interior.Color := Color;
   CurrentCell.Borders.LineStyle := 1;
 }
 
 ; Item formula
+/*
 TempFormula := '=Indirect(address('+sList.Strings[cList.IndexOf(IntToStr(RowId))]+','+IntToStr(ColId)+',,,"Cost"))*Indirect(address('+sList.Strings[bList.IndexOf("-2")]+','+IntToStr(ColId)+',,,"Cost"))';
 CurrentCell := HelpSheet.Cells[RowId][ColId];
 CurrentCell.Formula := TempFormula;
-/*CurrentCell.NumberFormat := CellPriceFormat;*/
 CurrentCell.Font.Italic := %IF{@%DB_RES_PRICE%,False,True};
 CurrentCell.Interior.Color := Color;
-CurrentCell.Borders.LineStyle := 1;
+CurrentCell.Borders.LineStyle := 1;*/
 
-;item number
+;序号
 costsheet.cells[rowid+row_increase][1].formula:=list_no_formula;
 
-;supplier
+;供应商
 s_colid:=colid+1;
 currentcell:=costsheet.cells[rowid+row_increase][s_colid];
 currentcell.value:="%DSP_COST_SUPPLIER%";
 currentcell.borders.linestyle:=1;
 
-;unit
+;单价
 u_colid:=colid-1;
 currentcell:=costsheet.cells[rowid+row_increase][u_colid];
 u_recent_value:=currentcell.formula;
 if "@%DB_COST_ASSEMBLY%"="" then
 {
-    /*
-	costsheet.cells[rowid+row_increase][u_colid+1].formula:=u_recent_value;
-	currentcell.value:="";*/
-	/*costsheet.cells[rowid+row_increase][u_colid-1].value:=1;*/
+    /*工程级价格块*/
 }
 else
 {
+    /*计算单价，单价=金额/单樘用量*/
 	tot_formula:="="+RId+LBr+inttostr(0)+RBr+CId+Lbr+"1"+RBr+"/"+RId+LBr+inttostr(0)+RBr+CId+Lbr+"-1"+RBr;
 	currentcell.formulaR1C1:=tot_formula;
 }
 currentcell.borders.linestyle:=1;
 
-;quantity per surface
+;单樘用量
 wps_colid:=colid-2;
 currentcell:=costsheet.cells[rowid+row_increase][wps_colid];
 if "@%DB_COST_ASSEMBLY%"<>"" then
 {
-	/*currentcell.formulaR1C1:="=@COST_QUANTITY/mianji";*/
     currentcell.formulaR1C1:="=@COST_QUANTITY/%ASSEMBLYCOUNT%";
 }
 
 else
 {
+    /*工程级价格块*/
     pla_formula:="="+numtostr(currentcell.value)+"*mianji/Cost!mianji";
+    /*pla_formula:="=mianji";*/
 	currentcell.formula:=pla_formula;
     currentcell_tmp:=costsheet.cells[rowid+row_increase][wps_colid+1];
-    datasheet.range["HNDRate"].formula:='=Indirect("Cost!"&address('+inttostr(rowid)+","+inttostr(colid+7)+"))"+"/Cost!mianji";
+    datasheet.range["HNDRate"].formula:='=Indirect("Cost!"&address('+inttostr(rowid)+","+inttostr(colid+7)+"))"+"/Cost!mianji";                 /*每平米用量*/
     currentcell_tmp.formula:="=Data!HNDRate";
+    /*单樘用量*/
     currentcell_tmp:=costsheet.cells[rowid+row_increase][wps_colid+2];
     currentcell_tmp.formulaR1C1:="="+RId+CId+LBr+"-2"+RBr+"*"+RId+CId+LBr+"-1"+RBr;
     currentcell_tmp:=costsheet.cells[rowid+row_increase][wps_colid-2];
@@ -136,41 +129,7 @@ currentcell.borders.linestyle:=1;
 ; *****************************************************************************
 ; %NAME% (%BATCH%) - Detail footer
 ; 
-/*
-CostSheet.Rows[RowId+1+row_increase].select();
-excel.Selection.EntireRow.Insert();
-excel.Selection.EntireRow.Insert();
 
-tmp_rowid_increase:=RowId+row_increase;
-
-CostSheet.Range[CostSheet.Cells[tmp_rowid_increase+1][1]][CostSheet.Cells[tmp_rowid_increase+2][1]].merge();
-CostSheet.Cells[tmp_rowid_increase+1][1].Value:="小计";
-costsheet.cells[tmp_rowid_increase+1][1].VerticalAlignment:=-4108;
-costsheet.cells[tmp_rowid_increase+1][1].HorizontalAlignment:=-4108;
-CostSheet.Range[CostSheet.Cells[tmp_rowid_increase+1][2]][CostSheet.Cells[tmp_rowid_increase+1][3]].merge();
-CostSheet.Cells[tmp_rowid_increase+1][2].Value:="附件损耗";
-CostSheet.Cells[tmp_rowid_increase+2][2].Value:="附件小计";
-CostSheet.Range[CostSheet.Cells[tmp_rowid_increase+2][2]][CostSheet.Cells[tmp_rowid_increase+2][3]].merge();
-CostSheet.Range[CostSheet.Cells[tmp_rowid_increase+1][5]][CostSheet.Cells[tmp_rowid_increase+1][7]].merge();
-
-
-CostSheet.Cells[tmp_rowid_increase+1][5].value:=0;
-
-CostSheet.Cells[tmp_rowid_increase+1][5].NumberFormatLocal:="0.0%";
-CostSheet.Range[CostSheet.Cells[tmp_rowid_increase+2][5]][CostSheet.Cells[tmp_rowid_increase+2][7]].merge();
-costsheet.cells[tmp_rowid_increase+2][5].NumberFormat:=CellCostFormat;
-
-Formula1 := "="+SumFormulaText+"("+RId+LBr+IntToStr(recent_rowid-tmp_rowid_increase-2)+RBr+CId+LBr+"2"+RBr+":"+RId+LBr+"-2"+RBr+CId+Lbr+"2"+RBr+")*(1+"+RId+LBr+"-1"+RBr+CId+")";
-CostSheet.Cells[tmp_rowid_increase+2][5].FormulaR1C1:=Formula1;
-
-
-row_increase:=row_increase+2;
-
-
-
-CostSheet.Range[CostSheet.Cells[tmp_rowid_increase+1][1]][CostSheet.Cells[tmp_rowid_increase+1][8]].Interior.Color:=14935011;
-CostSheet.Range[CostSheet.Cells[tmp_rowid_increase+2][1]][CostSheet.Cells[tmp_rowid_increase+2][8]].Interior.Color:=14935011;
-*/
 tmp_rowid_increase:=RowId+row_increase;
 RowId_1:=tmp_rowid_increase;
 list_no_formula:="=row()-"+inttostr(row_increase+3);

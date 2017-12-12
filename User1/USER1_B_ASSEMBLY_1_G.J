@@ -4,7 +4,6 @@
 if RowId_1<>0 then
     rowid:=RowId_1;
 
-/*glass_price:=0;*/
 ; ******************************Estim Excel************************************
 ; *****************************************************************************
 ; %NAME% (%BATCH%)
@@ -16,31 +15,23 @@ if RowId_1<>0 then
 ; *****************************************************************************
 ; %NAME% (%BATCH%) - Detail   b_assembly_1_G.j
 ; 
+/*插入行*/
 rowid:=rowid+1;
 costsheet.rows[rowid].select();
 excel.selection.entirerow.insert();
 row_increase:=row_increase+1;
-CostSheet.Range[CostSheet.Cells[RowId][1]][CostSheet.Cells[RowId][8]].Interior.Color:=16777215;
+CostSheet.Range[CostSheet.Cells[RowId][1]][CostSheet.Cells[RowId][8]].Interior.Color:=16777215;             /*白色*/
 
-/*
-if recent_rowid=-1 then
-	recent_rowid:=rowid;
-*/
-
+/*输出玻璃信息*/
 costsheet.cells[rowid][1].formula:=list_no_formula;
 costsheet.cells[rowid][2].value:="@%DB_GLASS_DESC%";
-
-costsheet.cells[rowid][1].formula:=list_no_formula;
 costsheet.cells[rowid][3].value:="㎡";
 costsheet.cells[rowid][3].HorizontalAlignment:=-4108;
 
-
+;玻璃价格
 TempValue   := StrReplace("@%DB_GLASS_PRICE%/%ASSEMBLYCOUNT%",".","%DECIMALSEP%");
-
-;price
 if @%DB_GLASS_PRICE%<>0 && RowId_G<>0 then
 {
-    /*glass_price:=1;*/
     CellCT := 'Indirect("Cost!"&address('+inttostr(strtonum(sList.Strings[cList.IndexOf(IntToStr(RowId_G))]))+","+IntToStr(ColCT)+"))/"+pList.Strings[cList.IndexOf(IntToStr(RowId_G))];
     CellC1 := 'Indirect("Cost!"&address('+inttostr(strtonum(sList.Strings[cList.IndexOf(IntToStr(RowId_G))]))+","+IntToStr(ColC1)+"))";
     CellC2 := 'Indirect("Cost!"&address('+inttostr(strtonum(sList.Strings[cList.IndexOf(IntToStr(RowId_G))]))+","+IntToStr(ColC2)+"))";
@@ -63,25 +54,23 @@ if @%DB_GLASS_PRICE%<>0 && RowId_G<>0 then
 else
 {
     TempFormula:="="+TempValue;
-    
 }
 
 CurrentCell := CostSheet.Cells[rowid][ColId];
 CurrentCell.Formula := TempFormula;
-/*  CurrentCell.NumberFormat := CellPriceFormat;*/
 CurrentCell.Font.Italic := False;
 CurrentCell.Interior.Color := Color;
 CurrentCell.Borders.LineStyle := 1;
 
 
 
-;supplier
+;供应商
 s_colid:=colid+1;
 currentcell:=costsheet.cells[rowid][s_colid];
 currentcell.value:="%DSP_GLASS_SUPPLIER%";
 currentcell.borders.linestyle:=1;
 
-;unit
+;单价
 u_colid:=colid-1;
 currentcell:=costsheet.cells[rowid][u_colid];
 u_recent_value:=0;
@@ -89,7 +78,6 @@ if "@%DB_GLASS_ASSEMBLY%"="" then
 {
 	costsheet.cells[rowid][u_colid+1].value:=u_recent_value;
 	currentcell.value:="";
-	/*costsheet.cells[rowid+row_increase][u_colid-1].value:=1;*/
 }
 else
 {
@@ -98,17 +86,14 @@ else
 }
 currentcell.borders.linestyle:=1;
 
-;quantity per surface
+;单樘用量
 wps_colid:=colid-2;
 currentcell:=costsheet.cells[rowid][wps_colid];
 if "@%DB_GLASS_ASSEMBLY%"<>"" then
-	/*currentcell.formulaR1C1:="=@%DB_GLASS_SURFACE%/mianji";*/
     currentcell.formulaR1C1:="=@%DB_GLASS_SURFACE%/%ASSEMBLYCOUNT%";
 else
 	currentcell.value:="";
-
 currentcell.borders.linestyle:=1;
-/*list_no_formula:="=row()-"+inttostr(row_increase+3);*/
 
 
 %% break header
@@ -165,8 +150,3 @@ row_increase:=row_increase+2;
 RowId_1:=tmp_rowid_increase+2;
 list_no_formula:="=row()-"+inttostr(row_increase+3);
 
-
-/*
-a_fee_row:=tmp_rowid_increase+1;
-row_increase:=row_increase+1;
-*/
