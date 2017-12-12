@@ -55,15 +55,15 @@ helpsheet.range[helpsheet.cells[s][1]][helpsheet.cells[s][2]].merge();
 helpsheet.cells[s][1].value:='小计';
 helpsheet.cells[s][1].horizontalalignment:=-4108;
 helpsheet.cells[s][6].select();
-helpsheet.cells[s][6].formular1c1:='=sum(R[-'+inttostr(s0+1)+']C:R[-1]C)';
+helpsheet.cells[s][6].formular1c1:='=sum(R[-'+inttostr(s0-1)+']C:R[-1]C)';
 helpsheet.cells[s][7].select();
-helpsheet.cells[s][7].formular1c1:='=sum(R[-'+inttostr(s0+1)+']C:R[-1]C)';
+helpsheet.cells[s][7].formular1c1:='=sum(R[-'+inttostr(s0-1)+']C:R[-1]C)';
 
 helpsheet.range[helpsheet.cells[s+1][1]][helpsheet.cells[s+1][2]].merge();
 helpsheet.cells[s+1][1].value:='合计';
 helpsheet.cells[s+1][1].horizontalalignment:=-4108;
 helpsheet.cells[s+1][10].select();
-helpsheet.cells[s+1][10].formular1c1:='=sum(R[-'+inttostr(s0+2)+']C:R[-2]C)';
+helpsheet.cells[s+1][10].formular1c1:='=sum(R[-'+inttostr(s0)+']C:R[-2]C)';
 
 helpsheet.usedrange.borders.linestyle:=1;
 helpsheet.columns.Autofit;
