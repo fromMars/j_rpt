@@ -58,7 +58,7 @@ helpsheet.cells[s][6].formular1c1:='=sum(R[-'+inttostr(s0)+']C:R[-1]C)';
 helpsheet.cells[s][7].select();
 helpsheet.cells[s][7].formular1c1:='=sum(R[-'+inttostr(s0)+']C:R[-1]C)';
 
-helpsheet.range[helpsheet.cells[s0+1][1]][helpsheet.cells[s+1][2]].merge();
+helpsheet.range[helpsheet.cells[s+1][1]][helpsheet.cells[s+1][2]].merge();
 helpsheet.cells[s+1][1].value:='ºÏ¼Æ';
 helpsheet.cells[s][10].select();
 helpsheet.cells[s][10].formular1c1:='=sum(R[-'+(s0+1)+']C:R[-2]C)';
