@@ -52,6 +52,9 @@ else
   CurrentCell.Borders.LineStyle := 1;
 }
 
+/*set charge time items price to 0*/
+CurrentCell.Formula := "=RC[-2]*RC[-1]";
+  
 
 /*
 TempFormula := '=Indirect(address('+sList.Strings[cList.IndexOf(IntToStr(RowId))]+','+IntToStr(ColId)+',,,"Cost"))*Indirect(address('+sList.Strings[bList.IndexOf("-2")]+','+IntToStr(ColId)+',,,"Cost"))';
@@ -83,6 +86,8 @@ else
 {
 	tot_formula:="="+RId+LBr+inttostr(0)+RBr+CId+Lbr+"1"+RBr+"/mianji";
 	currentcell.formulaR1C1:=tot_formula;
+    /*set charge time items price to 0*/
+    currentcell.value:=0;
 }
 currentcell.borders.linestyle:=1;
 

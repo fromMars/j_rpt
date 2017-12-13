@@ -67,6 +67,8 @@ costsheet.cells[rowid+row_increase][1].formula:=list_no_formula;
 s_colid:=colid+1;
 currentcell:=costsheet.cells[rowid+row_increase][s_colid];
 currentcell.value:="%DSP_COST_SUPPLIER%";
+if trim(currentcell.value)="EOSS" then
+    currentcell.value:="易欧思专用";
 currentcell.borders.linestyle:=1;
 
 ;单价
@@ -83,6 +85,9 @@ else
 	tot_formula:="="+RId+LBr+inttostr(0)+RBr+CId+Lbr+"1"+RBr+"/"+RId+LBr+inttostr(0)+RBr+CId+Lbr+"-1"+RBr;
 	currentcell.formulaR1C1:=tot_formula;
 }
+/*clear unused items*/
+if @%DB_COST_ARTICLE%<>32 && @%DB_COST_ARTICLE%<>89 then
+    currentcell.value:="";
 currentcell.borders.linestyle:=1;
 
 ;单樘用量
@@ -91,8 +96,11 @@ currentcell:=costsheet.cells[rowid+row_increase][wps_colid];
 if "@%DB_COST_ASSEMBLY%"<>"" then
 {
     currentcell.formulaR1C1:="=@COST_QUANTITY/%ASSEMBLYCOUNT%";
+    /*clear unused items*/
+    if @%DB_COST_ARTICLE%<>32 && @%DB_COST_ARTICLE%<>89 then
+        currentcell.value:="";
+    
 }
-
 else
 {
     /*工程级价格块*/

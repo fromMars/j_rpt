@@ -32,12 +32,16 @@ currentcell0.HorizontalAlignment:=-4108;
 if @%DB_ATTRIB_NO%<>0 || @%DB_ATTRIB_CFLENGTH%<>0 then
 {
     currentcell.formulaR1C1:="=@%DB_ATTRIB_NO%/%ASSEMBLYCOUNT%";
-    currentcell0.value:="件";
+    /*clear unused items*/
+    if @%DB_ATTRIB_ARTICLE%<>32 then
+        currentcell.value:="";
+    if @%DB_ATTRIB_ARTICLE%=32 then
+        currentcell0.value:="套";        /*currentcell0.value:="件";*/
     /*价格块35-胶条*/
     if @%DB_ATTRIB_ARTICLE%=35 then
     {
-        currentcell.formulaR1C1:="=@%DB_ATTRIB_CFLENGTH%/%ASSEMBLYCOUNT%";
-        currentcell0.value:="m";
+        /*currentcell.formulaR1C1:="=@%DB_ATTRIB_CFLENGTH%/%ASSEMBLYCOUNT%";*/
+        /*currentcell0.value:="m";*/
     }   
     
 }

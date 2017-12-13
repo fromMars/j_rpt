@@ -33,8 +33,8 @@ currentcell0:=costsheet.cells[rowid+row_increase][wps_colid-2];         /*单位*/
 currentcell0.HorizontalAlignment:=-4108;
 if @%DB_CHARGE_QUANTITY%<>0 then
 {
-    currentcell.formulaR1C1:="=@%DB_CHARGE_QUANTITY%/%ASSEMBLYCOUNT%";
-    currentcell0.value:="处";
+    /*currentcell.formulaR1C1:="=@%DB_CHARGE_QUANTITY%/%ASSEMBLYCOUNT%";*/
+    /*currentcell0.value:="处";*/
 }    
 else
 	currentcell.value:="";

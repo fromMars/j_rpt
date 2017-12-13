@@ -232,6 +232,8 @@ currentcell.HorizontalAlignment:=-4108;
 s_colid:=colid+1;
 currentcell:=costsheet.cells[rowid][s_colid];
 currentcell.value:="%DSP_PIECE_SUPPLIER%";
+if trim(currentcell.value)="EOSS" then
+    currentcell.value:="华建易欧思"+trim("%DSP_PIECE_SYSTEM%")+"系列型材";
 currentcell.borders.linestyle:=1;
 
 

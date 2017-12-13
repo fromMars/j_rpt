@@ -68,6 +68,8 @@ CurrentCell.Borders.LineStyle := 1;
 s_colid:=colid+1;
 currentcell:=costsheet.cells[rowid][s_colid];
 currentcell.value:="%DSP_GLASS_SUPPLIER%";
+if trim(currentcell.value)="EOSS" then
+    currentcell.value:="易欧思专用";
 currentcell.borders.linestyle:=1;
 
 ;单价
@@ -77,12 +79,16 @@ u_recent_value:=0;
 if "@%DB_GLASS_ASSEMBLY%"="" then
 {
 	costsheet.cells[rowid][u_colid+1].value:=u_recent_value;
-	currentcell.value:="";
+	/*currentcell.value:="";*/
+    /*set glass price to 0*/
+    currentcell.formular1c1:="=RC[-2]*RC[-1]*1.05";
 }
 else
 {
+    /*
 	tot_formula:="="+RId+LBr+inttostr(0)+RBr+CId+Lbr+"1"+RBr+"/@%DB_GLASS_NO%";
-	currentcell.formulaR1C1:=tot_formula;
+	currentcell.formulaR1C1:=tot_formula;*/
+    currentcell.value:=0;
 }
 currentcell.borders.linestyle:=1;
 
