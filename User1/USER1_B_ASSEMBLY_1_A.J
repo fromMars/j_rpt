@@ -50,6 +50,10 @@ if a_link<>"" then
     TempFormula := "(((((((("+TempValue+")*(1+"+CellC1+"))*(1-"+CellC2+"))*"+CellC7+")*"+CellC3+")*(1+"+CellC6+"))*(1+"+CellC4+"))*(1-"+CellC5+"))";
     
     costsheet.cells[rowid][7].formula:=costsheet.cells[rowid][7].formula+"+"+TempFormula;
+    costsheet.cells[rowid][8].value:=costsheet.cells[rowid][8].value+"配件中存在@%DB_ATTRIB_ACCDESC%，其价格添加在其他型材金额中，但是未算入其他型材单价及单樘用量中";
+    costsheet.cells[rowid][8].Interior.ColorIndex:="22";
+    costsheet.cells[rowid][6].Interior.ColorIndex:="22";
+    costsheet.cells[rowid][5].Interior.ColorIndex:="22";
 }
 else if @%DB_ATTRIB_ARTICLE%<20 then
 {
@@ -71,8 +75,10 @@ else if @%DB_ATTRIB_ARTICLE%<20 then
         CurrentCell := CostSheet.Cells[RowId][7];
         CurrentCell.Formula := TempFormula;
         CurrentCell.Font.Italic := False;
-        CurrentCell.Interior.Color := Color;
         CurrentCell.Borders.LineStyle := 1;
+        
+        costsheet.cells[rowid][8].value:="配件中存在@%DB_ATTRIB_ACCDESC%，其价格添加在其他型材金额中，但是未算入其他型材单价及单樘用量中";
+        costsheet.cells[rowid][8].Interior.ColorIndex:="22";
     }
 }
 
