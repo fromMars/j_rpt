@@ -89,13 +89,18 @@ next
 report
     select  sum(%DB_ATTRIB_NO%) as %DB_ATTRIB_NO%,
             sum(%DB_ATTRIB_CFLENGTH%) as %DB_ATTRIB_CFLENGTH%,
+            sum(%DB_ATTRIB_PRICE%) as %DB_ATTRIB_PRICE%,
             %DB_ATTRIB_ARTICLE%,
-            %DB_ATTRIB_LOSSTYPE%
+            %DB_ATTRIB_LOSSTYPE%,
+            min(%DB_ATTRIB_ACCDESC%) as %DB_ATTRIB_ACCDESC%,
+            min(%DB_ATTRIB_ACC%) as %DB_ATTRIB_ACC%
     from    %TBL_ATTRIB%
     where   %DB_ATTRIB_PROJECT%="%PROJECT_TEXT%"
     and     %DB_ATTRIB_ASSEMBLY%="%ASSEMBLY_TEXT%"
-    and     %DB_ATTRIB_ARTICLE% in (select distinct(%DB_COST_ARTICLE%) from %TBL_COST%)
-    and     %DB_ATTRIB_ARTICLE% not in (select distinct(%DB_COST_ARTICLE%) from %TBL_PIECE%)
+    and     (%DB_ATTRIB_ARTICLE% in (select distinct(%DB_COST_ARTICLE%) from %TBL_COST%)
+        or  %DB_ATTRIB_ARTICLE%<20)
+    and     %DB_ATTRIB_ACCDESC% not like "·ÖÐÍ²Ä"
+    and     %DB_ATTRIB_ACC% not in (select distinct(%DB_PIECE_PRODUCT%) from %TBL_PIECE%)
     group by %DB_ATTRIB_ARTICLE%,%DB_ATTRIB_LOSSTYPE%
     having count(*)>0
     
